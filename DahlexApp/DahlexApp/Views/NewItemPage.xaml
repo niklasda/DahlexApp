@@ -7,10 +7,6 @@
              x:Class="DahlexApp.Views.NewItemPage"
              Title="New Item">
     
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
-        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
-    </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">

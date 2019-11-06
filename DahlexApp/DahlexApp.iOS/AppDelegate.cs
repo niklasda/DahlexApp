@@ -1,5 +1,6 @@
 ﻿
 using Foundation;
+using MvvmCross.Forms.Platforms.Ios.Core;
 using UIKit;
 
 namespace DahlexApp.iOS
@@ -8,7 +9,7 @@ namespace DahlexApp.iOS
     // User Interface of the application, as well as listening (and optionally responding) to 
     // application events from iOS.
     [Register("AppDelegate")]
-    public partial class AppDelegate : Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public partial class AppDelegate : MvxFormsApplicationDelegate<MvxFormsIosSetup<Core.App, DahlexApp.App>, Core.App, DahlexApp.App>
     {
         //
         // This method is invoked when the application has loaded and is ready to run. In this 

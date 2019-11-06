@@ -1,8 +1,7 @@
-using Splat;
 
 namespace DahlexApp
 {
-    public class AppBootstrapper : IEnableLogger
+    public class AppBootstrapper 
     {
         public AppBootstrapper()
         {

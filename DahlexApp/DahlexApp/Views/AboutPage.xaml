@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DahlexApp.Views.AboutPage"
-             xmlns:vm="clr-namespace:DahlexApp.ViewModels"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:viewModels="clr-namespace:DahlexApp.Core.ViewModels;assembly=DahlexApp.Core"
+             x:TypeArguments="viewModels:AboutViewModel"
              Title="{Binding Title}">
     
-    <ContentPage.BindingContext>
-        <vm:AboutViewModel />
-    </ContentPage.BindingContext>
+    
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -78,4 +78,4 @@
         </ScrollView>
     </Grid>
     
-</ContentPage>
+</views:MvxContentPage>

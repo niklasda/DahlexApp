@@ -1,19 +1,28 @@
-﻿using System;
-using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+﻿//using System;
+//using System.Threading.Tasks;
+//using System.Windows.Input;
+//using MvvmCross.Commands;
+//using Xamarin.Essentials;
+//using Xamarin.Forms;
 
-namespace DahlexApp.ViewModels
-{
-    public class AboutViewModel : BaseViewModel
-    {
-        public AboutViewModel()
-        {
-            Title = "About";
+//namespace DahlexApp.ViewModels
+//{
+//    public class AboutViewModel : BaseViewModel
+//    {
+//        public AboutViewModel()
+//        {
+//            Title = "About";
 
-            OpenWebCommand = new Command(() => Launcher.OpenAsync(new Uri("https://xamarin.com/platform")));
-        }
+//            OpenWebCommand = new MvxCommand(() => Launcher.OpenAsync(new Uri("https://xamarin.com/platform")));
+//        }
 
-        public ICommand OpenWebCommand { get; }
-    }
-}
+//        public override Task Initialize()
+//        {
+//            //TODO: Add starting logic here
+
+//            return base.Initialize();
+//        }
+
+//        public IMvxCommand OpenWebCommand { get; }
+//    }
+//}
