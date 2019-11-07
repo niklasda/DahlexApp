@@ -16,6 +16,8 @@ namespace DahlexApp.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
+            // todo configer scanner to do this auto
+
             Mvx.IoCProvider.ConstructAndRegisterSingleton<IGameService, GameService>();
 
             // register the appstart object
