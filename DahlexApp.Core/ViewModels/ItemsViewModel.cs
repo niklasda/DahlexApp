@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
-using DahlexApp.Core.Models;
 using DahlexApp.Logic.Interfaces;
-using MvvmCross.Commands;
-using MvvmCross.Navigation;
-using MvvmCross.Plugin.Messenger;
 using MvvmCross.ViewModels;
 
 namespace DahlexApp.Core.ViewModels
@@ -14,30 +10,16 @@ namespace DahlexApp.Core.ViewModels
     public class ItemsViewModel :  MvxViewModel<string>
     {
         private readonly IGameService _gs;
-        // public ObservableCollection<Item> Items { get; set; }
-        // public IMvxCommand LoadItemsCommand { get; set; }
-        // private readonly IMvxNavigationService _navigationService;
 
         public ItemsViewModel(IGameService gs)
         {
             _gs = gs;
-            //    IMvxMessenger messenger
 
             Title = "Browse";
-            // Items = new ObservableCollection<Item>();
-            //LoadItemsCommand = new MvxCommand(async () => await ExecuteLoadItemsCommand());
-
-          //  MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-          //  {
-            //    var newItem = item as Item;
-                //Items.Add(newItem);
-       //         await DataStore.AddItemAsync(newItem);
-          //  });
         }
 
         public override void Prepare(string what)
         {
-      //     base.Prepare(what);
 
             // first callback. Initialize parameter-agnostic stuff here
 
@@ -48,10 +30,29 @@ namespace DahlexApp.Core.ViewModels
         {
             await base.Initialize();
 
+            
             //TODO: Add starting logic here
+            TextInput1 = "<write>";
             Text1 = "1";
             Text2 = "2";
 
+
+             TextBacker.Subscribe(s1 => Debug.WriteLine(s1));
+
+        }
+
+        public override void ViewDestroy(bool viewFinishing = true)
+        {
+            base.ViewDestroy(viewFinishing);
+           // Debug.WriteLine("destroy");
+
+        }
+
+        public override void ViewDisappearing()
+        {
+            base.ViewDisappearing();
+
+           // Debug.WriteLine("disappear");
         }
 
         private string _title ;
@@ -67,6 +68,23 @@ namespace DahlexApp.Core.ViewModels
             get { return _text1; }
             set { SetProperty(ref _text1, value); }
         }
+
+
+        private Subject<string> TextBacker = new Subject<string>();
+
+        private string _textInput1;
+
+
+        public string TextInput1
+        {
+            get { return _textInput1; }
+            set
+            {
+                SetProperty(ref _textInput1, value); 
+                TextBacker.OnNext(value);
+            }
+        }
+
 
         private string _text2 ;
         public string Text2
