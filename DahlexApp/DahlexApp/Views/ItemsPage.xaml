@@ -18,7 +18,7 @@
 
         <Entry Text="{Binding Text1}" FontSize="16" />
         
-        <Label Text="{Binding Text2}" LineBreakMode="NoWrap"   FontSize="16" />
+        <Label Text="{Binding Text1}" LineBreakMode="NoWrap"   FontSize="16" />
 
     </StackLayout>
 

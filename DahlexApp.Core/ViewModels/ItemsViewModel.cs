@@ -37,16 +37,21 @@ namespace DahlexApp.Core.ViewModels
 
         public override void Prepare(string what)
         {
+      //     base.Prepare(what);
+
             // first callback. Initialize parameter-agnostic stuff here
 
             var asd = what;
         }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
-            //TODO: Add starting logic here
+            await base.Initialize();
 
-            return base.Initialize();
+            //TODO: Add starting logic here
+            Text1 = "1";
+            Text2 = "2";
+
         }
 
         private string _title ;
