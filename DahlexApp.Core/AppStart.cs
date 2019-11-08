@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using DahlexApp.Core.ViewModels;
-using MvvmCross.IoC;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 

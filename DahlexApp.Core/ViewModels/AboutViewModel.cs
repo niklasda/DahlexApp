@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross;
 using MvvmCross.Commands;
