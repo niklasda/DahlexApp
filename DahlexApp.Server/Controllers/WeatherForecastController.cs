@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DahlexApp.Server.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebApplication1.Models;
+using DahlexApp.Server.Models;
 
-namespace WebApplication1.Controllers
+namespace DahlexApp.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -17,10 +18,12 @@ namespace WebApplication1.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IScoringService _scoring;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IScoringService scoring)
         {
             _logger = logger;
+            _scoring = scoring;
         }
 
         [HttpGet]

@@ -4,11 +4,11 @@ using MvvmCross.Forms.Views;
 
 namespace DahlexApp.Views
 {
-    public partial class ItemsPage : MvxContentPage<ItemsViewModel>
+    public partial class StartPage : MvxContentPage<StartViewModel>
     {
        // ItemsViewModel viewModel;
 
-        public ItemsPage()
+        public StartPage()
         {
             InitializeComponent();
 

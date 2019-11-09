@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebApplication1": {
+    "DahlexApp.Server": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "https://localhost:52073/swagger",

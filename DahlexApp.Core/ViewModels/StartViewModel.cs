@@ -7,11 +7,11 @@ using MvvmCross.ViewModels;
 
 namespace DahlexApp.Core.ViewModels
 {
-    public class ItemsViewModel :  MvxViewModel<string>
+    public class StartViewModel :  MvxViewModel<string>
     {
         private readonly IGameService _gs;
 
-        public ItemsViewModel(IGameService gs)
+        public StartViewModel(IGameService gs)
         {
             _gs = gs;
 

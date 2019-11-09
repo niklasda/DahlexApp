@@ -1,8 +1,9 @@
+using Lamar.Microsoft.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace WebApplication1
+namespace DahlexApp.Server
 {
     public class Program
     {
@@ -13,15 +14,17 @@ namespace WebApplication1
                 .WriteTo.Console()
                 .CreateLogger();
 
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+            var hb = Host.CreateDefaultBuilder(args)
                 .UseSerilog()
+                .UseLamar()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+            hb.Build().Run();
+        }
+
+       
     }
 }

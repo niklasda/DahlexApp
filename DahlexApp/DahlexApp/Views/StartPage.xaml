@@ -6,8 +6,8 @@
              xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
              xmlns:viewModels="clr-namespace:DahlexApp.Core.ViewModels;assembly=DahlexApp.Core"
              mc:Ignorable="d"
-             x:Class="DahlexApp.Views.ItemsPage"
-             x:TypeArguments="viewModels:ItemsViewModel"
+             x:Class="DahlexApp.Views.StartPage"
+             x:TypeArguments="viewModels:StartViewModel"
              Title="{Binding Title}"
              >
 

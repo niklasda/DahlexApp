@@ -25,4 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\DahlexApp.Core\DahlexApp.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
