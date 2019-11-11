@@ -6,7 +6,7 @@ using MvvmCross.Navigation;
 using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
 
-namespace DahlexApp.Core.ViewModels
+namespace DahlexApp.ViewModels
 {
     public class AboutViewModel : MvxViewModel
     {
@@ -29,6 +29,7 @@ namespace DahlexApp.Core.ViewModels
 
             GotoItemsCommand = new MvxCommand(async () =>
             {
+
                 var t = await _gs.GetTest();
 
                 await _navigationService.Navigate<StartViewModel, string>("hello");

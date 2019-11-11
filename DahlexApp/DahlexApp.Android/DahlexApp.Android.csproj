@@ -103,10 +103,6 @@
     <AndroidResource Include="Resources\drawable\tab_feed.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DahlexApp.Core\DahlexApp.Core.csproj">
-      <Project>{14ba5846-394f-4ad6-b3af-f8dc3dfaddf4}</Project>
-      <Name>DahlexApp.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DahlexApp\DahlexApp.csproj">
       <Project>{D236D573-A5E7-4945-A0F0-1A5DECE6ED55}</Project>
       <Name>DahlexApp</Name>

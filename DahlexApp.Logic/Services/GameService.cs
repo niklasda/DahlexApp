@@ -30,10 +30,19 @@ namespace DahlexApp.Logic.Services
 
         public async Task<string> GetTest()
         {
-            string relative = $"Test";
+            try
+            {
+                string relative = $"Test";
 
-            var r = await _http.GetStringAsync(new Uri(_apiBaseUrl, relative)).ConfigureAwait(false);
-            return r;
+                var r = await _http.GetStringAsync(new Uri(_apiBaseUrl, relative)).ConfigureAwait(false);
+                return r;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
     }
 }

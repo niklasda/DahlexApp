@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross.ViewModels;
 
-namespace DahlexApp.Core.ViewModels
+namespace DahlexApp.ViewModels
 {
     public class StartViewModel :  MvxViewModel<string>
     {
