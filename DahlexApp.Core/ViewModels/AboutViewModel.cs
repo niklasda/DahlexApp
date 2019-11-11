@@ -29,7 +29,9 @@ namespace DahlexApp.Core.ViewModels
 
             GotoItemsCommand = new MvxCommand(async () =>
             {
-                await _navigationService.Navigate<StartViewModel, string>("helllo");
+                var t = await _gs.GetTest();
+
+                await _navigationService.Navigate<StartViewModel, string>("hello");
 
             });
         }
