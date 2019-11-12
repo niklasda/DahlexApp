@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="MvvmCross.Forms" Version="6.4.1" />
+    <PackageReference Include="MvvmCross.Plugin.Json" Version="6.4.1" />
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.1" />
     <PackageReference Include="MvvmCross.Plugin.Network" Version="6.4.1" />
     <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.1" />

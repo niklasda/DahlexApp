@@ -12,23 +12,29 @@ namespace DahlexApp.ViewModels
     {
         private readonly IGameService _gs;
         private readonly IMvxNavigationService _navigationService;
+        private readonly IWebApiService _caller;
+        private readonly IMvxWebBrowserTask _browser;
 
         // todo add base model with navigation etc
 
-        public AboutViewModel(IGameService gs, IMvxNavigationService navigationService)
+        public AboutViewModel(IGameService gs, IMvxNavigationService navigationService, IWebApiService caller, IMvxWebBrowserTask browser)
         {
             _gs = gs;
             _navigationService = navigationService;
+            _caller = caller;
+            _browser = browser;
             // Title = "About";
 
             OpenWebCommand = new MvxCommand(() =>
             {
-                var task = Mvx.IoCProvider.Resolve<IMvxWebBrowserTask>();
-                task.ShowWebPage("http://www.xamarin.com");
+ //               var task = Mvx.IoCProvider.Resolve<IMvxWebBrowserTask>();
+                _browser.ShowWebPage("http://www.xamarin.com");
             });
 
             GotoItemsCommand = new MvxCommand(async () =>
             {
+
+                var r = await _caller.MakeTestCall();
 
                 var t = await _gs.GetTest();
 

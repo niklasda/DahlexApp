@@ -9,7 +9,7 @@ using DahlexApp.Logic.Models;
 namespace DahlexApp.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class TestController : ControllerBase
     {
         //private static readonly string[] Summaries = new[]
