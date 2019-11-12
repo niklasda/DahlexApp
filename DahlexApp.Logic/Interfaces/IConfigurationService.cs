@@ -2,6 +2,6 @@
 {
     public interface IConfigurationService
     {
-        string ApiBaseUrl { get; set; }
+        string ApiBaseUrl { get; }
     }
 }
