@@ -5,7 +5,6 @@ using Dahlex.Logic.Utils;
 
 namespace Dahlex.Logic.Game
 {
-    [CLSCompliant(false)]
     public class BoardDrawing
     {
     //    private readonly Canvas _cnvMovement;
