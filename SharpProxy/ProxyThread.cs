@@ -10,10 +10,10 @@ namespace SharpProxy
 {
     public class ProxyThread
     {
-        public int ExternalPort { get; set; }
-        public int InternalPort { get; set; }
-        public bool RewriteHostHeaders { get; set; }
-        public bool Stopped { get; set; }
+        private int ExternalPort { get; set; }
+        private int InternalPort { get; set; }
+        private bool RewriteHostHeaders { get; set; }
+        private bool Stopped { get; set; }
 
         private TcpListener Listener { get; set; }
 
@@ -61,7 +61,8 @@ namespace SharpProxy
                 catch (Exception ex)
                 {
                     //TODO: Remove this. Only here to catch breakpoints.
-                    bool failed = true;
+                    Console.WriteLine(ex.Message);
+                    //bool failed = true;
                 }
             }
         }
@@ -151,7 +152,8 @@ namespace SharpProxy
             catch (Exception ex)
             {
                 //TODO: Remove this. Only here to catch breakpoints.
-                bool failed = true;
+                Console.WriteLine(ex.Message);
+//                bool failed = true;
             }
         }
     }

@@ -15,6 +15,10 @@
 
   <ItemGroup>
     <PackageReference Include="MvvmCross.Forms" Version="6.4.1" />
+    <PackageReference Include="MvvmCross.Plugin.Json" Version="6.4.1" />
+    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.1" />
+    <PackageReference Include="MvvmCross.Plugin.Network" Version="6.4.1" />
+    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.1" />
     <PackageReference Include="System.Reactive" Version="4.2.0" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.3.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.3.0.947036" />  
@@ -23,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DahlexApp.Core\DahlexApp.Core.csproj" />
+    <ProjectReference Include="..\..\DahlexApp.Logic\DahlexApp.Logic.csproj" />
   </ItemGroup>
 
   <ItemGroup>

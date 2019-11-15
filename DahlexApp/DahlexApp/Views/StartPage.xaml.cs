@@ -1,4 +1,4 @@
-﻿using DahlexApp.Core.ViewModels;
+﻿using DahlexApp.ViewModels;
 using MvvmCross.Forms.Views;
 
 

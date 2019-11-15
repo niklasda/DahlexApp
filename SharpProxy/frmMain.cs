@@ -11,20 +11,21 @@ namespace SharpProxy
 {
     public partial class frmMain : Form
     {
-        private const int MIN_PORT = 1;
-        private const int MAX_PORT = 65535;
+        private const int MinPort = 1;
+        private const int MaxPort = 65535;
 
-        public static readonly string CommonDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "SharpProxy");
-        public static readonly string ConfigInfoPath = Path.Combine(CommonDataPath, "config.txt");
+        // c:\programData
+        private static readonly string CommonDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "SharpProxy");
+        private static readonly string ConfigInfoPath = Path.Combine(CommonDataPath, "config.txt");
 
-        private ProxyThread ProxyThreadListener = null;
+        private ProxyThread _proxyThreadListener;
 
         public frmMain()
         {
             InitializeComponent();
-            this.Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
-            var ips = getLocalIPs().OrderBy(x => x);
+            var ips = GetLocalIPs().OrderBy(x => x);
             if (ips.Any())
             {
                 cmbIPAddress.Items.Clear();
@@ -32,14 +33,16 @@ namespace SharpProxy
                 {
                     cmbIPAddress.Items.Add(ip);
                 }
+
                 cmbIPAddress.Text = cmbIPAddress.Items[0].ToString();
             }
 
             int port = 5000;
-            while (!checkPortAvailability(port))
+            while (!CheckPortAvailability(port))
             {
                 port++;
             }
+
             txtExternalPort.Text = port.ToString();
         }
 
@@ -52,23 +55,28 @@ namespace SharpProxy
             {
                 using (StreamReader sr = new StreamReader(ConfigInfoPath))
                 {
-                    var values = sr.ReadToEnd().Split('\n')
-                                               .Select(x => x.Trim())
-                                               .ToArray();
+                    var values = sr.ReadToEnd().Split('\n').Select(x => x.Trim()).ToArray();
 
-                    txtInternalPort.Text = values[0];
+                    if (string.IsNullOrWhiteSpace(values[0]))
+                    {
+                        txtInternalPort.Text = @"52073";
+                    }
+                    else
+                    {
+                        txtInternalPort.Text = values[0];
+                    }
                     chkRewriteHostHeaders.Checked = bool.Parse(values[1]);
                 }
             }
-            catch { }
+            catch(Exception ex)
+            {
+                txtLog.Text = ex.Message;
+            }
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (ProxyThreadListener != null)
-            {
-                ProxyThreadListener.Stop();
-            }
+            _proxyThreadListener?.Stop();
 
             //Try to save config
             try
@@ -77,66 +85,75 @@ namespace SharpProxy
                 {
                     Directory.CreateDirectory(CommonDataPath);
                 }
+
                 using (StreamWriter sw = new StreamWriter(ConfigInfoPath))
                 {
                     sw.WriteLine(txtInternalPort.Text);
                     sw.WriteLine(chkRewriteHostHeaders.Checked);
                 }
             }
-            catch { }
+            catch(Exception ex)
+            {
+                txtLog.Text = ex.Message;
+            }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            int externalPort = 0;
-            int internalPort = 0;
             //Validation
-            int.TryParse(txtExternalPort.Text, out externalPort);
-            int.TryParse(txtInternalPort.Text, out internalPort);
-            if (!checkPortRange(externalPort)
-                || !checkPortRange(internalPort)
-                || externalPort == internalPort)
+            int.TryParse(txtExternalPort.Text, out var externalPort);
+            int.TryParse(txtInternalPort.Text, out var internalPort);
+
+            if (!CheckPortRange(externalPort) || !CheckPortRange(internalPort) || externalPort == internalPort)
             {
-                showError("Ports must be between " + MIN_PORT + "-" + MAX_PORT + " and must not be the same.");
-                return;
-            }
-            if (!checkPortAvailability(externalPort))
-            {
-                showError("Port " + externalPort + " is not available, please select a different port.");
+                string msg = $"Ports must be between {MinPort} - {MaxPort} and must not be the same.";
+                ShowError(msg);
+                txtLog.Text = msg;
                 return;
             }
 
-            ProxyThreadListener = new ProxyThread(externalPort, internalPort, chkRewriteHostHeaders.Checked);
+            if (!CheckPortAvailability(externalPort))
+            {
+                ShowError("Port " + externalPort + " is not available, please select a different port.");
+                return;
+            }
 
-            toggleButtons();
+            _proxyThreadListener = new ProxyThread(externalPort, internalPort, chkRewriteHostHeaders.Checked);
+
+            ToggleButtons();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            ProxyThreadListener.Stop();
+            _proxyThreadListener.Stop();
 
-            toggleButtons();
+            ToggleButtons();
         }
 
-        private void showError(string msg)
+        private void ShowError(string msg)
         {
-            MessageBox.Show(msg, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            txtLog.Text = msg;
+
+            MessageBox.Show(msg, @"Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private bool checkPortRange(int port)
+        private bool CheckPortRange(int port)
         {
-            if (port < MIN_PORT || port > MAX_PORT)
+            if (port < MinPort || port > MaxPort)
+            {
                 return false;
+            }
+
             return true;
         }
 
-        private List<string> getLocalIPs()
+        private IList<string> GetLocalIPs()
         {
             //Try to find our internal IP address...
             string myHost = Dns.GetHostName();
             IPAddress[] addresses = Dns.GetHostEntry(myHost).AddressList;
-            List<string> myIPs = new List<string>();
-            string fallbackIP = "";
+            IList<string> myIPs = new List<string>();
+            string fallbackIp = "";
 
             for (int i = 0; i < addresses.Length; i++)
             {
@@ -146,34 +163,41 @@ namespace SharpProxy
                     string thisAddress = addresses[i].ToString();
                     //Loopback is not our preference...
                     if (thisAddress == "127.0.0.1")
+                    {
                         continue;
+                    }
+
                     //169.x.x.x addresses are self-assigned "private network" IP by Windows
                     if (thisAddress.StartsWith("169"))
                     {
-                        fallbackIP = thisAddress;
+                        fallbackIp = thisAddress;
                         continue;
                     }
+
                     myIPs.Add(thisAddress);
                 }
             }
-            if (myIPs.Count == 0 && !string.IsNullOrEmpty(fallbackIP))
+
+            if (myIPs.Count == 0 && !string.IsNullOrEmpty(fallbackIp))
             {
-                myIPs.Add(fallbackIP);
+                myIPs.Add(fallbackIp);
             }
 
             return myIPs;
         }
 
-        private void toggleButtons()
+        private void ToggleButtons()
         {
             btnStop.Enabled = !btnStop.Enabled;
             btnStart.Enabled = !btnStart.Enabled;
+
             txtExternalPort.Enabled = !txtExternalPort.Enabled;
             txtInternalPort.Enabled = !txtInternalPort.Enabled;
+
             chkRewriteHostHeaders.Enabled = !chkRewriteHostHeaders.Enabled;
         }
 
-        private bool checkPortAvailability(int port)
+        private bool CheckPortAvailability(int port)
         {
             //http://stackoverflow.com/questions/570098/in-c-how-to-check-if-a-tcp-port-is-available
 
@@ -187,7 +211,9 @@ namespace SharpProxy
             foreach (TcpConnectionInformation tcpi in tcpConnInfoArray)
             {
                 if (tcpi.LocalEndPoint.Port == port)
+                {
                     return false;
+                }
             }
 
             try
@@ -196,8 +222,10 @@ namespace SharpProxy
                 listener.Start();
                 listener.Stop();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                txtLog.Text = ex.Message;
+
                 return false;
             }
 
