@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <Nullable>warnings</Nullable>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <Nullable>warnings</Nullable>
   </PropertyGroup>
