@@ -1,11 +1,10 @@
 using Dahlex.Logic.Contracts;
-using Dahlex.Logic.Logger;
 
 namespace Dahlex.Logic.Settings
 {
     public class SettingsManager : ISettingsManager
     {
-        private static bool _hasAlreadyRun;
+        //private static bool _hasAlreadyRun;
         private IntSize _canvasSize;
 
         public SettingsManager(IntSize canvasSize)

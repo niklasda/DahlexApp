@@ -1,7 +1,4 @@
-using System;
-using Dahlex.Logic.Contracts;
 using Dahlex.Logic.Settings;
-using Dahlex.Logic.Utils;
 
 namespace Dahlex.Logic.Game
 {

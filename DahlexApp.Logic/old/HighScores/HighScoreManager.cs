@@ -16,7 +16,7 @@ namespace Dahlex.Logic.HighScores
         }
 
         //  private int _max;
-        private List<HighScore> _scores = new List<HighScore>();
+        private List<HighScore> _scores ;//= new List<HighScore>();
 
         public void AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, IntSize boardSize)
         {

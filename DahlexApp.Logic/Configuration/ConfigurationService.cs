@@ -10,7 +10,7 @@ namespace DahlexApp.Logic.Configuration
     {
         public ConfigurationService()
         {
-            var ip = GetLocalIP();
+            var ip = GetLocalIp();
 
             ApiBaseUrl = $"https://{ip}:5000/api/v1/";
         }
@@ -18,7 +18,7 @@ namespace DahlexApp.Logic.Configuration
         public string ApiBaseUrl { get; private set; }// = @"https://10.11.11.114:5000/api/v1/";
 
 
-        private string GetLocalIP()
+        private string GetLocalIp()
         {
             return GetLocalIPs().FirstOrDefault();
         }

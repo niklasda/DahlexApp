@@ -33,10 +33,10 @@ namespace DahlexApp.ViewModels
 
             GotoItemsCommand = new MvxCommand(async () =>
             {
+                var t = await _gs.GetTest();
 
                 var r = await _caller.MakeTestCall();
 
-                var t = await _gs.GetTest();
 
                 await _navigationService.Navigate<StartViewModel, string>("hello");
 
