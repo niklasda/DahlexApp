@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Xml;
 using Dahlex.Logic.Contracts;
 
@@ -20,24 +21,29 @@ namespace Dahlex.Logic.HighScores
         //  private int _max;
         private List<HighScore> _scores ;//= new List<HighScore>();
 
-        public void AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, IntSize boardSize)
+        public async Task AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, IntSize boardSize)
         {
             if (mode == GameMode.Random)
             {
                 var hs = new HighScore(name, level, bombsLeft, teleportsLeft, moves, startTime, boardSize);
                 _scores.Add(hs);
             }
+
+            await foreach (HighScore hs in GetHighScoreAsync())
+            {
+                    
+            }
         }
 
-        //public async IAsyncEnumerable<HighScore> GetHighScoreAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
-        //{
-        //    for (var i = 0; i < 20; i++)
-        //    {
-        //        var item = await GetXYZById(i, cancellationToken);
+        private async IAsyncEnumerable<HighScore> GetHighScoreAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            for (var i = 0; i < 20; i++)
+            {
+                var item = await Task.FromResult(new HighScore("nikl", 1, 1, 1, 1, DateTime.Now, new IntSize(1,1)));
 
-        //        yield return item;
-        //    }
-        //}
+                yield return item;
+            }
+        }
 
         public List<HighScore> LoadLocalHighScores()
         {
