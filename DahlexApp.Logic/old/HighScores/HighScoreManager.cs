@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Xml;
 using Dahlex.Logic.Contracts;
 
@@ -27,10 +29,21 @@ namespace Dahlex.Logic.HighScores
             }
         }
 
+        //public async IAsyncEnumerable<HighScore> GetHighScoreAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
+        //{
+        //    for (var i = 0; i < 20; i++)
+        //    {
+        //        var item = await GetXYZById(i, cancellationToken);
+
+        //        yield return item;
+        //    }
+        //}
+
         public List<HighScore> LoadLocalHighScores()
         {
             try
             {
+
                // var settings = ApplicationData.Current.LocalSettings;
                 //string highScores = settings.Values["HighScores"].ToString();
                 byte[] bytes = new byte[0];// = Encoding.Unicode.GetBytes(highScores.ToCharArray());
