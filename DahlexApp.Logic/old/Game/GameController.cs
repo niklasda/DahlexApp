@@ -556,7 +556,7 @@ namespace Dahlex.Logic.Game
                 _level = SettingsManager.MaxLevelIndicator;
             }
 
-            hsm.AddHighScore(_gameMode, name, _level, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize);
+            hsm.AddHighScore(_gameMode, name, _level, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize).Wait();
             hsm.SaveLocalHighScores();
         }
 
