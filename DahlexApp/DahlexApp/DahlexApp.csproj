@@ -14,14 +14,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MvvmCross.Forms" Version="6.4.1" />
-    <PackageReference Include="MvvmCross.Plugin.Json" Version="6.4.1" />
-    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.1" />
-    <PackageReference Include="MvvmCross.Plugin.Network" Version="6.4.1" />
-    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.1" />
-    <PackageReference Include="System.Reactive" Version="4.3.1" />
-    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.3.1" />
-    <PackageReference Include="Xamarin.Forms" Version="4.3.0.991221" />  
+    <None Remove="Assets\Images\heap_02.png" />
+    <None Remove="Assets\Images\planet_01.png" />
+    <None Remove="Assets\Images\robot_04.png" />
+    <None Remove="Assets\Images\robot_05.png" />
+    <None Remove="Assets\Images\robot_06.png" />
+    <None Remove="Assets\Images\Xamarin120.png" />
+    <None Remove="Assets\Sounds\bomb.wav" />
+    <None Remove="Assets\Sounds\heap.wav" />
+    <None Remove="Assets\Sounds\tele.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\heap_02.png" />
+    <EmbeddedResource Include="Assets\Images\planet_01.png" />
+    <EmbeddedResource Include="Assets\Images\robot_04.png" />
+    <EmbeddedResource Include="Assets\Images\robot_05.png" />
+    <EmbeddedResource Include="Assets\Images\robot_06.png" />
+    <EmbeddedResource Include="Assets\Images\Xamarin120.png" />
+    <EmbeddedResource Include="Assets\Sounds\bomb.wav" />
+    <EmbeddedResource Include="Assets\Sounds\heap.wav" />
+    <EmbeddedResource Include="Assets\Sounds\tele.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MvvmCross.Forms" Version="6.4.2" />
+    <PackageReference Include="MvvmCross.Plugin.Json" Version="6.4.2" />
+    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.2" />
+    <PackageReference Include="MvvmCross.Plugin.Network" Version="6.4.2" />
+    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.2" />
+    <PackageReference Include="System.Reactive" Version="4.3.2" />
+    <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
@@ -34,5 +58,9 @@
     <Compile Update="Views\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 </Project>

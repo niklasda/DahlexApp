@@ -11,15 +11,23 @@
              Title="{Binding Title}"
              >
 
+    <AbsoluteLayout>
+        <Label Text="I'm centered on iPhone 4 but no other device" AbsoluteLayout.LayoutBounds="115,150,100,100" LineBreakMode="WordWrap"  />
+        <Label Text="I'm bottom center on every device." AbsoluteLayout.LayoutBounds=".5,1,.5,.1" AbsoluteLayout.LayoutFlags="All" LineBreakMode="WordWrap"  />
 
-    <StackLayout Orientation="Vertical">
+        <BoxView Color="Olive"  AbsoluteLayout.LayoutBounds="1,.5, 25, 100" AbsoluteLayout.LayoutFlags="PositionProportional" />
+        <BoxView Color="Red" AbsoluteLayout.LayoutBounds="0,.5,25,100" AbsoluteLayout.LayoutFlags="PositionProportional" />
 
-        <Label Text="{Binding Text2}" LineBreakMode="NoWrap" FontSize="16" />
+        <BoxView Color="Blue" AbsoluteLayout.LayoutBounds="0,0,0.1,0.1" AbsoluteLayout.LayoutFlags="All" />
+        <BoxView Color="BlueViolet" AbsoluteLayout.LayoutBounds="0.1,0,0.1,0.1" AbsoluteLayout.LayoutFlags="All" />
+        <BoxView Color="Blue" AbsoluteLayout.LayoutBounds="0.2,0,0.1,0.1" AbsoluteLayout.LayoutFlags="All" />
 
-        <Entry Text="{Binding TextInput1}" FontSize="16" />
-        
-        <Label Text="{Binding Text1}" LineBreakMode="NoWrap" FontSize="16" />
+        <BoxView Color="BlueViolet" AbsoluteLayout.LayoutBounds="0.0,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" />
+        <BoxView Color="Blue" AbsoluteLayout.LayoutBounds="0.1,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" />
+        <BoxView Color="BlueViolet" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" />
 
-    </StackLayout>
+        <Image Source="{Binding  FlagImageSource}" x:Name="TheX"  ></Image>
+
+    </AbsoluteLayout>
 
 </views:MvxContentPage>

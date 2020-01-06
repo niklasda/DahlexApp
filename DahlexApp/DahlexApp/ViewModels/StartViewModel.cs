@@ -4,6 +4,7 @@ using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross.ViewModels;
+using Xamarin.Forms;
 
 namespace DahlexApp.ViewModels
 {
@@ -16,7 +17,12 @@ namespace DahlexApp.ViewModels
             _gs = gs;
 
             Title = "Browse";
+
+            FlagImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.Xamarin120.png");
+
         }
+
+        public ImageSource FlagImageSource { get; set; }
 
         public override void Prepare(string what)
         {
@@ -25,6 +31,7 @@ namespace DahlexApp.ViewModels
 
             var asd = what;
         }
+
 
         public override async Task Initialize()
         {

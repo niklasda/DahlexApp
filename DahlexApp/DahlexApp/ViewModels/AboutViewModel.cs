@@ -12,16 +12,16 @@ namespace DahlexApp.ViewModels
     {
         private readonly IGameService _gs;
         private readonly IMvxNavigationService _navigationService;
-        private readonly IWebApiService _caller;
+        //private readonly IWebApiService _caller;
         private readonly IMvxWebBrowserTask _browser;
 
         // todo add base model with navigation etc
 
-        public AboutViewModel(IGameService gs, IMvxNavigationService navigationService, IWebApiService caller, IMvxWebBrowserTask browser)
+        public AboutViewModel(IGameService gs, IMvxNavigationService navigationService, IMvxWebBrowserTask browser)
         {
             _gs = gs;
             _navigationService = navigationService;
-            _caller = caller;
+           // _caller = caller;
             _browser = browser;
             // Title = "About";
 
@@ -35,7 +35,7 @@ namespace DahlexApp.ViewModels
             {
                 var t = await _gs.GetTest();
 
-                var r = await _caller.MakeTestCall();
+              //  var r = await _caller.MakeTestCall();
 
 
                 await _navigationService.Navigate<StartViewModel, string>("hello");
