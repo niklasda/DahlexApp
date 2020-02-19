@@ -1,113 +1,72 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reactive.Subjects;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
+using MvvmCross;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
+using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
-using Xamarin.Forms;
 
 namespace DahlexApp.ViewModels
 {
-    public class StartViewModel :  MvxViewModel<string>
+    public class StartViewModel : MvxViewModel
     {
         private readonly IGameService _gs;
+        private readonly IMvxNavigationService _navigationService;
+        //private readonly IWebApiService _caller;
+        private readonly IMvxWebBrowserTask _browser;
 
-        public StartViewModel(IGameService gs)
+        // todo add base model with navigation etc
+
+        public StartViewModel(IGameService gs, IMvxNavigationService navigationService, IMvxWebBrowserTask browser)
         {
             _gs = gs;
+            _navigationService = navigationService;
+            // _caller = caller;
+            _browser = browser;
+            // Title = "About";
 
-            Title = "Browse";
+            OpenWebCommand = new MvxCommand(() =>
+            {
+                //               var task = Mvx.IoCProvider.Resolve<IMvxWebBrowserTask>();
+                _browser.ShowWebPage("http://www.xamarin.com");
+            });
 
-            FlagImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.Xamarin120.png");
+            GotoBoardCommand = new MvxCommand(async () =>
+            {
+                // var t = await _gs.GetTest();
 
+                //  var r = await _caller.MakeTestCall();
+
+
+                await _navigationService.Navigate<BoardViewModel, string>("hello");
+
+            });
         }
 
-        public ImageSource FlagImageSource { get; set; }
-
-        public override void Prepare(string what)
+        public override void Prepare()
         {
-
             // first callback. Initialize parameter-agnostic stuff here
-
-            var asd = what;
         }
-
 
         public override async Task Initialize()
         {
+            //TODO: Add starting logic here
+
             await base.Initialize();
 
-            
-            //TODO: Add starting logic here
-            TextInput1 = "<write>";
-            Text1 = "1";
-            Text2 = "2";
-
-
-             TextBacker.Subscribe(s1 => Debug.WriteLine(s1));
-
+            // do the heavy work here
         }
 
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            base.ViewDestroy(viewFinishing);
-           // Debug.WriteLine("destroy");
+        public IMvxCommand OpenWebCommand { get; }
+        public IMvxCommand GotoBoardCommand { get; }
 
-        }
 
-        public override void ViewDisappearing()
-        {
-            base.ViewDisappearing();
 
-           // Debug.WriteLine("disappear");
-        }
-
-        private string _title ;
+        private string _title = string.Empty;
         public string Title
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-
-        private string _text1;
-        public string Text1
-        {
-            get { return _text1; }
-            set { SetProperty(ref _text1, value); }
-        }
-
-
-        private Subject<string> TextBacker = new Subject<string>();
-
-        private string _textInput1;
-
-
-        public string TextInput1
-        {
-            get { return _textInput1; }
-            set
-            {
-                SetProperty(ref _textInput1, value); 
-                TextBacker.OnNext(value);
-            }
-        }
-
-
-        private string _text2 ;
-        public string Text2
-        {
-            get { return _text2; }
-            set { SetProperty(ref _text2, value); }
-        }
-
-
-        private bool _isBusy ;
-        public bool IsBusy
-        {
-            get { return _isBusy; }
-            set { SetProperty(ref _isBusy, value); }
-        }
-
-       
     }
 }

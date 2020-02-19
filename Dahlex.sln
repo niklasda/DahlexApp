@@ -11,8 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DahlexApp", "DahlexApp\Dahl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{63C100C5-E531-447A-8264-166A1FB496D9}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		Dahlex.sln.startup.json = Dahlex.sln.startup.json
 		README.md = README.md
 	EndProjectSection
 EndProject
