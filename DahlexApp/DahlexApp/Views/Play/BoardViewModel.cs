@@ -6,7 +6,7 @@ using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using Xamarin.Forms;
 
-namespace DahlexApp.ViewModels
+namespace DahlexApp.Views.Play
 {
     public class BoardViewModel : MvxViewModel<string>
     {

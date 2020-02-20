@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-             xmlns:viewModels="clr-namespace:DahlexApp.ViewModels;assembly=DahlexApp"
+             xmlns:viewModels="clr-namespace:DahlexApp.Views.Start;assembly=DahlexApp"
              mc:Ignorable="d"
              x:Class="DahlexApp.Views.StartPage"
              x:TypeArguments="viewModels:StartViewModel"

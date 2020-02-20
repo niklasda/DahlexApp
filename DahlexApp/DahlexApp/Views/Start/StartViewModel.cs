@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
+using DahlexApp.Views.Play;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
 
-namespace DahlexApp.ViewModels
+namespace DahlexApp.Views.Start
 {
     public class StartViewModel : MvxViewModel
     {

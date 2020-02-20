@@ -1,4 +1,4 @@
-﻿using DahlexApp.ViewModels;
+﻿using DahlexApp.Views.Play;
 using MvvmCross.Forms.Views;
 
 

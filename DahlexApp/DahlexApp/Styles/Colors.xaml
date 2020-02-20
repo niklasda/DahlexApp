@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<ResourceDictionary
+    x:Class="DahlexApp.Styles.Colors"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <Color x:Key="PrimaryBackgroundColor">#FF171B26</Color>
+  <Color x:Key="AlmostBlackColor">#FF0A0D14</Color>
+
+  <Color x:Key="PrimaryForegroundColor">#FFFFFFFF</Color>
+  <Color x:Key="SecondaryForegroundColor">#FFCCCCCC</Color>
+
+
+  <Color x:Key="ListItemBackgroundColor">#FF212636</Color>
+  <Color x:Key="ListItemForegroundColor">#FFFFFFFF</Color>
+
+
+  <Color x:Key="AccentColor">#6232B0</Color>
+  <Color x:Key="LightPurpleColor">#9C70C4</Color>
+  <Color x:Key="SuccessAccentColor">#53C090</Color>
+  <Color x:Key="ErrorAccentColor">#FF1010</Color>
+
+
+  <!--
+        #9C70C4
+        #6232B0
+        #331778
+        #333A4A
+        #212636
+        #171B26 (edited)
+        #000000
+        #DB61BE
+        #4A90E2
+        #FF6F6F
+        #53C090
+    -->
+
+</ResourceDictionary>
