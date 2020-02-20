@@ -19,7 +19,7 @@
     <None Remove="Assets\Images\robot_04.png" />
     <None Remove="Assets\Images\robot_05.png" />
     <None Remove="Assets\Images\robot_06.png" />
-    <None Remove="Assets\Images\Xamarin120.png" />
+    <None Remove="Assets\Images\Tile300.png" />
     <None Remove="Assets\Sounds\bomb.wav" />
     <None Remove="Assets\Sounds\heap.wav" />
     <None Remove="Assets\Sounds\tele.wav" />
@@ -31,7 +31,7 @@
     <EmbeddedResource Include="Assets\Images\robot_04.png" />
     <EmbeddedResource Include="Assets\Images\robot_05.png" />
     <EmbeddedResource Include="Assets\Images\robot_06.png" />
-    <EmbeddedResource Include="Assets\Images\Xamarin120.png" />
+    <EmbeddedResource Include="Assets\Images\Tile300.png" />
     <EmbeddedResource Include="Assets\Sounds\bomb.wav" />
     <EmbeddedResource Include="Assets\Sounds\heap.wav" />
     <EmbeddedResource Include="Assets\Sounds\tele.wav" />
@@ -55,10 +55,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Start\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Play\BoardPage.xaml.cs">
+    <Compile Update="Views\Board\BoardPage.xaml.cs">
       <DependentUpon>BoardPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>

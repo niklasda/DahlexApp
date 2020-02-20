@@ -6,52 +6,33 @@
              xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
              xmlns:viewModels="clr-namespace:DahlexApp.Views.Start;assembly=DahlexApp"
              mc:Ignorable="d"
-             x:Class="DahlexApp.Views.StartPage"
+             x:Class="DahlexApp.Views.Start.StartPage"
              x:TypeArguments="viewModels:StartViewModel"
              Title="{Binding Title}">
 
 
-
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <Color x:Key="Primary">#2196F3</Color>
-      <Color x:Key="Accent">#96d1ff</Color>
-      <Color x:Key="LightTextColor">#999999</Color>
-    </ResourceDictionary>
-  </ContentPage.Resources>
-
-  <Grid >
+  <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}">
     <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
+      <RowDefinition Height="2*" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-<Image></Image>
+
+    <Image Source="{Binding LogoImageSource}" Aspect="AspectFit" ></Image>
+
     <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
 
-      <Label Text="Play">
-      </Label>
-      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
-        <Button Margin="0" Text="Learn more"
-                        Command="{Binding OpenWebCommand}"
-                        BackgroundColor="{StaticResource Primary}"
-                        TextColor="White" />
 
-        <Button Margin="0" Text="Board"
-                Command="{Binding GotoBoardCommand}"
-                BackgroundColor="{StaticResource Primary}"
-                TextColor="White" />
-        <Button Margin="0" Text="Board"
-                Command="{Binding GotoBoardCommand}"
-                BackgroundColor="{StaticResource Primary}"
-                TextColor="White" />
-        <Button Margin="0" Text="Board"
-                Command="{Binding GotoBoardCommand}"
-                BackgroundColor="{StaticResource Primary}"
-                TextColor="White" />
-        <Button Margin="0" Text="Board"
-                Command="{Binding GotoBoardCommand}"
-                BackgroundColor="{StaticResource Primary}"
-                TextColor="White" />
+      <Button Text="Play" Command="{Binding GotoBoardCommand}" Style="{StaticResource ButtonStyle}" />
+
+
+      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+        <Button Text="About" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+
+        <Button Text="HowTo"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+
+        <Button Text="Scores" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+
+        <Button Text="Settings" Command="{Binding GotoSettingsCommand}" Style="{StaticResource ButtonStyle}" />
       </StackLayout>
     </StackLayout>
   </Grid>

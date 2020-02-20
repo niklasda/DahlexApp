@@ -1,8 +1,7 @@
-﻿using DahlexApp.Views.Play;
-using MvvmCross.Forms.Views;
+﻿using MvvmCross.Forms.Views;
 
 
-namespace DahlexApp.Views
+namespace DahlexApp.Views.Board
 {
     public partial class BoardPage : MvxContentPage<BoardViewModel>
     {
@@ -15,7 +14,9 @@ namespace DahlexApp.Views
         {
             base.OnViewModelSet();
 
-            base.ViewModel.TheXImage = TheX;
+            base.ViewModel.TheProfImage = TheProf;
+            base.ViewModel.TheHeapImage = TheHeap;
+            base.ViewModel.TheRobotImage = TheRobot;
             base.ViewModel.TheAbsBoard = TheBoard;
         }
     }

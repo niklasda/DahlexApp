@@ -1,41 +1,48 @@
 ﻿using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
-using DahlexApp.Views.Play;
+using DahlexApp.Views.Board;
+using DahlexApp.Views.Settings;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
-using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
+using Xamarin.Forms;
 
 namespace DahlexApp.Views.Start
 {
     public class StartViewModel : MvxViewModel
     {
-        private readonly IGameService _gs;
-        private readonly IMvxNavigationService _navigationService;
-        private readonly IMvxWebBrowserTask _browser;
-
-        // todo add base model with navigation etc
-
-        public StartViewModel(IGameService gs, IMvxNavigationService navigationService, IMvxWebBrowserTask browser)
+        public StartViewModel(IGameService gs, IMvxNavigationService navigationService)
         {
             _gs = gs;
             _navigationService = navigationService;
-            _browser = browser;
 
             Title = "Dahlex";
 
-            OpenWebCommand = new MvxCommand(() =>
+            LogoImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.Tile300.png"); // 42x42
+
+            ComingSoonCommand = new MvxCommand(() =>
             {
-                _browser.ShowWebPage("http://www.xamarin.com");
+                Application.Current.MainPage.DisplayAlert("Dahlex","Coming SoOon","Ok");
             });
 
             GotoBoardCommand = new MvxCommand(async () =>
             {
-
                 await _navigationService.Navigate<BoardViewModel, string>("hello");
+            });
 
+            GotoSettingsCommand = new MvxCommand(async () =>
+            {
+                await _navigationService.Navigate<SettingsViewModel>();
             });
         }
+
+        private readonly IGameService _gs;
+        private readonly IMvxNavigationService _navigationService;
+
+        public ImageSource LogoImageSource { get; set; }
+
+        // todo add base model with navigation etc
+
 
         public override void Prepare()
         {
@@ -51,8 +58,9 @@ namespace DahlexApp.Views.Start
             // do the heavy work here
         }
 
-        public IMvxCommand OpenWebCommand { get; }
+        public IMvxCommand ComingSoonCommand { get; }
         public IMvxCommand GotoBoardCommand { get; }
+        public IMvxCommand GotoSettingsCommand { get; }
 
 
 

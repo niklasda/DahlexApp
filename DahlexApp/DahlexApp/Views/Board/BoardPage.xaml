@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:viewModels="clr-namespace:DahlexApp.Views.Board"
+             mc:Ignorable="d"
+             x:Class="DahlexApp.Views.Board.BoardPage"
+             x:TypeArguments="viewModels:BoardViewModel"
+             Title="{Binding Title}">
+
+  <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <AbsoluteLayout BackgroundColor="{StaticResource PrimaryBackgroundColor}">
+      <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheBoard">
+      </AbsoluteLayout>
+
+      <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheOverBoard">
+
+        <Image Source="{Binding PlanetImageSource}" x:Name="TheProf" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" >
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding ClickedTheProfCommand}"></TapGestureRecognizer>
+          </Image.GestureRecognizers>
+        </Image>
+        <Image Source="{Binding HeapImageSource}" x:Name="TheHeap" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.3,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" >
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding ClickedTheHeapCommand}"></TapGestureRecognizer>
+          </Image.GestureRecognizers>
+        </Image>
+        <Image Source="{Binding Robot1ImageSource}" x:Name="TheRobot" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.4,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" >
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding ClickedTheRobotCommand}"></TapGestureRecognizer>
+          </Image.GestureRecognizers>
+        </Image>
+
+      </AbsoluteLayout>
+    </AbsoluteLayout>
+
+    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
+
+
+
+
+      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+        <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource ButtonStyle}" />
+
+        <Button Text="Next"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+
+        <Button Text="Bomb  (2)" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+
+        <Button Text="Tele (1)" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+      </StackLayout>
+    </StackLayout>
+  </Grid>
+
+</views:MvxContentPage>

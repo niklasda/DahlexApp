@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<ResourceDictionary
+    x:Class="DahlexApp.Styles.ButtonStyles"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:styles="clr-namespace:DahlexApp.Styles;assembly=DahlexApp">
+
+  <ResourceDictionary.MergedDictionaries>
+    <styles:TextStyles />
+  </ResourceDictionary.MergedDictionaries>
+
+
+  <Style x:Key="ButtonStyle" TargetType="Button">
+    <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+    <Setter Property="VerticalOptions" Value="Center" />
+    <Setter Property="BorderWidth" Value="1" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="TextColor" Value="{StaticResource PrimaryForegroundColor}" />
+    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackgroundColor}" />
+    <Setter Property="BorderColor" Value="{StaticResource SecondaryForegroundColor}" />
+  </Style>
+
+
+</ResourceDictionary>
