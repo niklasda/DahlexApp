@@ -21,6 +21,8 @@ namespace DahlexApp.ViewModels
             _navigationService = navigationService;
             _browser = browser;
 
+            Title = "Dahlex";
+
             OpenWebCommand = new MvxCommand(() =>
             {
                 _browser.ShowWebPage("http://www.xamarin.com");
