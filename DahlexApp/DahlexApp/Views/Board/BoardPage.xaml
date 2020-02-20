@@ -22,12 +22,12 @@
 
       <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheOverBoard">
 
-        <Image Source="{Binding PlanetImageSource}" x:Name="TheProf" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" >
+        <Image Source="{Binding PlanetImageSource}" x:Name="TheProf" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1"  >
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheProfCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>
         </Image>
-        <Image Source="{Binding HeapImageSource}" x:Name="TheHeap" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.3,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" >
+        <Image Source="{Binding HeapImageSource}" x:Name="TheHeap" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.3,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="None" >
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheHeapCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>

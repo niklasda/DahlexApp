@@ -7,7 +7,7 @@ using Dahlex.Logic.Utils;
 
 namespace Dahlex.Logic.Game
 {
-    public class GameController : IGameController
+    public class GameEngine : IGameEngine
     {
         private readonly IDahlexView _boardView;
         private readonly GameSettings _settings;
@@ -27,7 +27,7 @@ namespace Dahlex.Logic.Game
         private DateTime _startTime;
         private GameMode _gameMode;
 
-        public GameController(IDahlexView view, GameSettings settings)
+        public GameEngine(IDahlexView view, GameSettings settings)
         {
             _boardView = view;
             _settings = settings;

@@ -19,7 +19,7 @@ namespace DahlexApp.Logic.Services
             _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(ContentJson));
         }
 
-        private readonly Uri _apiBaseUrl;//= new Uri("https://etonax.com/api/v1/");
+        private readonly Uri _apiBaseUrl;
         private readonly HttpClient _http = new HttpClient();
         private const string ContentJson = "application/json";
 

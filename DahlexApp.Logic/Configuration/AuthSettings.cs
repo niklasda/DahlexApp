@@ -2,7 +2,7 @@
 {
     public static class AuthSettings
     {
-        public const string AppName = "EtonaxApp";
+        public const string AppName = "DahlexApp";
 
     }
 }

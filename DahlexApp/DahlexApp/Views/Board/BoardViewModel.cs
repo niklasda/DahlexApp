@@ -35,11 +35,16 @@ namespace DahlexApp.Views.Board
             ClickedTheProfCommand = new MvxCommand(() =>
             {
                 TheProfImage.TranslateTo(TheProfImage.TranslationX + 40, TheProfImage.TranslationY + 40, 250U);
-                TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40, 250U);
-                TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 40, TheRobotImage.TranslationY + 40, 250U);
+            });
 
-                //               var task = Mvx.IoCProvider.Resolve<IMvxWebBrowserTask>();
-                //  _browser.ShowWebPage("http://www.xamarin.com");
+            ClickedTheHeapCommand = new MvxCommand(() =>
+            {
+                TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40, 250U);
+            });
+
+            ClickedTheRobotCommand = new MvxCommand(() =>
+            {
+                TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 40, TheRobotImage.TranslationY + 40, 250U);
             });
 
             StartGameCommand = new MvxCommand(() =>
@@ -102,8 +107,8 @@ namespace DahlexApp.Views.Board
 
                     }
 
-                    AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(0.1 * x, 0.1 * y, 0.1, 0.1));
-                    AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.All);
+                    AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(40 * x, 40 * y, 40, 40));
+                    AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
                     TheAbsBoard.Children.Add(bv);
                 }
             }
@@ -112,6 +117,14 @@ namespace DahlexApp.Views.Board
             TheHeapImage.IsVisible = false;
             TheRobotImage.IsVisible = false;
 
+            AbsoluteLayout.SetLayoutBounds(TheProfImage, new Rectangle(40 * 2, 40 * 1, 40, 40));
+            AbsoluteLayout.SetLayoutFlags(TheProfImage, AbsoluteLayoutFlags.None);
+
+            AbsoluteLayout.SetLayoutBounds(TheHeapImage, new Rectangle(40 * 3, 40 * 2, 40, 40));
+            AbsoluteLayout.SetLayoutFlags(TheHeapImage, AbsoluteLayoutFlags.None);
+
+            AbsoluteLayout.SetLayoutBounds(TheRobotImage, new Rectangle(40 * 4, 40 * 3, 40, 40));
+            AbsoluteLayout.SetLayoutFlags(TheRobotImage, AbsoluteLayoutFlags.None);
 
             //TheXImage = new Image();
             //TheXImage.Source = PlanetImageSource;

@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 namespace Dahlex.Logic.Contracts
 {
-    public interface IGameController
+    public interface IGameEngine
     {
         bool AreThereNoMoreLevels { get; }
 
