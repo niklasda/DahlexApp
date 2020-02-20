@@ -14,11 +14,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{63C100C5
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		README.md = README.md
+		TODO.md = TODO.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DahlexApp.Logic", "DahlexApp.Logic\DahlexApp.Logic.csproj", "{77784E60-118C-4EB0-A4DE-FC72A7613D3E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4F22C531-B2A7-4053-9AC8-449AC05A871E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Tests", ".Tests", "{4F22C531-B2A7-4053-9AC8-449AC05A871E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,9 +118,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{77784E60-118C-4EB0-A4DE-FC72A7613D3E} = {4F22C531-B2A7-4053-9AC8-449AC05A871E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F76E88C8-F432-49C8-9E83-7B1F64972ADB}
