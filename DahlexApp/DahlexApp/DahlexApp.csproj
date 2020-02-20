@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <Copyright>Copyright © nida 2020</Copyright>
+    <AssemblyName>Dahlex</AssemblyName>
+    <Authors>nida</Authors>
   </PropertyGroup>
 
   <ItemGroup>

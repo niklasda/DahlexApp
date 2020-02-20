@@ -1,5 +1,5 @@
-﻿using DahlexApp.Views.Start;
-using MvvmCross.Forms.Views;
+﻿using MvvmCross.Forms.Views;
+using Xamarin.Forms;
 
 namespace DahlexApp.Views.Start
 {
@@ -8,6 +8,7 @@ namespace DahlexApp.Views.Start
         public StartPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

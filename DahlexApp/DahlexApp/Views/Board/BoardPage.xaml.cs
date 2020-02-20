@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Forms.Views;
+using Xamarin.Forms;
 
 
 namespace DahlexApp.Views.Board
@@ -8,6 +9,7 @@ namespace DahlexApp.Views.Board
         public BoardPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         protected override void OnViewModelSet()
