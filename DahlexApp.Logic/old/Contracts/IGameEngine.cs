@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Dahlex.Logic.Contracts
 {
@@ -44,7 +45,7 @@ namespace Dahlex.Logic.Contracts
 
         bool DoTeleport();
 
-        IntPoint GetProfessorCoordinates();
+        Point GetProfessorCoordinates();
 
         void AddHighScore(bool maxLevel);
     }

@@ -1,4 +1,4 @@
-namespace Dahlex.Logic.Contracts
+﻿namespace Dahlex.Logic.Contracts
 {
     public enum GameMode { Random, Campaign };
 
@@ -13,57 +13,57 @@ namespace Dahlex.Logic.Contracts
     /// <summary>
     /// Our own Integer base size
     /// </summary>
-    public class IntSize
-    {
-        public int Width { get; private set; }
+    //public class IntSize
+    //{
+    //    public int Width { get; private set; }
 
-        public int Height { get; private set; }
+    //    public int Height { get; private set; }
 
-        /// <summary>
-        /// Construct using width, height
-        /// </summary>
-        /// <param name="width">Width</param>
-        /// <param name="height">Height</param>
-        public IntSize(int width, int height)
-        {
-            Width = width;
-            Height = height;
-        }
+    //    /// <summary>
+    //    /// Construct using width, height
+    //    /// </summary>
+    //    /// <param name="width">Width</param>
+    //    /// <param name="height">Height</param>
+    //    public IntSize(int width, int height)
+    //    {
+    //        Width = width;
+    //        Height = height;
+    //    }
         
-        /// <summary>
-        /// Construct using width, height
-        /// </summary>
-        /// <param name="width">Width</param>
-        /// <param name="height">Height</param>
-        public IntSize(double width, double height)
-        {
-            Width = (int)width;
-            Height = (int)height;
-        }
-    }
+    //    /// <summary>
+    //    /// Construct using width, height
+    //    /// </summary>
+    //    /// <param name="width">Width</param>
+    //    /// <param name="height">Height</param>
+    //    public IntSize(double width, double height)
+    //    {
+    //        Width = (int)width;
+    //        Height = (int)height;
+    //    }
+    //}
 
-    /// <summary>
-    /// Our own Integer based point
-    /// </summary>
-    public struct IntPoint
-    {
-        public int X;
-        public int Y;
+    ///// <summary>
+    ///// Our own Integer based point
+    ///// </summary>
+    //public struct IntPoint
+    //{
+    //    public int X;
+    //    public int Y;
 
-        /// <summary>
-        /// Construct using x, y
-        /// </summary>
-        /// <param name="x">X</param>
-        /// <param name="y">Y</param>
-        public IntPoint(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
+    //    /// <summary>
+    //    /// Construct using x, y
+    //    /// </summary>
+    //    /// <param name="x">X</param>
+    //    /// <param name="y">Y</param>
+    //    public IntPoint(int x, int y)
+    //    {
+    //        X = x;
+    //        Y = y;
+    //    }
 
-        public new string ToString()
-        {
-            return string.Format("X:{0}, Y:{1}", X, Y);
-        }
-    }
+    //    public new string ToString()
+    //    {
+    //        return string.Format("X:{0}, Y:{1}", X, Y);
+    //    }
+    //}
 }

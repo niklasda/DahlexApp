@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
              xmlns:viewModels="clr-namespace:DahlexApp.Views.Board"
+             xmlns:recognizers="clr-namespace:DahlexApp.Common.Recognizers;assembly=DahlexApp"
              mc:Ignorable="d"
              x:Class="DahlexApp.Views.Board.BoardPage"
              x:TypeArguments="viewModels:BoardViewModel"
@@ -20,7 +21,7 @@
       <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheBoard">
       </AbsoluteLayout>
 
-      <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheOverBoard">
+      <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" InputTransparent="True" CascadeInputTransparent="False" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheOverBoard">
 
         <Image Source="{Binding PlanetImageSource}" x:Name="TheProf" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1"  >
           <Image.GestureRecognizers>
@@ -38,6 +39,8 @@
           </Image.GestureRecognizers>
         </Image>
 
+
+        
       </AbsoluteLayout>
     </AbsoluteLayout>
 
@@ -51,7 +54,7 @@
 
         <Button Text="Next"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
 
-        <Button Text="Bomb  (2)" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="Bomb  (2)" Command="{Binding BombCommand}" Style="{StaticResource ButtonStyle}" />
 
         <Button Text="Tele (1)" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
       </StackLayout>

@@ -1,4 +1,5 @@
-﻿using MvvmCross.Forms.Views;
+﻿using System.Diagnostics;
+using MvvmCross.Forms.Views;
 using Xamarin.Forms;
 
 
@@ -21,5 +22,14 @@ namespace DahlexApp.Views.Board
             base.ViewModel.TheRobotImage = TheRobot;
             base.ViewModel.TheAbsBoard = TheBoard;
         }
+
+
+        private void SwipeGestureRecognizer_OnSwiped(object sender, SwipedEventArgs e)
+        {
+            Debug.WriteLine(e.Direction);
+
+        }
     }
+
+
 }

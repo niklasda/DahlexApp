@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Drawing;
 using Dahlex.Logic.Game;
 
 namespace Dahlex.Logic.Contracts
@@ -18,7 +19,7 @@ namespace Dahlex.Logic.Contracts
         // void SetBoardSizeControls();
         void PlaySound(Sound effect);
 
-        void Animate(BoardPosition bp, IntPoint oldPosition, IntPoint newPosition, Guid roundId);
+        void Animate(BoardPosition bp, Point oldPosition, Point newPosition, Guid roundId);
 
         // void RemoveAnimate(BoardPosition position);
         void RemoveImage(string imageName);

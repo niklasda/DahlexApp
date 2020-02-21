@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -21,7 +22,7 @@ namespace Dahlex.Logic.HighScores
         //  private int _max;
         private List<HighScore> _scores ;//= new List<HighScore>();
 
-        public async Task AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, IntSize boardSize)
+        public async Task AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize)
         {
             if (mode == GameMode.Random)
             {
@@ -39,7 +40,7 @@ namespace Dahlex.Logic.HighScores
         {
             for (var i = 0; i < 20; i++)
             {
-                var item = await Task.FromResult(new HighScore("nikl", 1, 1, 1, 1, DateTime.Now, new IntSize(1,1)));
+                var item = await Task.FromResult(new HighScore("nikl", 1, 1, 1, 1, DateTime.Now, new Size(1,1)));
 
                 yield return item;
             }
@@ -60,7 +61,7 @@ namespace Dahlex.Logic.HighScores
 
                 if (_scores.Count == 0)
                 {
-                    _scores.Add(new HighScore("Niklas (Beat me, I wanna be last)", 1, 1, 1, 1, DateTime.Now.AddMinutes(-3), new IntSize(12, 12)));
+                    _scores.Add(new HighScore("Niklas (Beat me, I wanna be last)", 1, 1, 1, 1, DateTime.Now.AddMinutes(-3), new Size(12, 12)));
                 }
 
                 _scores.Sort(new HighScoreComparer());

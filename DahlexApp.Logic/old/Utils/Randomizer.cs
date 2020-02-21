@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Drawing;
 using Dahlex.Logic.Contracts;
 
 namespace Dahlex.Logic.Utils
@@ -16,12 +17,12 @@ namespace Dahlex.Logic.Utils
         /// <param name="xMax">upper x bound (not inclusive)</param>
         /// <param name="yMax">upper y bound (not inclusive)</param>
         /// <returns></returns>
-        public static IntPoint GetRandomPosition(int xMax, int yMax)
+        public static Point GetRandomPosition(int xMax, int yMax)
         {
             int x = Randy.Next(0, xMax);
             int y = Randy.Next(0, yMax);
 
-            return new IntPoint(x, y);
+            return new Point(x, y);
         }
 
         public static MoveDirection GetRandomDirection()

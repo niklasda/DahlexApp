@@ -7,7 +7,12 @@ using MvvmCross.Forms.Platforms.Android.Views;
 
 namespace DahlexApp.Droid
 {
-    [Activity(Label = "DahlexApp", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "DahlexApp",
+        Icon = "@mipmap/icon",
+        Theme = "@style/MainTheme",
+        MainLauncher = true,
+        ScreenOrientation = ScreenOrientation.SensorPortrait,
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : MvxFormsAppCompatActivity<MvxFormsAndroidSetup<Core.App, DahlexApp.App>, Core.App, DahlexApp.App>
     {
         protected override void OnCreate(Bundle savedInstanceState)

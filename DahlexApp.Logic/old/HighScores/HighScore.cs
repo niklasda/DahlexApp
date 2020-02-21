@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Drawing;
 using System.Runtime.Serialization;
 using Dahlex.Logic.Contracts;
 using Dahlex.Logic.Settings;
@@ -8,7 +9,7 @@ namespace Dahlex.Logic.HighScores
     [DataContract]
     public class HighScore
     {
-        public HighScore(string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, IntSize boardSize)
+        public HighScore(string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize)
         {
             _name = name;
             _level = level;
@@ -25,7 +26,7 @@ namespace Dahlex.Logic.HighScores
         private int _teleportsLeft;
         private int _moves;
         private TimeSpan _gameDuration;
-        private IntSize _boardSize;
+        private Size _boardSize;
 
         [DataMember]
         public string Name
@@ -68,7 +69,7 @@ namespace Dahlex.Logic.HighScores
             set { _gameDuration = value; }
         }
 
-        public IntSize BoardSize
+        public Size BoardSize
         {
             get { return _boardSize; }
         }

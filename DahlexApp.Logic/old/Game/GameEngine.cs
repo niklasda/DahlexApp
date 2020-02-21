@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Text;
 using Dahlex.Logic.Contracts;
 using Dahlex.Logic.HighScores;
@@ -20,8 +21,8 @@ namespace Dahlex.Logic.Game
         private int _moveCount;
         private string _tail;
 
-        private readonly IntSize _boardSize; // number of squares
-        private readonly IntSize _squareSize; // in pixels
+        private readonly Size _boardSize; // number of squares
+        private readonly Size _squareSize; // in pixels
         private int _maxLevel;
         private IBoard _board;
         private DateTime _startTime;
@@ -252,7 +253,7 @@ namespace Dahlex.Logic.Game
 
         private void CreateProfessor()
         {
-            IntPoint profPos = GetFreePosition();
+            Point profPos = GetFreePosition();
             BoardPosition pPos = BoardPosition.CreateProfessorBoardPosition();
             _board.SetPosition(profPos.X, profPos.Y, pPos);
         }
@@ -262,7 +263,7 @@ namespace Dahlex.Logic.Game
             RemoveOldPieces(PieceType.Heap);  // todo why, and why heaps
             for (int i = 0; i < count; i++)
             {
-                IntPoint robotPos = GetFreePosition();
+                Point robotPos = GetFreePosition();
                 BoardPosition rPos = BoardPosition.CreateRobotBoardPosition(i);
                 _board.SetPosition(robotPos.X, robotPos.Y, rPos);
             }
@@ -273,7 +274,7 @@ namespace Dahlex.Logic.Game
             RemoveOldPieces(PieceType.Heap); // todo why
             for (int i = 0; i < count; i++)
             {
-                IntPoint robotPos = GetFreePosition();
+                Point robotPos = GetFreePosition();
                 BoardPosition rPos = BoardPosition.CreateHeapBoardPosition(i);
                 _board.SetPosition(robotPos.X, robotPos.Y, rPos);
             }
@@ -298,16 +299,16 @@ namespace Dahlex.Logic.Game
             }
         }
 
-        private IntPoint GetFreePosition()
+        private Point GetFreePosition()
         {
-            IntPoint p;
+            Point p;
             do
             {
                 p = Randomizer.GetRandomPosition(_boardSize.Width, _boardSize.Height);
             }
             while (_board.GetPosition(p.X, p.Y) != null);
 
-            return new IntPoint(p.X, p.Y);
+            return new Point(p.X, p.Y);
         }
 
         public void MoveHeapsToTemp()
@@ -322,7 +323,7 @@ namespace Dahlex.Logic.Game
 
                         if (cp.Type == PieceType.Heap)
                         {
-                            IntPoint point = new IntPoint(x, y);
+                            Point point = new Point(x, y);
 
                             MoveCharacter(point, point, Guid.Empty); // no guid needed, doesn't move
                         }
@@ -331,7 +332,7 @@ namespace Dahlex.Logic.Game
             }
         }
 
-        private void MoveCharacter(IntPoint oldPosition, IntPoint newPosition, Guid roundId)
+        private void MoveCharacter(Point oldPosition, Point newPosition, Guid roundId)
         {
             BoardPosition oldBp = _board.GetPosition(oldPosition.X, oldPosition.Y);
             BoardPosition newBp = _board.GetTempPosition(newPosition.X, newPosition.Y);
@@ -400,13 +401,13 @@ namespace Dahlex.Logic.Game
             }
         }
 
-        public IntPoint GetProfessorCoordinates()
+        public Point GetProfessorCoordinates()
         {
-            IntPoint pos = GetProfessor(false);
+            Point pos = GetProfessor(false);
             return pos;
         }
 
-        private IntPoint GetProfessor(bool fromTemp)
+        private Point GetProfessor(bool fromTemp)
         {
             if (fromTemp)
             {
@@ -420,8 +421,8 @@ namespace Dahlex.Logic.Game
 
         public bool MoveProfessorToTemp(MoveDirection dir)
         {
-            IntPoint oldProfessorPosition = GetProfessor(false);
-            IntPoint newProfessorPosition = oldProfessorPosition;
+            Point oldProfessorPosition = GetProfessor(false);
+            Point newProfessorPosition = oldProfessorPosition;
 
             if (dir == MoveDirection.North)
             {
@@ -503,7 +504,7 @@ namespace Dahlex.Logic.Game
 
         public void MoveRobotsToTemp()
         {
-            IntPoint prof = GetProfessor(true);
+            Point prof = GetProfessor(true);
             var guid = Guid.NewGuid();
 
             for (int x = 0; x < _board.GetPositionWidth(); x++)
@@ -513,12 +514,12 @@ namespace Dahlex.Logic.Game
                     if (_board.GetPosition(x, y) != null)
                     {
                         BoardPosition cp = _board.GetPosition(x, y);
-                        var current = new IntPoint(x, y);
+                        var current = new Point(x, y);
 
                         if (cp.Type == PieceType.Robot)
                         {
-                            var diff = new IntPoint(Math.Sign(prof.X - current.X), Math.Sign(prof.Y - current.Y));
-                            var newPoint = new IntPoint(current.X + diff.X, current.Y + diff.Y);
+                            var diff = new Point(Math.Sign(prof.X - current.X), Math.Sign(prof.Y - current.Y));
+                            var newPoint = new Point(current.X + diff.X, current.Y + diff.Y);
 
                             MoveCharacter(current, newPoint, guid);
                         }
@@ -580,7 +581,7 @@ namespace Dahlex.Logic.Game
 
             if (_bombCount > 0)
             {
-                IntPoint prof = GetProfessor(false);
+                Point prof = GetProfessor(false);
 
                 for (int x = Math.Max(prof.X - 1, 0); x <= Math.Min(prof.X + 1, _boardSize.Width - 1); x++)
                 {
@@ -592,8 +593,8 @@ namespace Dahlex.Logic.Game
 
                             if (bp.Type == PieceType.Robot)
                             {
-                                _boardView.AddLineToLog(string.Format("Bombing robot {0}", (new IntPoint(x, y)).ToString()));
-                                _boardView.Animate(bp, new IntPoint(x, y), new IntPoint(x, y), roundId);
+                                _boardView.AddLineToLog(string.Format("Bombing robot {0}", (new Point(x, y)).ToString()));
+                                _boardView.Animate(bp, new Point(x, y), new Point(x, y), roundId);
 
                                 //_boardView.RemoveRobotAnimation(bp);
 
@@ -626,8 +627,8 @@ namespace Dahlex.Logic.Game
         {
             if (_teleportCount > 0)
             {
-                IntPoint oldProfPos = GetProfessor(false);
-                IntPoint newProfPos = GetFreePosition();
+                Point oldProfPos = GetProfessor(false);
+                Point newProfPos = GetFreePosition();
 
                 _boardView.AddLineToLog(string.Format("T. from {0} to {1}", oldProfPos.ToString(), newProfPos.ToString()));
 

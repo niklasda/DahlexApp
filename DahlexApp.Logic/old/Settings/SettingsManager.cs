@@ -1,3 +1,4 @@
+﻿using System.Drawing;
 using Dahlex.Logic.Contracts;
 
 namespace Dahlex.Logic.Settings
@@ -5,9 +6,9 @@ namespace Dahlex.Logic.Settings
     public class SettingsManager : ISettingsManager
     {
         //private static bool _hasAlreadyRun;
-        private IntSize _canvasSize;
+        private Size _canvasSize;
 
-        public SettingsManager(IntSize canvasSize)
+        public SettingsManager(Size canvasSize)
         {
             _canvasSize = canvasSize;
         }

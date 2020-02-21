@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace DahlexApp.Views.Board
@@ -58,6 +59,29 @@ namespace DahlexApp.Views.Board
             {
                 Application.Current.MainPage.DisplayAlert("Dahlex", "Coming SoOon", "Ok");
             });
+
+            GoDirCommand = new MvxCommand<string>((d) =>
+            {
+                Application.Current.MainPage.DisplayAlert("Dahlex", $"{d}", "Ok");
+            });
+
+            BombCommand = new MvxCommand(() =>
+            {
+                try
+                {
+                    // Use default vibration length
+                    Vibration.Vibrate();
+
+                    // Or use specified time
+                   // var duration = TimeSpan.FromSeconds(1);
+                   // Vibration.Vibrate(duration);
+                }
+                catch (Exception )
+                {
+                    // Other error has occurred.
+                }
+            });
+
         }
 
         private readonly IGameService _gs;
@@ -68,8 +92,10 @@ namespace DahlexApp.Views.Board
         public ImageSource Robot2ImageSource { get; set; }
         public ImageSource Robot3ImageSource { get; set; }
 
+        public IMvxCommand BombCommand { get; }
         public IMvxCommand ComingSoonCommand { get; }
         public IMvxCommand StartGameCommand { get; }
+        public IMvxCommand<string> GoDirCommand { get; }
 
         public override void Prepare(string what)
         {
@@ -106,7 +132,7 @@ namespace DahlexApp.Views.Board
                         bv.Color = Color.DarkOrange;
 
                     }
-
+                    bv.GestureRecognizers.Add(new TapGestureRecognizer(){Command = BombCommand });
                     AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(40 * x, 40 * y, 40, 40));
                     AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
                     TheAbsBoard.Children.Add(bv);
