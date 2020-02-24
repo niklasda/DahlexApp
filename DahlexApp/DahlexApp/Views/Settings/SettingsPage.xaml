@@ -8,6 +8,7 @@
              mc:Ignorable="d"
              x:Class="DahlexApp.Views.Settings.SettingsPage"
              x:TypeArguments="viewModels:SettingsViewModel"
+             x:DataType="viewModels:SettingsViewModel"
              Title="{Binding Title}">
 
 

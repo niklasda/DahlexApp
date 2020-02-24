@@ -8,10 +8,11 @@
              mc:Ignorable="d"
              x:Class="DahlexApp.Views.Start.StartPage"
              x:TypeArguments="viewModels:StartViewModel"
-             Title="{Binding Title}">
+             x:DataType="viewModels:StartViewModel"
+             Title="{Binding Title}" >
 
 
-  <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}">
+  <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}" >
     <Grid.RowDefinitions>
       <RowDefinition Height="2*" />
       <RowDefinition Height="*" />

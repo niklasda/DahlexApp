@@ -8,6 +8,7 @@
              xmlns:recognizers="clr-namespace:DahlexApp.Common.Recognizers;assembly=DahlexApp"
              mc:Ignorable="d"
              x:Class="DahlexApp.Views.Board.BoardPage"
+             x:DataType="viewModels:BoardViewModel"
              x:TypeArguments="viewModels:BoardViewModel"
              Title="{Binding Title}">
 
