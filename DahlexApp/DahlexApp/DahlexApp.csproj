@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -23,9 +23,9 @@
     <None Remove="Assets\Images\robot_05.png" />
     <None Remove="Assets\Images\robot_06.png" />
     <None Remove="Assets\Images\Tile300.png" />
-    <None Remove="Assets\Sounds\bomb.wav" />
-    <None Remove="Assets\Sounds\heap.wav" />
-    <None Remove="Assets\Sounds\tele.wav" />
+    <None Remove="Assets\Audio\bomb.wav" />
+    <None Remove="Assets\Audio\heap.wav" />
+    <None Remove="Assets\Audio\tele.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,9 +35,9 @@
     <EmbeddedResource Include="Assets\Images\robot_05.png" />
     <EmbeddedResource Include="Assets\Images\robot_06.png" />
     <EmbeddedResource Include="Assets\Images\Tile300.png" />
-    <EmbeddedResource Include="Assets\Sounds\bomb.wav" />
-    <EmbeddedResource Include="Assets\Sounds\heap.wav" />
-    <EmbeddedResource Include="Assets\Sounds\tele.wav" />
+    <EmbeddedResource Include="Assets\Audio\bomb.wav" />
+    <EmbeddedResource Include="Assets\Audio\heap.wav" />
+    <EmbeddedResource Include="Assets\Audio\tele.wav" />
   </ItemGroup>
 
   <ItemGroup>

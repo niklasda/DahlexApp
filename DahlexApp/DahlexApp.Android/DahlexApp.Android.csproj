@@ -39,6 +39,7 @@
     <MandroidI18n />
     <AndroidSupportedAbis />
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AndroidDexTool>d8</AndroidDexTool>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

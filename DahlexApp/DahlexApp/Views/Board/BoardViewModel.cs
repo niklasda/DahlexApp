@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
+using Plugin.SimpleAudioPlayer;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -21,11 +24,11 @@ namespace DahlexApp.Views.Board
             ShortestDimension = Math.Min((int)Application.Current.MainPage.Width, (int)Application.Current.MainPage.Height);
 
             // 42x42
-            PlanetImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png"); 
-            HeapImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png"); 
-            Robot1ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_04.png"); 
-            Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_05.png"); 
-            Robot3ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_06.png"); 
+            PlanetImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
+            HeapImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+            Robot1ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_04.png");
+            Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_05.png");
+            Robot3ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_06.png");
 
             string[] resourceNames = this.GetType().Assembly.GetManifestResourceNames();
             foreach (string resourceName in resourceNames)
@@ -65,23 +68,43 @@ namespace DahlexApp.Views.Board
                 Application.Current.MainPage.DisplayAlert("Dahlex", $"{d}", "Ok");
             });
 
+
+
             BombCommand = new MvxCommand(() =>
             {
                 try
                 {
+                    PlayBomb();
+
+
                     // Use default vibration length
                     Vibration.Vibrate();
 
                     // Or use specified time
-                   // var duration = TimeSpan.FromSeconds(1);
-                   // Vibration.Vibrate(duration);
+                    // var duration = TimeSpan.FromSeconds(1);
+                    // Vibration.Vibrate(duration);
                 }
-                catch (Exception )
+                catch (Exception)
                 {
                     // Other error has occurred.
                 }
             });
 
+        }
+
+        private void PlayBomb()
+        {
+            ISimpleAudioPlayer player = CrossSimpleAudioPlayer.Current;
+            // var v = player.Volume;
+            player.Load(GetStreamFromFile("bomb.wav"));
+            player.Play();
+        }
+
+        private Stream GetStreamFromFile(string filename)
+        {
+            var assembly = typeof(App).GetTypeInfo().Assembly;
+            var stream = assembly.GetManifestResourceStream("DahlexApp.Assets.Audio." + filename);
+            return stream;
         }
 
         private readonly IGameService _gs;
@@ -122,7 +145,7 @@ namespace DahlexApp.Views.Board
                 for (int y = 0; y < 10; y++)
                 {
                     BoxView bv = new BoxView();
-                    
+
                     if (x % 2 == 0 && y % 2 == 1 || x % 2 == 1 && y % 2 == 0)
                     {
                         bv.Color = Color.Orange;
@@ -132,7 +155,7 @@ namespace DahlexApp.Views.Board
                         bv.Color = Color.DarkOrange;
 
                     }
-                    bv.GestureRecognizers.Add(new TapGestureRecognizer(){Command = BombCommand });
+                    bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = BombCommand });
                     AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(40 * x, 40 * y, 40, 40));
                     AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
                     TheAbsBoard.Children.Add(bv);
