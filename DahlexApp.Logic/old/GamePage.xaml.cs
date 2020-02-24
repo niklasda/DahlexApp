@@ -26,7 +26,7 @@ namespace Dahlex.Views
 {
     public partial class GamePage : PhoneApplicationPage, IDahlexView
     {
-        private IGameController _dg;
+        private IGameEngine _dg;
         private readonly GameSettings _settings;
         private GameMode _mode;
 
@@ -74,7 +74,7 @@ namespace Dahlex.Views
 
         private void GamePage_Loaded(object sender, RoutedEventArgs e)
         {
-            _dg = new GameController(this, _settings);
+            _dg = new GameEngine(this, _settings);
             DisableUserIdleDetection();
 
             if (PhoneApplicationService.Current.State.ContainsKey("Dahlex.Board"))
