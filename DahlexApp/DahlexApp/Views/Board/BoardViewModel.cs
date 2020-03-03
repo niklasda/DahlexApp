@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Timers;
+using Dahlex.Logic.Contracts;
+using Dahlex.Logic.Game;
+using Dahlex.Logic.Settings;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using Plugin.SimpleAudioPlayer;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Color = Xamarin.Forms.Color;
+using Rectangle = Xamarin.Forms.Rectangle;
+using Size = System.Drawing.Size;
 
 namespace DahlexApp.Views.Board
 {
@@ -18,6 +26,8 @@ namespace DahlexApp.Views.Board
         public BoardViewModel(IGameService gs)
         {
             _gs = gs;
+            var sm = new SettingsManager(new Size(420, 420));
+            _ge = new GameEngine(sm.LoadLocalSettings());
 
             Title = "Play";
 
@@ -53,6 +63,12 @@ namespace DahlexApp.Views.Board
 
             StartGameCommand = new MvxCommand(() =>
             {
+                _gameTimer?.Stop();
+
+                _gameTimer = new Timer(1000);
+                _gameTimer.Elapsed += _gameTimer_Elapsed;
+                _gameTimer.Start();
+
                 TheProfImage.IsVisible = !TheProfImage.IsVisible;
                 TheHeapImage.IsVisible = !TheHeapImage.IsVisible;
                 TheRobotImage.IsVisible = !TheRobotImage.IsVisible;
@@ -76,20 +92,40 @@ namespace DahlexApp.Views.Board
                 {
                     PlayBomb();
 
-
-                    // Use default vibration length
                     Vibration.Vibrate();
-
-                    // Or use specified time
-                    // var duration = TimeSpan.FromSeconds(1);
-                    // Vibration.Vibrate(duration);
                 }
                 catch (Exception)
                 {
-                    // Other error has occurred.
                 }
-            });
+            }, () => CanBomb);
 
+
+           
+        }
+
+        private void _gameTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (_ge.Status == GameStatus.LevelOngoing)
+            {
+                _elapsed = _elapsed.Add(new TimeSpan(0, 0, 1));
+                InfoText = $"{_elapsed.ToString()}";
+            }
+            else
+            {
+                _gameTimer.Stop();
+            }
+        }
+
+        private bool _canBomb;
+        public bool CanBomb
+        {
+            get { return _canBomb; }
+            set
+            {
+                SetProperty(ref _canBomb, value);
+                BombCommand.RaiseCanExecuteChanged();
+                
+            }
         }
 
         private void PlayBomb()
@@ -108,6 +144,7 @@ namespace DahlexApp.Views.Board
         }
 
         private readonly IGameService _gs;
+        private readonly IGameEngine _ge;
 
         public ImageSource PlanetImageSource { get; set; }
         public ImageSource HeapImageSource { get; set; }
@@ -123,6 +160,9 @@ namespace DahlexApp.Views.Board
         public override void Prepare(string what)
         {
             // first callback. Initialize parameter-agnostic stuff here
+
+            _ge.StartGame(GameMode.Campaign);
+            UpdateUI(_ge.Status, _ge.GetState(_elapsed));
         }
 
         public override async Task Initialize()
@@ -135,6 +175,29 @@ namespace DahlexApp.Views.Board
         public IMvxCommand ClickedTheProfCommand { get; }
         public IMvxCommand ClickedTheHeapCommand { get; }
         public IMvxCommand ClickedTheRobotCommand { get; }
+
+        private TimeSpan _elapsed = TimeSpan.Zero;
+
+        private void UpdateUI(GameStatus gameStatus, IGameState state)
+        {
+            if (gameStatus == GameStatus.BeforeStart)
+            {
+                CanBomb = false;
+                CanBomb = false;
+            }
+            else if (gameStatus == GameStatus.GameStarted)
+            {
+                //AddLineToLog("Game started");
+                CanBomb = true;
+                CanBomb = true;
+
+                InfoText = state.Message;
+            }
+        }
+
+        
+
+        private Timer _gameTimer;
 
         public override void ViewAppeared()
         {
@@ -188,11 +251,15 @@ namespace DahlexApp.Views.Board
         public override void ViewDestroy(bool viewFinishing = true)
         {
             base.ViewDestroy(viewFinishing);
+
+           // _gameTimer.Stop();
         }
 
         public override void ViewDisappearing()
         {
             base.ViewDisappearing();
+
+            _gameTimer.Stop();
         }
 
         private string _title;
@@ -201,6 +268,14 @@ namespace DahlexApp.Views.Board
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
+
+        private string _infoText;
+        public string InfoText
+        {
+            get { return _infoText; }
+            set { SetProperty(ref _infoText, value); }
+        }
+
 
         private int _shortestDimension;
         public int ShortestDimension

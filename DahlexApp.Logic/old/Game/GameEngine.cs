@@ -12,9 +12,6 @@ namespace Dahlex.Logic.Game
     {
         private readonly IDahlexView _boardView;
         private readonly GameSettings _settings;
-
-        private GameStatus _gameStatus;
-        private int _level;
         private int _bombCount;
         private int _teleportCount;
         private int _robotCount;
@@ -28,38 +25,32 @@ namespace Dahlex.Logic.Game
         private DateTime _startTime;
         private GameMode _gameMode;
 
-        public GameEngine(IDahlexView view, GameSettings settings)
+        public GameEngine(GameSettings settings)
         {
-            _boardView = view;
+            _boardView = null;
             _settings = settings;
 
             _boardSize = _settings.BoardSize;
             _squareSize = _settings.SquareSize;
         }
 
-        public GameStatus Status
-        {
-            get { return _gameStatus; }
-        }
+        public GameStatus Status { get; private set; }
 
-        public int CurrentLevel
-        {
-            get { return _level; }
-        }
+        public int CurrentLevel { get; private set; }
 
         public bool AreThereNoMoreLevels
         {
-            get { return _level >= _maxLevel; }
+            get { return CurrentLevel >= _maxLevel; }
         }
 
         public void StartGame(GameMode mode)
         {
             _startTime = DateTime.Now;
-            _gameStatus = GameStatus.LevelOngoing;
+            Status = GameStatus.LevelOngoing;
 
             const int startAt = 1; //dont change...
 
-            _level = startAt;
+            CurrentLevel = startAt;
             _moveCount = startAt;
             _bombCount = startAt;
             _teleportCount = startAt;
@@ -74,7 +65,7 @@ namespace Dahlex.Logic.Game
                 _maxLevel = Campaign1.Boards.Length - 1;
             }
 
-            InitNewLevel(_level);
+            InitNewLevel(CurrentLevel);
         }
 
         /// <summary>
@@ -85,7 +76,7 @@ namespace Dahlex.Logic.Game
             _gameMode = mode;
             _startTime = DateTime.Now; // todo put in state
 
-            InitOldLevel(_level);
+            InitOldLevel(CurrentLevel);
         }
 
         /// <summary>
@@ -96,11 +87,11 @@ namespace Dahlex.Logic.Game
         public IGameState GetState(TimeSpan elapsed)
         {
             IGameState state = new GameState();
-            state.Level = _level;
+            state.Level = CurrentLevel;
             state.MoveCount = _moveCount;
             state.BombCount = _bombCount;
             state.TeleportCount = _teleportCount;
-            state.GameStatus = (int)_gameStatus;
+            state.GameStatus = (int)Status;
             state.ElapsedTimeInSeconds = (int)elapsed.TotalSeconds;
             state.Mode = (int)_gameMode;
             state.Message = _tail;
@@ -138,11 +129,11 @@ namespace Dahlex.Logic.Game
         /// <param name="state"></param>
         public void SetState(IGameState state)
         {
-            _level = state.Level;
+            CurrentLevel = state.Level;
             _moveCount = state.MoveCount;
             _bombCount = state.BombCount;
             _teleportCount = state.TeleportCount;
-            _gameStatus = (GameStatus)state.GameStatus;
+            Status = (GameStatus)state.GameStatus;
             _gameMode = (GameMode)state.Mode;
 
             SetBoard(state.TheBoard);
@@ -154,9 +145,9 @@ namespace Dahlex.Logic.Game
             int i = 0;
             int heaps = 0;
             int robots = 0;
-            for (int x = 0; x < 11/*_boardSize.Width*/; x++)
+            for (int x = 0; x < _boardSize.Width; x++)
             {
-                for (int y = 0; y < 13/*_boardSize.Height*/; y++)
+                for (int y = 0; y < 10; y=y+1)
                 {
                     if (boardString[i] == 'P')
                     {
@@ -172,7 +163,7 @@ namespace Dahlex.Logic.Game
                     }
                     else
                     {
-                        b[x, y] = null;
+                        //b[x, y] = null;
                     }
                     i++;
                 }
@@ -186,17 +177,17 @@ namespace Dahlex.Logic.Game
 
         public void StartNextLevel()
         {
-            if (_level == _maxLevel)
+            if (CurrentLevel == _maxLevel)
             {
                 // never happens
                 //                _gameStatus = GameStatus.GameWon;
             }
             else
             {
-                _gameStatus = GameStatus.LevelOngoing;
-                _level++;
+                Status = GameStatus.LevelOngoing;
+                CurrentLevel++;
 
-                InitNewLevel(_level);
+                InitNewLevel(CurrentLevel);
             }
         }
 
@@ -354,7 +345,7 @@ namespace Dahlex.Logic.Game
                 _robotCount -= 2;
                 if (_robotCount == 0)
                 {
-                    _gameStatus = GameStatus.LevelComplete;
+                    Status = GameStatus.LevelComplete;
                 }
             }
             else if (oldBp.Type == PieceType.Robot && newBp.Type == PieceType.Heap)
@@ -368,7 +359,7 @@ namespace Dahlex.Logic.Game
                 _robotCount--;
                 if (_robotCount == 0)
                 {
-                    _gameStatus = GameStatus.LevelComplete;
+                    Status = GameStatus.LevelComplete;
                 }
             }
             else if (oldBp.Type == PieceType.Robot && newBp.Type == PieceType.Professor)
@@ -379,7 +370,7 @@ namespace Dahlex.Logic.Game
                 _boardView.PlaySound(Sound.Crash);
 
                 newBp.ConvertToHeap();
-                _gameStatus = GameStatus.GameLost;
+                Status = GameStatus.GameLost;
                 AddHighScore(false);
             }
             else if (oldBp.Type == PieceType.Professor && newBp.Type == PieceType.Robot)
@@ -390,7 +381,7 @@ namespace Dahlex.Logic.Game
                 _boardView.PlaySound(Sound.Crash);
 
                 newBp.ConvertToHeap();
-                _gameStatus = GameStatus.GameLost;
+                Status = GameStatus.GameLost;
                 AddHighScore(false);
             }
             else if (oldBp.Type == PieceType.Professor && newBp.Type == PieceType.Heap)
@@ -554,10 +545,10 @@ namespace Dahlex.Logic.Game
 
             if (maxLevel)
             {
-                _level = SettingsManager.MaxLevelIndicator;
+                CurrentLevel = SettingsManager.MaxLevelIndicator;
             }
 
-            hsm.AddHighScore(_gameMode, name, _level, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize).Wait();
+            hsm.AddHighScore(_gameMode, name, CurrentLevel, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize).Wait();
             hsm.SaveLocalHighScores();
         }
 
@@ -565,13 +556,13 @@ namespace Dahlex.Logic.Game
         {
             if (clear)
             {
-                _boardView.Clear(true);
+                _boardView?.Clear(true);
             }
 
-            _boardView.DrawLines();
-            _boardView.DrawBoard(_board, _squareSize.Width, _squareSize.Height);
+            _boardView?.DrawLines();
+            _boardView?.DrawBoard(_board, _squareSize.Width, _squareSize.Height);
 
-            _boardView.ShowStatus(_level, _bombCount, _teleportCount, _robotCount, _moveCount, _maxLevel);
+            _boardView?.ShowStatus(CurrentLevel, _bombCount, _teleportCount, _robotCount, _moveCount, _maxLevel);
         }
 
         public bool BlowBomb()
@@ -606,7 +597,7 @@ namespace Dahlex.Logic.Game
                                 _robotCount--;
                                 if (_robotCount == 0)
                                 {
-                                    _gameStatus = GameStatus.LevelComplete;
+                                    Status = GameStatus.LevelComplete;
                                 }
                             }
                         }

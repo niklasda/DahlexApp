@@ -41,14 +41,14 @@
         </Image>
 
 
-        
+
       </AbsoluteLayout>
     </AbsoluteLayout>
 
     <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
 
 
-
+      <Label Text="{Binding InfoText}" Style="{StaticResource SubtitleStyle}"></Label>
 
       <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
         <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource ButtonStyle}" />
