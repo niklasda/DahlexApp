@@ -25,9 +25,9 @@ namespace Dahlex.Logic.Game
         private DateTime _startTime;
         private GameMode _gameMode;
 
-        public GameEngine(GameSettings settings)
+        public GameEngine(GameSettings settings, IDahlexView boardViewModel)
         {
-            _boardView = null;
+            _boardView = boardViewModel;
             _settings = settings;
 
             _boardSize = _settings.BoardSize;

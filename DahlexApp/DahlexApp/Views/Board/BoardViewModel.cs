@@ -20,14 +20,14 @@ using Size = System.Drawing.Size;
 
 namespace DahlexApp.Views.Board
 {
-    public class BoardViewModel : MvxViewModel<string>
+    public class BoardViewModel : MvxViewModel<string>, IDahlexView
     {
 
         public BoardViewModel(IGameService gs)
         {
             _gs = gs;
             var sm = new SettingsManager(new Size(420, 420));
-            _ge = new GameEngine(sm.LoadLocalSettings());
+            _ge = new GameEngine(sm.LoadLocalSettings(), this);
 
             Title = "Play";
 
