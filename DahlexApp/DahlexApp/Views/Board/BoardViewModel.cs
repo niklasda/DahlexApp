@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using Dahlex.Logic.Contracts;
 using Dahlex.Logic.Game;
+using Dahlex.Logic.Logger;
 using Dahlex.Logic.Settings;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross.Commands;
@@ -15,6 +16,7 @@ using Plugin.SimpleAudioPlayer;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Color = Xamarin.Forms.Color;
+using Point = System.Drawing.Point;
 using Rectangle = Xamarin.Forms.Rectangle;
 using Size = System.Drawing.Size;
 
@@ -26,8 +28,9 @@ namespace DahlexApp.Views.Board
         public BoardViewModel(IGameService gs)
         {
             _gs = gs;
-            var sm = new SettingsManager(new Size(420, 420));
-            _ge = new GameEngine(sm.LoadLocalSettings(), this);
+           // var sm = new SettingsManager(new Size(420, 420));
+           _settings = GetSettings();
+            _ge = new GameEngine(_settings, this);
 
             Title = "Play";
 
@@ -48,6 +51,7 @@ namespace DahlexApp.Views.Board
 
             ClickedTheProfCommand = new MvxCommand(() =>
             {
+                bool moved = PerformRound(MoveDirection.None);
                 TheProfImage.TranslateTo(TheProfImage.TranslationX + 40, TheProfImage.TranslationY + 40, 250U);
             });
 
@@ -72,6 +76,9 @@ namespace DahlexApp.Views.Board
                 TheProfImage.IsVisible = !TheProfImage.IsVisible;
                 TheHeapImage.IsVisible = !TheHeapImage.IsVisible;
                 TheRobotImage.IsVisible = !TheRobotImage.IsVisible;
+
+                _ge.StartGame(GameMode.Random);
+                UpdateUI(GameStatus.GameStarted, _ge.GetState(_elapsed) );
             });
 
             ComingSoonCommand = new MvxCommand(() =>
@@ -90,7 +97,7 @@ namespace DahlexApp.Views.Board
             {
                 try
                 {
-                    PlayBomb();
+                    PlaySound(Sound.Bomb);
 
                     Vibration.Vibrate();
                 }
@@ -99,8 +106,48 @@ namespace DahlexApp.Views.Board
                 }
             }, () => CanBomb);
 
+            TeleCommand = new MvxCommand(() =>
+            {
+                Application.Current.MainPage.DisplayAlert("Dahlex", "teleporting", "Ok");
 
-           
+            }, () => CanTele);
+
+
+
+        }
+
+        private bool PerformRound(MoveDirection dir)
+        {
+            bool movedOk = false;
+
+            if (_ge != null)
+            {
+                if (_ge.Status == GameStatus.LevelOngoing)
+                {
+                    _ge.MoveHeapsToTemp();
+                    if (_ge.MoveProfessorToTemp(dir))
+                    {
+                        _ge.MoveRobotsToTemp();
+                        _ge.CommitTemp();
+
+                        movedOk = true;
+                    }
+                    else
+                    {
+                        AddLineToLog("P. not moved");
+                    }
+                }
+
+                UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+            }
+            return movedOk;
+        }
+
+        private GameSettings GetSettings()
+        {
+            ISettingsManager sm = new SettingsManager(new Size(420, 420));
+            var s = sm.LoadLocalSettings();
+            return s;
         }
 
         private void _gameTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -128,21 +175,22 @@ namespace DahlexApp.Views.Board
             }
         }
 
-        private void PlayBomb()
+        private bool _canTele;
+
+        public bool CanTele
         {
-            ISimpleAudioPlayer player = CrossSimpleAudioPlayer.Current;
-            // var v = player.Volume;
-            player.Load(GetStreamFromFile("bomb.wav"));
-            player.Play();
+            get { return _canTele; }
+            set
+            {
+                SetProperty(ref _canTele, value);
+                TeleCommand.RaiseCanExecuteChanged();
+
+            }
         }
 
-        private Stream GetStreamFromFile(string filename)
-        {
-            var assembly = typeof(App).GetTypeInfo().Assembly;
-            var stream = assembly.GetManifestResourceStream("DahlexApp.Assets.Audio." + filename);
-            return stream;
-        }
+       
 
+        private readonly GameSettings _settings;
         private readonly IGameService _gs;
         private readonly IGameEngine _ge;
 
@@ -153,6 +201,7 @@ namespace DahlexApp.Views.Board
         public ImageSource Robot3ImageSource { get; set; }
 
         public IMvxCommand BombCommand { get; }
+        public IMvxCommand TeleCommand { get; }
         public IMvxCommand ComingSoonCommand { get; }
         public IMvxCommand StartGameCommand { get; }
         public IMvxCommand<string> GoDirCommand { get; }
@@ -276,6 +325,33 @@ namespace DahlexApp.Views.Board
             set { SetProperty(ref _infoText, value); }
         }
 
+        private string _infoText1;
+        public string InfoText1
+        {
+            get { return _infoText1; }
+            set { SetProperty(ref _infoText1, value); }
+        }
+
+        private string _infoText2;
+        public string InfoText2
+        {
+            get { return _infoText2; }
+            set { SetProperty(ref _infoText2, value); }
+        }
+
+        private string _bombText;
+        public string BombText
+        {
+            get { return _bombText; }
+            set { SetProperty(ref _bombText, value); }
+        }
+
+        private string _teleText;
+        public string TeleText
+        {
+            get { return _teleText; }
+            set { SetProperty(ref _teleText, value); }
+        }
 
         private int _shortestDimension;
         public int ShortestDimension
@@ -297,5 +373,93 @@ namespace DahlexApp.Views.Board
         public Image TheRobotImage { get; set; }
 
         public AbsoluteLayout TheAbsBoard { get; set; }
+        public void AddLineToLog(string log)
+        {
+            GameLogger.AddLineToLog(log);
+
+        }
+
+        public void DrawBoard(IBoard board, int xSize, int ySize)
+        {
+        }
+
+        public void ShowStatus(int level, int bombCount, int teleportCount, int robotCount, int moveCount, int maxLevel)
+        {
+            InfoText1 = string.Format("Level: {0}/{1} ", level, maxLevel);
+            InfoText2 = string.Format("Dahlex: {0}  Moves: {1}", robotCount, moveCount);
+            BombText = string.Format("Bomb ({0})", bombCount);
+            TeleText = string.Format("Tele ({0})", teleportCount);
+        }
+
+        public void Clear(bool all)
+        {
+        }
+
+        public void PlaySound(Sound effect)
+        {
+            if (!_settings.LessSound)
+            {
+
+                switch (effect)
+                {
+                    case Sound.Bomb:
+                        PlayBomb();
+                        break;
+                    case Sound.Teleport:
+                        PlayTele();
+                        break;
+                    case Sound.Crash:
+                        PlayCrash();
+                        break;
+                }
+            }
+        }
+
+        private void PlayBomb()
+        {
+            ISimpleAudioPlayer player = CrossSimpleAudioPlayer.Current;
+            // var v = player.Volume;
+            player.Load(GetStreamFromFile("bomb.wav"));
+            player.Play();
+        }
+
+        private void PlayTele()
+        {
+            ISimpleAudioPlayer player = CrossSimpleAudioPlayer.Current;
+            // var v = player.Volume;
+            player.Load(GetStreamFromFile("tele.wav"));
+            player.Play();
+        }
+
+        private void PlayCrash()
+        {
+            ISimpleAudioPlayer player = CrossSimpleAudioPlayer.Current;
+            // var v = player.Volume;
+            player.Load(GetStreamFromFile("heap.wav"));
+            player.Play();
+        }
+
+        private Stream GetStreamFromFile(string filename)
+        {
+            var assembly = typeof(App).GetTypeInfo().Assembly;
+            var stream = assembly.GetManifestResourceStream("DahlexApp.Assets.Audio." + filename);
+            return stream;
+        }
+
+        public void Animate(BoardPosition bp, Point oldPosition, Point newPosition, Guid roundId)
+        {
+        }
+
+        public void RemoveImage(string imageName)
+        {
+        }
+
+        public void StartTheRobots(Guid roundId)
+        {
+        }
+
+        public void DrawLines()
+        {
+        }
     }
 }

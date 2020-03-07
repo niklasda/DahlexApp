@@ -55,9 +55,15 @@
 
         <Button Text="Next"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
 
-        <Button Text="Bomb  (2)" Command="{Binding BombCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="{Binding BombText}" Command="{Binding BombCommand}" Style="{StaticResource ButtonStyle}" />
 
-        <Button Text="Tele (1)" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="{Binding TeleText}" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+      </StackLayout>
+
+      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+        <Label Text="{Binding InfoText1}" Style="{StaticResource SubtitleStyle}"></Label>
+        <Label Text="{Binding InfoText2}" Style="{StaticResource SubtitleStyle}"></Label>
+
       </StackLayout>
     </StackLayout>
   </Grid>
