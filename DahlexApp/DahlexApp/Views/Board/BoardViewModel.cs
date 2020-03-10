@@ -267,7 +267,7 @@ namespace DahlexApp.Views.Board
                         bv.Color = Color.DarkOrange;
 
                     }
-                    bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = BombCommand });
+                    bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = ClickedTheProfCommand });
                     AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(40 * x, 40 * y, 40, 40));
                     AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
                     TheAbsBoard.Children.Add(bv);

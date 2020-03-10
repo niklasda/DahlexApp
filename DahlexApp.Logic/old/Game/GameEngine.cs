@@ -11,6 +11,7 @@ namespace Dahlex.Logic.Game
     public class GameEngine : IGameEngine
     {
         private readonly IDahlexView _boardView;
+  //    private readonly HighScoreManager _highScoreManager;
         private readonly GameSettings _settings;
         private int _bombCount;
         private int _teleportCount;
@@ -28,6 +29,7 @@ namespace Dahlex.Logic.Game
         public GameEngine(GameSettings settings, IDahlexView boardViewModel)
         {
             _boardView = boardViewModel;
+//          _highScoreManager = highScoreManager;
             _settings = settings;
 
             _boardSize = _settings.BoardSize;

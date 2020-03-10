@@ -16,6 +16,7 @@ namespace Dahlex.Logic.HighScores
     {
         public HighScoreManager()
         {
+            _scores = new List<HighScore>();
             _scores = LoadLocalHighScores();
         }
 
@@ -32,7 +33,7 @@ namespace Dahlex.Logic.HighScores
 
             await foreach (HighScore hs in GetHighScoreAsync())
             {
-                    
+
             }
         }
 
@@ -40,7 +41,7 @@ namespace Dahlex.Logic.HighScores
         {
             for (var i = 0; i < 20; i++)
             {
-                var item = await Task.FromResult(new HighScore("nikl", 1, 1, 1, 1, DateTime.Now, new Size(1,1)));
+                var item = await Task.FromResult(new HighScore("nikl", 1, 1, 1, 1, DateTime.Now, new Size(1, 1)));
 
                 yield return item;
             }
@@ -51,13 +52,13 @@ namespace Dahlex.Logic.HighScores
             try
             {
 
-               // var settings = ApplicationData.Current.LocalSettings;
+                // var settings = ApplicationData.Current.LocalSettings;
                 //string highScores = settings.Values["HighScores"].ToString();
-                byte[] bytes = new byte[0];// = Encoding.Unicode.GetBytes(highScores.ToCharArray());
+               // byte[] bytes = new byte[0];// = Encoding.Unicode.GetBytes(highScores.ToCharArray());
 
-                var serializer = new DataContractSerializer(typeof(List<HighScore>));
+               // var serializer = new DataContractSerializer(typeof(List<HighScore>));
 
-                _scores = (List<HighScore>)serializer.ReadObject(new MemoryStream(bytes));
+               // _scores = (List<HighScore>)serializer.ReadObject(new MemoryStream(bytes));
 
                 if (_scores.Count == 0)
                 {
@@ -84,8 +85,8 @@ namespace Dahlex.Logic.HighScores
                 serializer.WriteObject(writer, _scores);
                 writer.Flush();
 
-              //  var settings = ApplicationData.Current.LocalSettings;
-              //  settings.Values["HighScores"] = sb.ToString();
+               // var settings = ApplicationData.Current.LocalSettings;
+                //  settings.Values["HighScores"] = sb.ToString();
             }
         }
 
