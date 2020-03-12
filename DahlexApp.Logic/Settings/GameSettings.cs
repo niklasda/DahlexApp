@@ -36,7 +36,7 @@ namespace DahlexApp.Logic.Settings
         /// The size of the squares on the board, TODO with or without margin ???
         /// </summary>
      //   [IgnoreDataMember]
-        public readonly Size SquareSize = new Size(42, 42); // image size 42 x 42
+        public readonly Size SquareSize = new Size(41, 41); // image size 42 x 42
 
         /// <summary>
         /// The offset to apply to get the images inside the squares

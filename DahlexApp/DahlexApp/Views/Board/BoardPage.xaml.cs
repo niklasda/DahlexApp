@@ -24,11 +24,6 @@ namespace DahlexApp.Views.Board
         }
 
 
-        private void SwipeGestureRecognizer_OnSwiped(object sender, SwipedEventArgs e)
-        {
-            Debug.WriteLine(e.Direction);
-
-        }
     }
 
 

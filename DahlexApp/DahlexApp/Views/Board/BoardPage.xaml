@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
              xmlns:viewModels="clr-namespace:DahlexApp.Views.Board"
-             xmlns:recognizers="clr-namespace:DahlexApp.Common.Recognizers;assembly=DahlexApp"
              mc:Ignorable="d"
              x:Class="DahlexApp.Views.Board.BoardPage"
              x:DataType="viewModels:BoardViewModel"

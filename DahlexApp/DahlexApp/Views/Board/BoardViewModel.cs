@@ -51,17 +51,16 @@ namespace DahlexApp.Views.Board
             ClickedTheProfCommand = new MvxCommand(() =>
             {
                 bool moved = PerformRound(MoveDirection.None);
-                TheProfImage.TranslateTo(TheProfImage.TranslationX + 40, TheProfImage.TranslationY + 40, 250U);
             });
 
             ClickedTheHeapCommand = new MvxCommand(() =>
             {
-                TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40, 250U);
+                TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40);
             });
 
             ClickedTheRobotCommand = new MvxCommand(() =>
             {
-                TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 40, TheRobotImage.TranslationY + 40, 250U);
+                TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 40, TheRobotImage.TranslationY + 40);
             });
 
             StartGameCommand = new MvxCommand(() =>
@@ -445,8 +444,27 @@ namespace DahlexApp.Views.Board
             return stream;
         }
 
-        public void Animate(BoardPosition bp, Point oldPosition, Point newPosition, Guid roundId)
+        public void Animate(BoardPosition bp, Point oldPos, Point newPos, Guid roundId)
         {
+            int xOffset = _settings.ImageOffset.X;
+            int yOffset = _settings.ImageOffset.Y;
+            int gridPenWidth = _settings.LineWidth.X;
+
+            int oLeft = oldPos.X * (_settings.SquareSize.Width + gridPenWidth) + xOffset;
+            int oTop = oldPos.Y * (_settings.SquareSize.Height + gridPenWidth) + yOffset;
+
+            int nLeft = newPos.X * (_settings.SquareSize.Width + gridPenWidth) + xOffset;
+            int nTop = newPos.Y * (_settings.SquareSize.Height + gridPenWidth) + yOffset;
+
+            if (bp.Type == PieceType.Professor)
+            {
+             
+
+                TheProfImage.TranslateTo(nLeft, nTop);
+
+            }
+
+
         }
 
         public void RemoveImage(string imageName)
