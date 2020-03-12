@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using System.Timers;
 using Dahlex.Logic.Contracts;
 using Dahlex.Logic.Game;
+using Dahlex.Logic.HighScores;
 using Dahlex.Logic.Logger;
 using Dahlex.Logic.Settings;
+using DahlexApp.Logic.HighScores;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
@@ -25,12 +27,12 @@ namespace DahlexApp.Views.Board
     public class BoardViewModel : MvxViewModel<string>, IDahlexView
     {
 
-        public BoardViewModel(IGameService gs)
+        public BoardViewModel(IGameService gs, IHighScoreService hsm)
         {
             _gs = gs;
            // var sm = new SettingsManager(new Size(420, 420));
            _settings = GetSettings();
-            _ge = new GameEngine(_settings, this);
+            _ge = new GameEngine(_settings, this, hsm);
 
             Title = "Play";
 

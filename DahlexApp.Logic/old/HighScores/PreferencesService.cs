@@ -1,9 +1,7 @@
 ﻿using Xamarin.Essentials;
-using Xamarin.Forms.Internals;
 
-namespace DahlexApp.Common.Services
+namespace DahlexApp.Logic.HighScores
 {
-    [Preserve]
     public class PreferencesService : IPreferencesService
     {
         public void RemovePreference(string key)

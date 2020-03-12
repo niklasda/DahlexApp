@@ -11,7 +11,10 @@ namespace Dahlex.Logic.Game
     public class GameEngine : IGameEngine
     {
         private readonly IDahlexView _boardView;
-  //    private readonly HighScoreManager _highScoreManager;
+
+        private readonly IHighScoreService _highScoreManager;
+
+        //    private readonly HighScoreManager _highScoreManager;
         private readonly GameSettings _settings;
         private int _bombCount;
         private int _teleportCount;
@@ -26,10 +29,11 @@ namespace Dahlex.Logic.Game
         private DateTime _startTime;
         private GameMode _gameMode;
 
-        public GameEngine(GameSettings settings, IDahlexView boardViewModel)
+        public GameEngine(GameSettings settings, IDahlexView boardViewModel, IHighScoreService highScoreManager)
         {
             _boardView = boardViewModel;
-//          _highScoreManager = highScoreManager;
+            _highScoreManager = highScoreManager;
+            //          _highScoreManager = highScoreManager;
             _settings = settings;
 
             _boardSize = _settings.BoardSize;
@@ -541,7 +545,7 @@ namespace Dahlex.Logic.Game
         public void AddHighScore(bool maxLevel)
         {
             //            var sm = new SettingsManager();
-            var hsm = new HighScoreManager();
+           // var hsm = new HighScoreManager();
 
             string name = _settings.PlayerName;
 
@@ -550,8 +554,8 @@ namespace Dahlex.Logic.Game
                 CurrentLevel = SettingsManager.MaxLevelIndicator;
             }
 
-            hsm.AddHighScore(_gameMode, name, CurrentLevel, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize).Wait();
-            hsm.SaveLocalHighScores();
+            _highScoreManager.AddHighScore(_gameMode, name, CurrentLevel, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize).Wait();
+            _highScoreManager.SaveLocalHighScores();
         }
 
         private void Redraw(bool clear)

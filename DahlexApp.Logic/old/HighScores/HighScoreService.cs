@@ -9,18 +9,28 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Dahlex.Logic.Contracts;
+using DahlexApp.Logic.HighScores;
 
 namespace Dahlex.Logic.HighScores
 {
-    public class HighScoreManager
+    public interface IHighScoreService
     {
-        public HighScoreManager()
+        Task AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize);
+        List<HighScore> LoadLocalHighScores();
+        void SaveLocalHighScores();
+    }
+
+    public class HighScoreService : IHighScoreService
+    {
+
+        public HighScoreService(IPreferencesService preferences)
         {
+            _preferences = preferences;
             _scores = new List<HighScore>();
             _scores = LoadLocalHighScores();
         }
 
-        //  private int _max;
+        private readonly IPreferencesService _preferences;
         private List<HighScore> _scores ;//= new List<HighScore>();
 
         public async Task AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize)
@@ -53,12 +63,12 @@ namespace Dahlex.Logic.HighScores
             {
 
                 // var settings = ApplicationData.Current.LocalSettings;
-                //string highScores = settings.Values["HighScores"].ToString();
-               // byte[] bytes = new byte[0];// = Encoding.Unicode.GetBytes(highScores.ToCharArray());
+                // string highScores = settings.Values["HighScores"].ToString();
+                // byte[] bytes = new byte[0];// = Encoding.Unicode.GetBytes(highScores.ToCharArray());
 
-               // var serializer = new DataContractSerializer(typeof(List<HighScore>));
+                // var serializer = new DataContractSerializer(typeof(List<HighScore>));
 
-               // _scores = (List<HighScore>)serializer.ReadObject(new MemoryStream(bytes));
+                // _scores = (List<HighScore>)serializer.ReadObject(new MemoryStream(bytes));
 
                 if (_scores.Count == 0)
                 {
