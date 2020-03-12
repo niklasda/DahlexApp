@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Dahlex.Logic.Logger
+namespace DahlexApp.Logic.Logger
 {
     public static class GameLogger
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using Dahlex.Logic.Game;
+using DahlexApp.Logic.Game;
 
-namespace Dahlex.Logic.Contracts
+namespace DahlexApp.Logic.Interfaces
 {
     public interface IDahlexView
     {

@@ -1,4 +1,4 @@
-﻿namespace Dahlex.Logic.Contracts
+﻿namespace DahlexApp.Logic.Interfaces
 {
     public enum GameMode { Random, Campaign };
 
@@ -10,9 +10,9 @@
 
     public enum GameStatus { BeforeStart, LevelOngoing, LevelComplete, GameWon, GameLost, GameStarted };
 
-    /// <summary>
-    /// Our own Integer base size
-    /// </summary>
+    // <summary>
+    // Our own Integer base size
+    // </summary>
     //public class IntSize
     //{
     //    public int Width { get; private set; }

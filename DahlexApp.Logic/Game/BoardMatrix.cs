@@ -1,8 +1,8 @@
 ﻿
 using System.Drawing;
-using Dahlex.Logic.Contracts;
+using DahlexApp.Logic.Interfaces;
 
-namespace Dahlex.Logic.Game
+namespace DahlexApp.Logic.Game
 {
     public sealed class BoardMatrix : IBoard
     {

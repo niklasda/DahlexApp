@@ -1,6 +1,6 @@
-using Dahlex.Logic.Settings;
+﻿using DahlexApp.Logic.Settings;
 
-namespace Dahlex.Logic.Game
+namespace DahlexApp.Logic.Game
 {
     public class BoardDrawing
     {

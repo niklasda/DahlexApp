@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
-using Dahlex.Logic.Contracts;
-using DahlexApp.Logic.HighScores;
+using DahlexApp.Logic.Interfaces;
 
-namespace Dahlex.Logic.HighScores
+namespace DahlexApp.Logic.HighScores
 {
     public interface IHighScoreService
     {

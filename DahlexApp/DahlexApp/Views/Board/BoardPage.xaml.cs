@@ -17,10 +17,10 @@ namespace DahlexApp.Views.Board
         {
             base.OnViewModelSet();
 
-            base.ViewModel.TheProfImage = TheProf;
-            base.ViewModel.TheHeapImage = TheHeap;
-            base.ViewModel.TheRobotImage = TheRobot;
-            base.ViewModel.TheAbsBoard = TheBoard;
+            ViewModel.TheProfImage = TheProf;
+            ViewModel.TheHeapImage = TheHeap;
+            ViewModel.TheRobotImage = TheRobot;
+            ViewModel.TheAbsBoard = TheBoard;
         }
 
 

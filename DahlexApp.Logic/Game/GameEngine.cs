@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Drawing;
 using System.Text;
-using Dahlex.Logic.Contracts;
-using Dahlex.Logic.HighScores;
-using Dahlex.Logic.Settings;
-using Dahlex.Logic.Utils;
+using DahlexApp.Logic.Interfaces;
+using DahlexApp.Logic.HighScores;
+using DahlexApp.Logic.Settings;
+using DahlexApp.Logic.Utils;
 
-namespace Dahlex.Logic.Game
+namespace DahlexApp.Logic.Game
 {
     public class GameEngine : IGameEngine
     {

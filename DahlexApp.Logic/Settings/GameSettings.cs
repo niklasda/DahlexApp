@@ -1,8 +1,6 @@
 ﻿using System.Drawing;
-using System.Runtime.Serialization;
-using Dahlex.Logic.Contracts;
 
-namespace Dahlex.Logic.Settings
+namespace DahlexApp.Logic.Settings
 {
     //[DataContract]
     public class GameSettings
@@ -26,8 +24,8 @@ namespace Dahlex.Logic.Settings
         {
             get
             {
-                int h = (int)(_canvasSize.Height / SquareSize.Height);
-                int w = (int)(_canvasSize.Width / SquareSize.Width); 
+                int h = (_canvasSize.Height / SquareSize.Height);
+                int w = (_canvasSize.Width / SquareSize.Width); 
                 return new Size(w, h);
             }
         }

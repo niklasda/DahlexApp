@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Dahlex.Logic.Contracts
+namespace DahlexApp.Logic.Interfaces
 {
     public interface IGameEngine
     {

@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
-using Dahlex.Logic.Contracts;
 
-namespace Dahlex.Logic.Game
+namespace DahlexApp.Logic.Game
 {
     public interface IBoard
     {

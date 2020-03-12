@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
-using Dahlex.Logic.Contracts;
+using DahlexApp.Logic.Interfaces;
 
-namespace Dahlex.Logic.Settings
+namespace DahlexApp.Logic.Settings
 {
     public class SettingsManager : ISettingsManager
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using Dahlex.Logic.Contracts;
+using DahlexApp.Logic.Interfaces;
 
-namespace Dahlex.Logic.Utils
+namespace DahlexApp.Logic.Utils
 {
     public static class Trig
     {

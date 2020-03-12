@@ -1,6 +1,6 @@
-using Dahlex.Logic.Contracts;
+﻿using DahlexApp.Logic.Interfaces;
 
-namespace Dahlex.Logic.Game
+namespace DahlexApp.Logic.Game
 {
     public class BoardPosition
     {

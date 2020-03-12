@@ -1,7 +1,7 @@
-using System.Runtime.Serialization;
-using Dahlex.Logic.Contracts;
+﻿using System.Runtime.Serialization;
+using DahlexApp.Logic.Interfaces;
 
-namespace Dahlex.Logic.Game
+namespace DahlexApp.Logic.Game
 {
     [DataContract]
     public class GameState : IGameState

@@ -1,4 +1,4 @@
-﻿namespace Dahlex.Logic.Game
+﻿namespace DahlexApp.Logic.Game
 {
     public static class Campaign1
     {

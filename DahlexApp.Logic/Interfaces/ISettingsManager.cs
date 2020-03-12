@@ -1,6 +1,6 @@
-using Dahlex.Logic.Settings;
+﻿using DahlexApp.Logic.Settings;
 
-namespace Dahlex.Logic.Contracts
+namespace DahlexApp.Logic.Interfaces
 {
     public interface ISettingsManager
     {

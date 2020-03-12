@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
-using DahlexApp.Views.Board;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.Plugin.WebBrowser;

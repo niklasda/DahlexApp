@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.Serialization;
-using Dahlex.Logic.Contracts;
-using Dahlex.Logic.Settings;
+using DahlexApp.Logic.Settings;
 
-namespace Dahlex.Logic.HighScores
+namespace DahlexApp.Logic.HighScores
 {
     [DataContract]
     public class HighScore
