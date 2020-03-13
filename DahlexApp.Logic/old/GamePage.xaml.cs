@@ -869,7 +869,7 @@ namespace Dahlex.Views
             }
             else if (_dg.Status == GameStatus.LevelComplete)
             {
-                if (_dg.AreThereNoMoreLevels) // otherwise this is discoverd too late
+                if (_dg.AreThereNoMoreLevels) // otherwise this is discovered too late
                 {
                     btnStartGame_Click(sender, e);
                 }

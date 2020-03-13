@@ -230,16 +230,63 @@ namespace DahlexApp.Views.Board
             if (gameStatus == GameStatus.BeforeStart)
             {
                 CanBomb = false;
-                CanBomb = false;
+                CanTele = false;
             }
             else if (gameStatus == GameStatus.GameStarted)
             {
                 //AddLineToLog("Game started");
                 CanBomb = true;
-                CanBomb = true;
+                CanTele = true;
 
                 InfoText = state.Message;
             }
+            else if (gameStatus == GameStatus.LevelComplete)
+            {
+                AddLineToLog("Level won");
+                CanBomb = false;
+                CanTele = false;
+
+                InfoText = state.Message;
+            }
+            else if (gameStatus == GameStatus.LevelOngoing)
+            {
+                if (state.BombCount > 0)
+                {
+                    CanBomb = true;
+                }
+                if (state.TeleportCount > 0)
+                {
+                    CanTele = true;
+                }
+
+                InfoText = state.Message;
+            }
+            else if (gameStatus == GameStatus.GameLost)
+            {
+                AddLineToLog("You lost");
+                CanBomb = false;
+                CanTele = false;
+            }
+            else if (gameStatus == GameStatus.GameWon)
+            {
+                // never happens
+                //               AddLineToLog("You won");
+                //             btnBomb.IsEnabled = false;
+                //           btnTeleport.IsEnabled = false;
+                //         _dg.AddHighScore();
+            }
+
+            if (state.BombCount < 1)
+            {
+                CanBomb = false;
+            }
+
+            if (state.TeleportCount < 1)
+            {
+                CanTele = false;
+            }
+
+            //     BoardMessage(gameStatus);
         }
 
         
@@ -312,58 +359,58 @@ namespace DahlexApp.Views.Board
         private string _title;
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
 
         private string _infoText;
         public string InfoText
         {
-            get { return _infoText; }
-            set { SetProperty(ref _infoText, value); }
+            get => _infoText;
+            set => SetProperty(ref _infoText, value);
         }
 
         private string _infoText1;
         public string InfoText1
         {
-            get { return _infoText1; }
-            set { SetProperty(ref _infoText1, value); }
+            get => _infoText1;
+            set => SetProperty(ref _infoText1, value);
         }
 
         private string _infoText2;
         public string InfoText2
         {
-            get { return _infoText2; }
-            set { SetProperty(ref _infoText2, value); }
+            get => _infoText2;
+            set => SetProperty(ref _infoText2, value);
         }
 
         private string _bombText;
         public string BombText
         {
-            get { return _bombText; }
-            set { SetProperty(ref _bombText, value); }
+            get => _bombText;
+            set => SetProperty(ref _bombText, value);
         }
 
         private string _teleText;
         public string TeleText
         {
-            get { return _teleText; }
-            set { SetProperty(ref _teleText, value); }
+            get => _teleText;
+            set => SetProperty(ref _teleText, value);
         }
 
         private int _shortestDimension;
         public int ShortestDimension
         {
-            get { return _shortestDimension; }
-            set { SetProperty(ref _shortestDimension, value); }
+            get => _shortestDimension;
+            set => SetProperty(ref _shortestDimension, value);
         }
 
 
         private bool _isBusy;
         public bool IsBusy
         {
-            get { return _isBusy; }
-            set { SetProperty(ref _isBusy, value); }
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
         }
 
         public Image TheProfImage { get; set; }
@@ -383,10 +430,10 @@ namespace DahlexApp.Views.Board
 
         public void ShowStatus(int level, int bombCount, int teleportCount, int robotCount, int moveCount, int maxLevel)
         {
-            InfoText1 = string.Format("Level: {0}/{1} ", level, maxLevel);
-            InfoText2 = string.Format("Dahlex: {0}  Moves: {1}", robotCount, moveCount);
-            BombText = string.Format("Bomb ({0})", bombCount);
-            TeleText = string.Format("Tele ({0})", teleportCount);
+            InfoText1 = $"Level: {level}/{maxLevel} ";
+            InfoText2 = $"Dahlex: {robotCount}  Moves: {moveCount}";
+            BombText = $"Bomb ({bombCount})";
+            TeleText = $"Tele ({teleportCount})";
         }
 
         public void Clear(bool all)
@@ -463,7 +510,11 @@ namespace DahlexApp.Views.Board
                 TheProfImage.TranslateTo(nLeft, nTop);
 
             }
+            else if (bp.Type == PieceType.Robot)
+            {
+                TheRobotImage.TranslateTo(nLeft, nTop);
 
+            }
 
         }
 
