@@ -32,7 +32,7 @@ namespace DahlexApp.Views.Board
             _ge = new GameEngine(_settings, this, hsm);
 
             Title = "Play";
-
+            // w411 h660
             ShortestDimension = Math.Min((int)Application.Current.MainPage.Width, (int)Application.Current.MainPage.Height);
 
             // 42x42
@@ -55,12 +55,12 @@ namespace DahlexApp.Views.Board
 
             ClickedTheHeapCommand = new MvxCommand(() =>
             {
-                TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40);
+                //TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40);
             });
 
             ClickedTheRobotCommand = new MvxCommand(() =>
             {
-                TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 40, TheRobotImage.TranslationY + 40);
+                TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 37, TheRobotImage.TranslationY + 37);
             });
 
             StartGameCommand = new MvxCommand(() =>
@@ -143,7 +143,11 @@ namespace DahlexApp.Views.Board
 
         private GameSettings GetSettings()
         {
-            ISettingsManager sm = new SettingsManager(new Size(420, 420));
+            //w411 h660    iw37 37*11=407   37*13=481
+            ShortestDimension = Math.Min((int)Application.Current.MainPage.Width, (int)Application.Current.MainPage.Height);
+
+
+            ISettingsManager sm = new SettingsManager(new Size(37*11, 37*13)); // w11 h13
             var s = sm.LoadLocalSettings();
             return s;
         }
@@ -297,9 +301,9 @@ namespace DahlexApp.Views.Board
         {
             base.ViewAppeared();
 
-            for (int x = 0; x < 10; x++)
+            for (int x = 0; x < 11; x++)
             {
-                for (int y = 0; y < 10; y++)
+                for (int y = 0; y < 13; y++)
                 {
                     BoxView bv = new BoxView();
 
@@ -313,7 +317,7 @@ namespace DahlexApp.Views.Board
 
                     }
                     bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = ClickedTheProfCommand });
-                    AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(40 * x, 40 * y, 40, 40));
+                    AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(37 * x, 37 * y, 37, 37));
                     AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
                     TheAbsBoard.Children.Add(bv);
                 }
@@ -323,13 +327,13 @@ namespace DahlexApp.Views.Board
             TheHeapImage.IsVisible = false;
             TheRobotImage.IsVisible = false;
 
-            AbsoluteLayout.SetLayoutBounds(TheProfImage, new Rectangle(40 * 2, 40 * 1, 40, 40));
+            AbsoluteLayout.SetLayoutBounds(TheProfImage, new Rectangle(37 * 2, 37 * 1, 40, 40));
             AbsoluteLayout.SetLayoutFlags(TheProfImage, AbsoluteLayoutFlags.None);
 
-            AbsoluteLayout.SetLayoutBounds(TheHeapImage, new Rectangle(40 * 3, 40 * 2, 40, 40));
+            AbsoluteLayout.SetLayoutBounds(TheHeapImage, new Rectangle(37 * 3, 37 * 2, 40, 40));
             AbsoluteLayout.SetLayoutFlags(TheHeapImage, AbsoluteLayoutFlags.None);
 
-            AbsoluteLayout.SetLayoutBounds(TheRobotImage, new Rectangle(40 * 4, 40 * 3, 40, 40));
+            AbsoluteLayout.SetLayoutBounds(TheRobotImage, new Rectangle(37 * 4, 37 * 3, 40, 40));
             AbsoluteLayout.SetLayoutFlags(TheRobotImage, AbsoluteLayoutFlags.None);
 
             //TheXImage = new Image();

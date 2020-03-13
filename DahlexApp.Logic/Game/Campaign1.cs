@@ -2,7 +2,7 @@
 {
     public static class Campaign1
     {
-        // 11 x 13
+        // w=11 x h=13
         public static readonly string[] Boards = {
             "Zero-based",
 

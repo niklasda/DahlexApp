@@ -28,12 +28,12 @@
             <TapGestureRecognizer Command="{Binding ClickedTheProfCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>
         </Image>
-        <Image Source="{Binding HeapImageSource}" x:Name="TheHeap" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.3,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="None" >
+        <Image Source="{Binding HeapImageSource}" x:Name="TheHeap" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.3,0.1,0.1,0.1" InputTransparent="True" >
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheHeapCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>
         </Image>
-        <Image Source="{Binding Robot1ImageSource}" x:Name="TheRobot" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.4,0.1,0.1,0.1" AbsoluteLayout.LayoutFlags="All" >
+        <Image Source="{Binding Robot1ImageSource}" x:Name="TheRobot" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.4,0.1,0.1,0.1"  >
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheRobotCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>
@@ -47,7 +47,7 @@
     <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
 
 
-      <Label Text="{Binding InfoText}" Style="{StaticResource SubtitleStyle}"></Label>
+      <Label Text="{Binding InfoText}" Style="{StaticResource SubtitleStyle}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" ></Label>
 
       <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
         <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource ButtonStyle}" />

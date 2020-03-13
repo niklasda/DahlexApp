@@ -153,7 +153,7 @@ namespace DahlexApp.Logic.Game
             int robots = 0;
             for (int x = 0; x < _boardSize.Width; x++)
             {
-                for (int y = 0; y < 10; y=y+1)
+                for (int y = 0; y < _boardSize.Height; y=y+1)
                 {
                     if (boardString[i] == 'P')
                     {
@@ -168,7 +168,7 @@ namespace DahlexApp.Logic.Game
                         b[x, y] = new BoardPosition(PieceType.Heap, "imgHeap" + heaps++);
                     }
                     else
-                    {
+                    {   
                         //b[x, y] = null;
                     }
                     i++;
