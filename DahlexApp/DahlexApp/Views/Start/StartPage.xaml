@@ -14,20 +14,17 @@
 
   <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}" >
     <Grid.RowDefinitions>
-      <RowDefinition Height="2*" />
       <RowDefinition Height="*" />
+      <RowDefinition Height="100" />
     </Grid.RowDefinitions>
 
     <Image Source="{Binding LogoImageSource}" Aspect="AspectFit" ></Image>
 
-    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
-
-
-      <Button Text="Play" Command="{Binding GotoBoardCommand}" Style="{StaticResource ButtonStyle}" />
+    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10" BackgroundColor="DimGray">
 
 
       <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
-        <Button Text="About" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="Play" Command="{Binding GotoBoardCommand}" Style="{StaticResource ButtonStyle}" />
 
         <Button Text="HowTo"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
 
