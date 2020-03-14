@@ -44,12 +44,12 @@
       </AbsoluteLayout>
     </AbsoluteLayout>
 
-    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10"  BackgroundColor="DimGray">
+    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="8"  BackgroundColor="DimGray">
 
 
       <Label Text="{Binding InfoText}" Style="{StaticResource SubtitleStyle}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" ></Label>
 
-      <StackLayout Orientation="Horizontal" Padding="0,5,0,5" Spacing="10">
+      <StackLayout Orientation="Horizontal" Padding="0" Spacing="8">
         <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource ButtonStyle}" />
 
         <Button Text="Next"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
@@ -59,7 +59,7 @@
         <Button Text="{Binding TeleText}" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
       </StackLayout>
 
-      <StackLayout Orientation="Horizontal" Padding="0,5,0,5" Spacing="10">
+      <StackLayout Orientation="Horizontal" Padding="0,5,0,5" Spacing="8">
         <Label Text="{Binding InfoText1}" Style="{StaticResource SubtitleStyle}"></Label>
         <Label Text="{Binding InfoText2}" Style="{StaticResource SubtitleStyle}"></Label>
 
