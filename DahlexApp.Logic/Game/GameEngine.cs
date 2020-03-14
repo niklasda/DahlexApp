@@ -54,7 +54,7 @@ namespace DahlexApp.Logic.Game
             _startTime = DateTime.Now;
             Status = GameStatus.LevelOngoing;
 
-            const int startAt = 1; //dont change...
+            const int startAt = 1; // don't change...
 
             CurrentLevel = startAt;
             _moveCount = startAt;
@@ -565,7 +565,7 @@ namespace DahlexApp.Logic.Game
                 _boardView?.Clear(true);
             }
 
-            _boardView?.DrawLines();
+            //_boardView?.DrawLines();
             _boardView?.DrawBoard(_board, _squareSize.Width, _squareSize.Height);
 
             _boardView?.ShowStatus(CurrentLevel, _bombCount, _teleportCount, _robotCount, _moveCount, _maxLevel);

@@ -9,6 +9,7 @@ using DahlexApp.Logic.Game;
 using DahlexApp.Logic.HighScores;
 using DahlexApp.Logic.Logger;
 using DahlexApp.Logic.Settings;
+using DahlexApp.Logic.Utils;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using Plugin.SimpleAudioPlayer;
@@ -27,8 +28,8 @@ namespace DahlexApp.Views.Board
         public BoardViewModel(IGameService gs, IHighScoreService hsm)
         {
             _gs = gs;
-           // var sm = new SettingsManager(new Size(420, 420));
-           _settings = GetSettings();
+            // var sm = new SettingsManager(new Size(420, 420));
+            _settings = GetSettings();
             _ge = new GameEngine(_settings, this, hsm);
 
             Title = "Play";
@@ -76,7 +77,7 @@ namespace DahlexApp.Views.Board
                 TheRobotImage.IsVisible = !TheRobotImage.IsVisible;
 
                 _ge.StartGame(GameMode.Random);
-                UpdateUI(GameStatus.GameStarted, _ge.GetState(_elapsed) );
+                UpdateUI(GameStatus.GameStarted, _ge.GetState(_elapsed));
             });
 
             ComingSoonCommand = new MvxCommand(() =>
@@ -147,7 +148,7 @@ namespace DahlexApp.Views.Board
             ShortestDimension = Math.Min((int)Application.Current.MainPage.Width, (int)Application.Current.MainPage.Height);
 
 
-            ISettingsManager sm = new SettingsManager(new Size(37*11, 37*13)); // w11 h13
+            ISettingsManager sm = new SettingsManager(new Size(37 * 11, 37 * 13)); // w11 h13
             var s = sm.LoadLocalSettings();
             return s;
         }
@@ -173,7 +174,7 @@ namespace DahlexApp.Views.Board
             {
                 SetProperty(ref _canBomb, value);
                 BombCommand.RaiseCanExecuteChanged();
-                
+
             }
         }
 
@@ -190,7 +191,7 @@ namespace DahlexApp.Views.Board
             }
         }
 
-       
+
 
         private readonly GameSettings _settings;
         private readonly IGameService _gs;
@@ -212,8 +213,6 @@ namespace DahlexApp.Views.Board
         {
             // first callback. Initialize parameter-agnostic stuff here
 
-            _ge.StartGame(GameMode.Campaign);
-            UpdateUI(_ge.Status, _ge.GetState(_elapsed));
         }
 
         public override async Task Initialize()
@@ -221,6 +220,7 @@ namespace DahlexApp.Views.Board
             await base.Initialize();
 
             //TODO: Add starting logic here
+           
         }
 
         public IMvxCommand ClickedTheProfCommand { get; }
@@ -293,13 +293,15 @@ namespace DahlexApp.Views.Board
             //     BoardMessage(gameStatus);
         }
 
-        
+
 
         private Timer _gameTimer;
 
         public override void ViewAppeared()
         {
             base.ViewAppeared();
+            _ge.StartGame(GameMode.Campaign);
+            UpdateUI(_ge.Status, _ge.GetState(_elapsed));
 
             for (int x = 0; x < 11; x++)
             {
@@ -350,7 +352,7 @@ namespace DahlexApp.Views.Board
         {
             base.ViewDestroy(viewFinishing);
 
-           // _gameTimer.Stop();
+            // _gameTimer.Stop();
         }
 
         public override void ViewDisappearing()
@@ -422,6 +424,7 @@ namespace DahlexApp.Views.Board
         public Image TheRobotImage { get; set; }
 
         public AbsoluteLayout TheAbsBoard { get; set; }
+        public AbsoluteLayout TheAbsOverBoard { get; set; }
         public void AddLineToLog(string log)
         {
             GameLogger.AddLineToLog(log);
@@ -430,6 +433,79 @@ namespace DahlexApp.Views.Board
 
         public void DrawBoard(IBoard board, int xSize, int ySize)
         {
+
+            int xOffset = _settings.ImageOffset.X;
+            int yOffset = _settings.ImageOffset.Y;
+            int gridPenWidth = _settings.LineWidth.X;
+
+            for (int x = 0; x < board.GetPositionWidth(); x++)
+            {
+                for (int y = 0; y < board.GetPositionHeight(); y++)
+                {
+                    BoardPosition cp = board.GetPosition(x, y);
+                    if (cp != null)
+                    {
+                        int oLeft = x * (xSize + gridPenWidth) + xOffset;
+                        int oTop = y * (ySize + gridPenWidth) + yOffset;
+
+                        var pt = new Point(oLeft, oTop);
+
+                        string imgName;
+                        if (cp.Type == PieceType.Heap)
+                        {
+                            Image boardImage = new Image() { WidthRequest = 37, HeightRequest = 37 };
+                            imgName = cp.ImageName;
+//            Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+                            boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+
+                            // boardImage = pic;
+                            // Image img = AddImage(imgName, boardImage, pt, cp);
+                            if (cp.IsNew)
+                            {
+                                //   AddToFade(img, 0, 1);
+                                cp.IsNew = false;
+                            }
+                        }
+                        else if (cp.Type == PieceType.Professor)
+                        {
+                            Image boardImage = new Image() { WidthRequest = 37, HeightRequest = 37 };
+                            imgName = cp.ImageName;
+                           // boardImage.Source = LoadImage("planet_01.png");
+                            boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
+                            TheAbsOverBoard.Children.Add(boardImage);
+                            //boardImage = pic;
+                            //AddImage(imgName, boardImage, pt, cp);
+                        }
+                        else if (cp.Type == PieceType.Robot)
+                        {
+                            Image boardImage = new Image(){WidthRequest = 37, HeightRequest = 37};
+                            imgName = cp.ImageName;
+                            string name = Randomizer.GetRandomFromSet("DalexApp.Assets.Images.robot_05.png", "DalexApp.Assets.Images.robot_06.png");
+                            boardImage.Source = ImageSource.FromResource(name);
+   //                         boardImage.Source = LoadImage(name);
+                            TheAbsOverBoard.Children.Add(boardImage);
+
+                            //     pic.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                            //   boardImage = pic;
+                            // AddImage(imgName, boardImage, pt, cp);
+                        }
+                        else if (cp.Type == PieceType.None)
+                        {
+                            imgName = cp.ImageName;
+                            RemoveImage(imgName);
+                        }
+
+                        //if (boardImage != null)
+                        //{
+                        //}
+                        //else if (cp.Type != PieceType.None)
+                        //{
+                        //    throw new Exception("Invalid Type of BoardPosition");
+                        //}
+                    }
+                }
+            }
+
         }
 
         public void ShowStatus(int level, int bombCount, int teleportCount, int robotCount, int moveCount, int maxLevel)
@@ -509,7 +585,7 @@ namespace DahlexApp.Views.Board
 
             if (bp.Type == PieceType.Professor)
             {
-             
+
 
                 TheProfImage.TranslateTo(nLeft, nTop);
 
