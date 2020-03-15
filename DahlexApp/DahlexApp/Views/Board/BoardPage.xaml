@@ -23,7 +23,7 @@
 
       <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" InputTransparent="True" CascadeInputTransparent="False" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheOverBoard">
 
-        <Image Source="{Binding PlanetImageSource}" x:Name="TheProfx" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1" IsVisible="False" >
+        <!--<Image Source="{Binding PlanetImageSource}" x:Name="TheProfx" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1" IsVisible="False" >
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheProfCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>
@@ -37,7 +37,7 @@
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheRobotCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>
-        </Image>
+        </Image>-->
 
 
 

@@ -16,9 +16,9 @@ using MvvmCross.ViewModels;
 using Plugin.SimpleAudioPlayer;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Color = Xamarin.Forms.Color;
+//using Color = Xamarin.Forms.Color;
 using Point = System.Drawing.Point;
-using Rectangle = Xamarin.Forms.Rectangle;
+//using Rectangle = Xamarin.Forms.Rectangle;
 using Size = System.Drawing.Size;
 
 namespace DahlexApp.Views.Board
@@ -39,10 +39,10 @@ namespace DahlexApp.Views.Board
 
             // 42x42
             PlanetImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
-            HeapImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
-            Robot1ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_04.png");
-            Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_05.png");
-            Robot3ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_06.png");
+            //HeapImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+          //  Robot1ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_04.png");
+          //  Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_05.png");
+          //  Robot3ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_06.png");
 
             //string[] resourceNames = this.GetType().Assembly.GetManifestResourceNames();
             //foreach (string resourceName in resourceNames)
@@ -50,9 +50,9 @@ namespace DahlexApp.Views.Board
             //     Debug.WriteLine(resourceName);
             // }
 
-            ClickedTheProfCommand = new MvxCommand(() =>
+            ClickedTheProfCommand = new MvxCommand<Point>((p) =>
             {
-                bool moved = PerformRound(MoveDirection.East);
+                bool moved = DeterminePerformRound(p);
             });
 
             ClickedTheHeapCommand = new MvxCommand(() =>
@@ -70,7 +70,7 @@ namespace DahlexApp.Views.Board
                 _gameTimer?.Stop();
 
                 _gameTimer = new Timer(1000);
-                _gameTimer.Elapsed += _gameTimer_Elapsed;
+                _gameTimer.Elapsed += gameTimer_Elapsed;
                 _gameTimer.Start();
 
                 //TheProfImage.IsVisible = !TheProfImage.IsVisible;
@@ -86,10 +86,10 @@ namespace DahlexApp.Views.Board
                 Application.Current.MainPage.DisplayAlert("Dahlex", "Coming SoOon", "Ok");
             });
 
-            GoDirCommand = new MvxCommand<string>((d) =>
-            {
-                Application.Current.MainPage.DisplayAlert("Dahlex", $"{d}", "Ok");
-            });
+            //GoDirCommand = new MvxCommand<string>((d) =>
+            //{
+            //    Application.Current.MainPage.DisplayAlert("Dahlex", $"{d}", "Ok");
+            //});
 
             NextLevelCommand = new MvxCommand(() =>
             {
@@ -173,6 +173,10 @@ namespace DahlexApp.Views.Board
             Debug.WriteLine(pos.X);
         }
 
+        private bool DeterminePerformRound(Point p)
+        {
+            return PerformRound(MoveDirection.East);
+        }
 
         private bool PerformRound(MoveDirection dir)
         {
@@ -212,7 +216,7 @@ namespace DahlexApp.Views.Board
             return s;
         }
 
-        private void _gameTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void gameTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (_ge.Status == GameStatus.LevelOngoing)
             {
@@ -257,17 +261,17 @@ namespace DahlexApp.Views.Board
         private readonly IGameEngine _ge;
 
         public ImageSource PlanetImageSource { get; set; }
-        public ImageSource HeapImageSource { get; set; }
-        public ImageSource Robot1ImageSource { get; set; }
-        public ImageSource Robot2ImageSource { get; set; }
-        public ImageSource Robot3ImageSource { get; set; }
+       // public ImageSource HeapImageSource { get; set; }
+       // public ImageSource Robot1ImageSource { get; set; }
+        //public ImageSource Robot2ImageSource { get; set; }
+        //public ImageSource Robot3ImageSource { get; set; }
 
         public IMvxCommand BombCommand { get; }
         public IMvxCommand TeleCommand { get; }
         public IMvxCommand ComingSoonCommand { get; }
         public IMvxCommand NextLevelCommand { get; }
         public IMvxCommand StartGameCommand { get; }
-        public IMvxCommand<string> GoDirCommand { get; }
+       // public IMvxCommand<string> GoDirCommand { get; }
 
         public override void Prepare(string what)
         {
@@ -283,7 +287,7 @@ namespace DahlexApp.Views.Board
 
         }
 
-        public IMvxCommand ClickedTheProfCommand { get; }
+        public IMvxCommand<Point> ClickedTheProfCommand { get; }
         public IMvxCommand ClickedTheHeapCommand { get; }
         public IMvxCommand ClickedTheRobotCommand { get; }
 
@@ -378,7 +382,7 @@ namespace DahlexApp.Views.Board
                         bv.Color = Color.DarkOrange;
 
                     }
-                    bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = ClickedTheProfCommand });
+                    bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = ClickedTheProfCommand, CommandParameter = new Point(x,y) });
                     AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(37 * x, 37 * y, 37, 37));
                     AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
                     TheAbsBoard.Children.Add(bv);
