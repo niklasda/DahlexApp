@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -91,7 +90,22 @@ namespace DahlexApp.Views.Board
                 Application.Current.MainPage.DisplayAlert("Dahlex", $"{d}", "Ok");
             });
 
+            NextLevelCommand = new MvxCommand(() =>
+            {
+                if (_ge != null)
+                {
+                    if (_ge.Status == GameStatus.LevelComplete)
+                    {
+                        //storyPanel.Resources.Clear();
 
+                        _ge.StartNextLevel();
+
+                        _gameTimer?.Start();
+                    }
+
+                    UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+                }
+            });
 
             BombCommand = new MvxCommand(() =>
             {
@@ -159,7 +173,7 @@ namespace DahlexApp.Views.Board
             if (_ge.Status == GameStatus.LevelOngoing)
             {
                 _elapsed = _elapsed.Add(new TimeSpan(0, 0, 1));
-                InfoText = $"{_elapsed.ToString()}";
+                TimerText = $"{_elapsed.ToString()}";
             }
             else
             {
@@ -207,6 +221,7 @@ namespace DahlexApp.Views.Board
         public IMvxCommand BombCommand { get; }
         public IMvxCommand TeleCommand { get; }
         public IMvxCommand ComingSoonCommand { get; }
+        public IMvxCommand NextLevelCommand { get; }
         public IMvxCommand StartGameCommand { get; }
         public IMvxCommand<string> GoDirCommand { get; }
 
@@ -375,6 +390,13 @@ namespace DahlexApp.Views.Board
         {
             get => _infoText;
             set => SetProperty(ref _infoText, value);
+        }
+
+        private string _timerText;
+        public string TimerText
+        {
+            get => _timerText;
+            set => SetProperty(ref _timerText, value);
         }
 
         private string _infoText1;
