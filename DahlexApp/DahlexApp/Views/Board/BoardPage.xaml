@@ -23,17 +23,17 @@
 
       <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" InputTransparent="True" CascadeInputTransparent="False" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheOverBoard">
 
-        <Image Source="{Binding PlanetImageSource}" x:Name="TheProf" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1"  >
+        <Image Source="{Binding PlanetImageSource}" x:Name="TheProfx" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1" IsVisible="False" >
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheProfCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>
         </Image>
-        <Image Source="{Binding HeapImageSource}" x:Name="TheHeap" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.3,0.1,0.1,0.1" InputTransparent="True" >
+        <Image Source="{Binding HeapImageSource}" x:Name="TheHeapx" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.3,0.1,0.1,0.1" InputTransparent="True"  IsVisible="False">
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheHeapCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>
         </Image>
-        <Image Source="{Binding Robot1ImageSource}" x:Name="TheRobot" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.4,0.1,0.1,0.1"  >
+        <Image Source="{Binding Robot1ImageSource}" x:Name="TheRobotx" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.4,0.1,0.1,0.1"   IsVisible="False">
           <Image.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding ClickedTheRobotCommand}"></TapGestureRecognizer>
           </Image.GestureRecognizers>

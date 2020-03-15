@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
@@ -43,15 +44,15 @@ namespace DahlexApp.Views.Board
             Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_05.png");
             Robot3ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_06.png");
 
-            string[] resourceNames = this.GetType().Assembly.GetManifestResourceNames();
-            foreach (string resourceName in resourceNames)
-            {
-                Debug.WriteLine(resourceName);
-            }
+            //string[] resourceNames = this.GetType().Assembly.GetManifestResourceNames();
+            //foreach (string resourceName in resourceNames)
+            // {
+            //     Debug.WriteLine(resourceName);
+            // }
 
             ClickedTheProfCommand = new MvxCommand(() =>
             {
-                bool moved = PerformRound(MoveDirection.None);
+                bool moved = PerformRound(MoveDirection.East);
             });
 
             ClickedTheHeapCommand = new MvxCommand(() =>
@@ -61,7 +62,7 @@ namespace DahlexApp.Views.Board
 
             ClickedTheRobotCommand = new MvxCommand(() =>
             {
-                TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 37, TheRobotImage.TranslationY + 37);
+                //TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 37, TheRobotImage.TranslationY + 37);
             });
 
             StartGameCommand = new MvxCommand(() =>
@@ -72,9 +73,9 @@ namespace DahlexApp.Views.Board
                 _gameTimer.Elapsed += _gameTimer_Elapsed;
                 _gameTimer.Start();
 
-                TheProfImage.IsVisible = !TheProfImage.IsVisible;
-                TheHeapImage.IsVisible = !TheHeapImage.IsVisible;
-                TheRobotImage.IsVisible = !TheRobotImage.IsVisible;
+                //TheProfImage.IsVisible = !TheProfImage.IsVisible;
+                //TheHeapImage.IsVisible = !TheHeapImage.IsVisible;
+                //TheRobotImage.IsVisible = !TheRobotImage.IsVisible;
 
                 _ge.StartGame(GameMode.Random);
                 UpdateUI(GameStatus.GameStarted, _ge.GetState(_elapsed));
@@ -220,7 +221,7 @@ namespace DahlexApp.Views.Board
             await base.Initialize();
 
             //TODO: Add starting logic here
-           
+
         }
 
         public IMvxCommand ClickedTheProfCommand { get; }
@@ -325,18 +326,18 @@ namespace DahlexApp.Views.Board
                 }
             }
 
-            TheProfImage.IsVisible = false;
-            TheHeapImage.IsVisible = false;
-            TheRobotImage.IsVisible = false;
+            //TheProfImage.IsVisible = false;
+            //TheHeapImage.IsVisible = false;
+            //TheRobotImage.IsVisible = false;
 
-            AbsoluteLayout.SetLayoutBounds(TheProfImage, new Rectangle(37 * 2, 37 * 1, 40, 40));
-            AbsoluteLayout.SetLayoutFlags(TheProfImage, AbsoluteLayoutFlags.None);
+            //AbsoluteLayout.SetLayoutBounds(TheProfImage, new Rectangle(37 * 2, 37 * 1, 40, 40));
+            //AbsoluteLayout.SetLayoutFlags(TheProfImage, AbsoluteLayoutFlags.None);
 
-            AbsoluteLayout.SetLayoutBounds(TheHeapImage, new Rectangle(37 * 3, 37 * 2, 40, 40));
-            AbsoluteLayout.SetLayoutFlags(TheHeapImage, AbsoluteLayoutFlags.None);
+            //AbsoluteLayout.SetLayoutBounds(TheHeapImage, new Rectangle(37 * 3, 37 * 2, 40, 40));
+            //AbsoluteLayout.SetLayoutFlags(TheHeapImage, AbsoluteLayoutFlags.None);
 
-            AbsoluteLayout.SetLayoutBounds(TheRobotImage, new Rectangle(37 * 4, 37 * 3, 40, 40));
-            AbsoluteLayout.SetLayoutFlags(TheRobotImage, AbsoluteLayoutFlags.None);
+            //AbsoluteLayout.SetLayoutBounds(TheRobotImage, new Rectangle(37 * 4, 37 * 3, 40, 40));
+            //AbsoluteLayout.SetLayoutFlags(TheRobotImage, AbsoluteLayoutFlags.None);
 
             //TheXImage = new Image();
             //TheXImage.Source = PlanetImageSource;
@@ -419,9 +420,9 @@ namespace DahlexApp.Views.Board
             set => SetProperty(ref _isBusy, value);
         }
 
-        public Image TheProfImage { get; set; }
-        public Image TheHeapImage { get; set; }
-        public Image TheRobotImage { get; set; }
+        //public Image TheProfImage { get; set; }
+        //public Image TheHeapImage { get; set; }
+        //public Image TheRobotImage { get; set; }
 
         public AbsoluteLayout TheAbsBoard { get; set; }
         public AbsoluteLayout TheAbsOverBoard { get; set; }
@@ -453,10 +454,18 @@ namespace DahlexApp.Views.Board
                         string imgName;
                         if (cp.Type == PieceType.Heap)
                         {
-                            Image boardImage = new Image() { WidthRequest = 37, HeightRequest = 37 };
+                            Image boardImage = new Image() { InputTransparent = true };
+
+                            AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
+                            AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+
                             imgName = cp.ImageName;
-//            Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+                            // Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+                            boardImage.AutomationId = imgName;
                             boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+                            TheAbsOverBoard.Children.Add(boardImage);
+
+                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty);
 
                             // boardImage = pic;
                             // Image img = AddImage(imgName, boardImage, pt, cp);
@@ -468,32 +477,48 @@ namespace DahlexApp.Views.Board
                         }
                         else if (cp.Type == PieceType.Professor)
                         {
-                            Image boardImage = new Image() { WidthRequest = 37, HeightRequest = 37 };
+                            Image boardImage = new Image() { InputTransparent = true };
+
+                            AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
+                            AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+
                             imgName = cp.ImageName;
-                           // boardImage.Source = LoadImage("planet_01.png");
+                            // boardImage.Source = LoadImage("planet_01.png");
+
+                            //boardImage.SetValue(BindablePropertyKey.FrameworkElement.NameProperty, imgName);
+                            boardImage.AutomationId = imgName;
                             boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
                             TheAbsOverBoard.Children.Add(boardImage);
                             //boardImage = pic;
                             //AddImage(imgName, boardImage, pt, cp);
+                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty);
+
                         }
                         else if (cp.Type == PieceType.Robot)
                         {
-                            Image boardImage = new Image(){WidthRequest = 37, HeightRequest = 37};
+                            Image boardImage = new Image();
+
+                            AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
+                            AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+
                             imgName = cp.ImageName;
-                            string name = Randomizer.GetRandomFromSet("DalexApp.Assets.Images.robot_05.png", "DalexApp.Assets.Images.robot_06.png");
+                            string name = Randomizer.GetRandomFromSet("DahlexApp.Assets.Images.robot_04.png", "DahlexApp.Assets.Images.robot_05.png", "DahlexApp.Assets.Images.robot_06.png");
                             boardImage.Source = ImageSource.FromResource(name);
-   //                         boardImage.Source = LoadImage(name);
+                            boardImage.AutomationId = imgName;
+                            //                         boardImage.Source = LoadImage(name);
                             TheAbsOverBoard.Children.Add(boardImage);
+
+                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty);
 
                             //     pic.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                             //   boardImage = pic;
                             // AddImage(imgName, boardImage, pt, cp);
                         }
-                        else if (cp.Type == PieceType.None)
-                        {
-                            imgName = cp.ImageName;
-                            RemoveImage(imgName);
-                        }
+                        //else if (cp.Type == PieceType.None)
+                        //{
+                        // imgName = cp.ImageName;
+                        // RemoveImage(imgName);
+                        //}
 
                         //if (boardImage != null)
                         //{
@@ -518,6 +543,8 @@ namespace DahlexApp.Views.Board
 
         public void Clear(bool all)
         {
+            TheAbsOverBoard.Children.Clear();
+
         }
 
         public void PlaySound(Sound effect)
@@ -573,26 +600,36 @@ namespace DahlexApp.Views.Board
 
         public void Animate(BoardPosition bp, Point oldPos, Point newPos, Guid roundId)
         {
-            int xOffset = _settings.ImageOffset.X;
-            int yOffset = _settings.ImageOffset.Y;
-            int gridPenWidth = _settings.LineWidth.X;
+            //  int xOffset = _settings.ImageOffset.X;
+            //  int yOffset = _settings.ImageOffset.Y;
+            //  int gridPenWidth = _settings.LineWidth.X;
 
-            int oLeft = oldPos.X * (_settings.SquareSize.Width + gridPenWidth) + xOffset;
-            int oTop = oldPos.Y * (_settings.SquareSize.Height + gridPenWidth) + yOffset;
+            int oLeft = oldPos.X * (_settings.SquareSize.Width);
+            int oTop = oldPos.Y * (_settings.SquareSize.Height);
 
-            int nLeft = newPos.X * (_settings.SquareSize.Width + gridPenWidth) + xOffset;
-            int nTop = newPos.Y * (_settings.SquareSize.Height + gridPenWidth) + yOffset;
+            int nLeft = newPos.X * (_settings.SquareSize.Width);
+            int nTop = newPos.Y * (_settings.SquareSize.Height);
 
             if (bp.Type == PieceType.Professor)
             {
 
-
-                TheProfImage.TranslateTo(nLeft, nTop);
+                var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
+                //               img.TranslateTo(nLeft, nTop);
+                img.TranslateTo(nLeft, nTop);
 
             }
             else if (bp.Type == PieceType.Robot)
             {
-                TheRobotImage.TranslateTo(nLeft, nTop);
+                //TheRobotImage.TranslateTo(nLeft, nTop);
+                var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
+                img.TranslateTo(nLeft, nTop);
+
+            }
+            else if (bp.Type == PieceType.Heap)
+            {
+                //TheRobotImage.TranslateTo(nLeft, nTop);
+                var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
+                img.TranslateTo(nLeft, nTop);
 
             }
 

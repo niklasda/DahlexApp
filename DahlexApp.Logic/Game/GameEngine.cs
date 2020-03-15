@@ -153,7 +153,7 @@ namespace DahlexApp.Logic.Game
             int robots = 0;
             for (int x = 0; x < _boardSize.Width; x++)
             {
-                for (int y = 0; y < _boardSize.Height; y=y+1)
+                for (int y = 0; y < _boardSize.Height; y = y + 1)
                 {
                     if (boardString[i] == 'P')
                     {
@@ -168,7 +168,7 @@ namespace DahlexApp.Logic.Game
                         b[x, y] = new BoardPosition(PieceType.Heap, "imgHeap" + heaps++);
                     }
                     else
-                    {   
+                    {
                         //b[x, y] = null;
                     }
                     i++;
@@ -544,8 +544,8 @@ namespace DahlexApp.Logic.Game
 
         public void AddHighScore(bool maxLevel)
         {
-            //            var sm = new SettingsManager();
-           // var hsm = new HighScoreManager();
+            // var sm = new SettingsManager();
+            // var hsm = new HighScoreManager();
 
             string name = _settings.PlayerName;
 
@@ -563,11 +563,11 @@ namespace DahlexApp.Logic.Game
             if (clear)
             {
                 _boardView?.Clear(true);
+
+
+                //_boardView?.DrawLines();
+                _boardView?.DrawBoard(_board, _squareSize.Width, _squareSize.Height);
             }
-
-            //_boardView?.DrawLines();
-            _boardView?.DrawBoard(_board, _squareSize.Width, _squareSize.Height);
-
             _boardView?.ShowStatus(CurrentLevel, _bombCount, _teleportCount, _robotCount, _moveCount, _maxLevel);
         }
 
