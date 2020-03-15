@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -111,24 +112,67 @@ namespace DahlexApp.Views.Board
             {
                 try
                 {
-                    PlaySound(Sound.Bomb);
+                    BlowBomb();
 
-                    Vibration.Vibrate();
                 }
                 catch (Exception)
                 {
                 }
-            }, () => CanBomb);
+            });
 
             TeleCommand = new MvxCommand(() =>
             {
                 Application.Current.MainPage.DisplayAlert("Dahlex", "teleporting", "Ok");
 
-            }, () => CanTele);
+            });
 
 
 
         }
+
+        private void BlowBomb()
+        {
+            if (_ge != null)
+            {
+                if (_ge.Status == GameStatus.LevelOngoing)
+                {
+                    _ge.MoveHeapsToTemp();
+                    if (_ge.BlowBomb())
+                    {
+                        try
+                        {
+                            DrawExplosionRadius(_ge.GetProfessorCoordinates());
+                        }
+                        catch// (Exception ex)
+                        {
+                            // safety try, marketplace version crashes on samsung 
+                            //MessageBox.Show(ex.Message);
+                        }
+
+                        Vibration.Vibrate();
+                        
+                        PlaySound(Sound.Bomb);
+                        if (_ge.MoveProfessorToTemp(MoveDirection.None))
+                        {
+                            _ge.MoveRobotsToTemp();
+                            _ge.CommitTemp();
+                        }
+                    }
+                    else
+                    {
+                        AddLineToLog("Cannot bomb");
+                    }
+                }
+
+                UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+            }
+        }
+
+        private void DrawExplosionRadius(Point pos)
+        {
+            Debug.WriteLine(pos.X);
+        }
+
 
         private bool PerformRound(MoveDirection dir)
         {
@@ -451,6 +495,7 @@ namespace DahlexApp.Views.Board
         public void AddLineToLog(string log)
         {
             GameLogger.AddLineToLog(log);
+            InfoText = log;
 
         }
 

@@ -59,7 +59,7 @@
 
         <Button Text="{Binding BombText}" Command="{Binding BombCommand}" Style="{StaticResource ButtonStyle}" />
 
-        <Button Text="{Binding TeleText}" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="{Binding TeleText}" Command="{Binding TeleCommand}" Style="{StaticResource ButtonStyle}" />
       </StackLayout>
 
       <StackLayout Orientation="Horizontal" Padding="0,5,0,5" Spacing="8">
