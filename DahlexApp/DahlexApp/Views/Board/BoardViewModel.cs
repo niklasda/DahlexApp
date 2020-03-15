@@ -26,9 +26,9 @@ namespace DahlexApp.Views.Board
     public class BoardViewModel : MvxViewModel<string>, IDahlexView
     {
 
-        public BoardViewModel(IGameService gs, IHighScoreService hsm)
+        public BoardViewModel(IHighScoreService hsm)
         {
-            _gs = gs;
+
             // var sm = new SettingsManager(new Size(420, 420));
             _settings = GetSettings();
             _ge = new GameEngine(_settings, this, hsm);
@@ -38,11 +38,11 @@ namespace DahlexApp.Views.Board
             ShortestDimension = Math.Min((int)Application.Current.MainPage.Width, (int)Application.Current.MainPage.Height);
 
             // 42x42
-            PlanetImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
+            // PlanetImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
             //HeapImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
-          //  Robot1ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_04.png");
-          //  Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_05.png");
-          //  Robot3ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_06.png");
+            //  Robot1ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_04.png");
+            //  Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_05.png");
+            //  Robot3ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.robot_06.png");
 
             //string[] resourceNames = this.GetType().Assembly.GetManifestResourceNames();
             //foreach (string resourceName in resourceNames)
@@ -150,7 +150,7 @@ namespace DahlexApp.Views.Board
                         }
 
                         Vibration.Vibrate();
-                        
+
                         PlaySound(Sound.Bomb);
                         if (_ge.MoveProfessorToTemp(MoveDirection.None))
                         {
@@ -175,7 +175,44 @@ namespace DahlexApp.Views.Board
 
         private bool DeterminePerformRound(Point p)
         {
-            return PerformRound(MoveDirection.East);
+            var pp = _ge.GetProfessorCoordinates();
+
+            if (p.X > pp.X && p.Y > pp.Y)
+            {
+                return PerformRound(MoveDirection.SouthEast);
+            }
+            else if (p.X > pp.X && p.Y < pp.Y)
+            {
+                return PerformRound(MoveDirection.NorthEast);
+            }
+            else if (p.X < pp.X && p.Y > pp.Y)
+            {
+                return PerformRound(MoveDirection.SouthWest);
+            }
+            else if (p.X < pp.X && p.Y < pp.Y)
+            {
+                return PerformRound(MoveDirection.NorthWest);
+            }
+
+            else if (p.X > pp.X && p.Y == pp.Y)
+            {
+                return PerformRound(MoveDirection.East);
+            }
+            else if (p.X < pp.X && p.Y == pp.Y)
+            {
+                return PerformRound(MoveDirection.West);
+            }
+            else if (p.X == pp.X && p.Y > pp.Y)
+            {
+                return PerformRound(MoveDirection.South);
+            }
+            else if (p.X == pp.X && p.Y < pp.Y)
+            {
+                return PerformRound(MoveDirection.North);
+            }
+
+
+            return PerformRound(MoveDirection.None);
         }
 
         private bool PerformRound(MoveDirection dir)
@@ -232,37 +269,27 @@ namespace DahlexApp.Views.Board
         private bool _canBomb;
         public bool CanBomb
         {
-            get { return _canBomb; }
-            set
-            {
-                SetProperty(ref _canBomb, value);
-                BombCommand.RaiseCanExecuteChanged();
-
-            }
+            get => _canBomb;
+            set => SetProperty(ref _canBomb, value);
         }
 
         private bool _canTele;
 
         public bool CanTele
         {
-            get { return _canTele; }
-            set
-            {
-                SetProperty(ref _canTele, value);
-                TeleCommand.RaiseCanExecuteChanged();
-
-            }
+            get => _canTele;
+            set => SetProperty(ref _canTele, value);
         }
 
 
 
         private readonly GameSettings _settings;
-        private readonly IGameService _gs;
+        // private readonly IGameService _gs;
         private readonly IGameEngine _ge;
 
-        public ImageSource PlanetImageSource { get; set; }
-       // public ImageSource HeapImageSource { get; set; }
-       // public ImageSource Robot1ImageSource { get; set; }
+        //public ImageSource PlanetImageSource { get; set; }
+        // public ImageSource HeapImageSource { get; set; }
+        // public ImageSource Robot1ImageSource { get; set; }
         //public ImageSource Robot2ImageSource { get; set; }
         //public ImageSource Robot3ImageSource { get; set; }
 
@@ -271,7 +298,7 @@ namespace DahlexApp.Views.Board
         public IMvxCommand ComingSoonCommand { get; }
         public IMvxCommand NextLevelCommand { get; }
         public IMvxCommand StartGameCommand { get; }
-       // public IMvxCommand<string> GoDirCommand { get; }
+        // public IMvxCommand<string> GoDirCommand { get; }
 
         public override void Prepare(string what)
         {
@@ -382,7 +409,7 @@ namespace DahlexApp.Views.Board
                         bv.Color = Color.DarkOrange;
 
                     }
-                    bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = ClickedTheProfCommand, CommandParameter = new Point(x,y) });
+                    bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = ClickedTheProfCommand, CommandParameter = new Point(x, y) });
                     AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(37 * x, 37 * y, 37, 37));
                     AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
                     TheAbsBoard.Children.Add(bv);
@@ -700,7 +727,7 @@ namespace DahlexApp.Views.Board
             {
                 //TheRobotImage.TranslateTo(nLeft, nTop);
                 var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img.TranslateTo(nLeft, nTop);
+                img?.TranslateTo(nLeft, nTop);
 
             }
 
