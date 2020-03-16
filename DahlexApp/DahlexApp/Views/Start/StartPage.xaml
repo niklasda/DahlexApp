@@ -23,7 +23,7 @@
     <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="8" BackgroundColor="DimGray">
 
 
-      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="5">
         <Button Text="Play" Command="{Binding GotoBoardCommand}" Style="{StaticResource ButtonStyle}" />
 
         <Button Text="HowTo"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />

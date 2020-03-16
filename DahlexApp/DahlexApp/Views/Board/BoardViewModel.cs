@@ -68,6 +68,7 @@ namespace DahlexApp.Views.Board
             StartGameCommand = new MvxCommand(() =>
             {
                 _gameTimer?.Stop();
+                _elapsed = TimeSpan.Zero;
 
                 _gameTimer = new Timer(1000);
                 _gameTimer.Elapsed += gameTimer_Elapsed;
