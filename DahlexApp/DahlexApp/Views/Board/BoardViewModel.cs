@@ -123,12 +123,38 @@ namespace DahlexApp.Views.Board
 
             TeleCommand = new MvxCommand(() =>
             {
-                Application.Current.MainPage.DisplayAlert("Dahlex", "teleporting", "Ok");
+                DoTeleport();
+     //           Application.Current.MainPage.DisplayAlert("Dahlex", "teleporting", "Ok");
 
             });
 
 
 
+        }
+
+
+        private void DoTeleport()
+        {
+            if (_ge != null)
+            {
+                if (_ge.Status == GameStatus.LevelOngoing)
+                {
+                    _ge.MoveHeapsToTemp();
+                    if (_ge.DoTeleport())
+                    {
+                        PlaySound(Sound.Teleport);
+
+                        _ge.MoveRobotsToTemp();
+                        _ge.CommitTemp();
+                    }
+                    else
+                    {
+                        AddLineToLog("No more teleports");
+                    }
+                }
+
+                UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+            }
         }
 
         private void BlowBomb()
