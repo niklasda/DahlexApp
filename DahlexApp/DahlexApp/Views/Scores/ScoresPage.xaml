@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+             xmlns:viewModels="clr-namespace:DahlexApp.Views.Scores;assembly=DahlexApp"
+             mc:Ignorable="d"
+             x:Class="DahlexApp.Views.Scores.ScoresPage"
+             x:TypeArguments="viewModels:ScoresViewModel"
+             x:DataType="viewModels:ScoresViewModel"
+             Title="{Binding Title}">
+
+  <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+
+    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
+
+      <Label Margin="0" Text="Scores" Style="{StaticResource SubtitleStyle}" />
+
+      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+      </StackLayout>
+
+      <CollectionView ItemsSource="{Binding HighScoreList}" ItemsLayout="VerticalList">
+        <CollectionView.ItemTemplate >
+          <DataTemplate x:DataType="viewModels:ScoreItemViewModel">
+
+            <Grid Padding="10" Margin="12">
+
+
+
+              <Label Text="{Binding Title}"
+                     
+                     VerticalOptions="Start"  Style="{StaticResource SubtitleStyle}" />
+            </Grid>
+
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+    </StackLayout>
+  </Grid>
+
+</views:MvxContentPage>

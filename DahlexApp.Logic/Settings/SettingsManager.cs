@@ -14,7 +14,7 @@ namespace DahlexApp.Logic.Settings
         }
 
         /// <summary>Will return false only the first time a user ever runs this.
-        /// Everytime thereafter, a placeholder file will have been written to disk
+        /// Every time thereafter, a placeholder file will have been written to disk
         /// and will trigger a value of true.</summary>
         public static bool IsFirstRun()
         {

@@ -12,7 +12,7 @@
              Title="{Binding Title}">
 
 
-  <Grid >
+  <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}" >
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
@@ -21,7 +21,7 @@
 
     <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
 
-      <Label Margin="0" Text="Settings "/>
+      <Label Margin="0" Text="Settings" Style="{StaticResource SubtitleStyle}"/>
 
       <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
       </StackLayout>

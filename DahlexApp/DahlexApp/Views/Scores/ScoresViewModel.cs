@@ -1,23 +1,23 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using DahlexApp.Logic.HighScores;
 using DahlexApp.Logic.Interfaces;
 using MvvmCross.Commands;
-using MvvmCross.Navigation;
-using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
 
-namespace DahlexApp.Views.Settings
+namespace DahlexApp.Views.Scores
 {
-    public class SettingsViewModel : MvxViewModel
+    public class ScoresViewModel : MvxViewModel
     {
         private readonly IGameService _gs;
-        private readonly IMvxWebBrowserTask _browser;
+        private readonly IHighScoreService _scores;
 
         // todo add base model with navigation etc
 
-        public SettingsViewModel(IGameService gs, IMvxWebBrowserTask browser)
+        public ScoresViewModel(IGameService gs, IHighScoreService scores)
         {
             _gs = gs;
-            _browser = browser;
+            _scores = scores;
 
             Title = "Dahlex";
 
@@ -44,6 +44,17 @@ namespace DahlexApp.Views.Settings
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
+        }
+
+        public MvxObservableCollection<ScoreItemViewModel> HighScoreList { get; } = new MvxObservableCollection<ScoreItemViewModel>();
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            var scores = _scores.LoadLocalHighScores();
+            HighScoreList.AddRange(scores.Select(_=>new ScoreItemViewModel{Title = _.Content}));
+
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using DahlexApp.Views.Board;
+using DahlexApp.Views.Scores;
 using DahlexApp.Views.Settings;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -34,6 +35,11 @@ namespace DahlexApp.Views.Start
             {
                 await _navigationService.Navigate<SettingsViewModel>();
             });
+
+            GotoScoresCommand = new MvxCommand(async () =>
+            {
+                await _navigationService.Navigate<ScoresViewModel>();
+            });
         }
 
         private readonly IGameService _gs;
@@ -61,6 +67,7 @@ namespace DahlexApp.Views.Start
         public IMvxCommand ComingSoonCommand { get; }
         public IMvxCommand GotoBoardCommand { get; }
         public IMvxCommand GotoSettingsCommand { get; }
+        public IMvxCommand GotoScoresCommand { get; }
 
 
 

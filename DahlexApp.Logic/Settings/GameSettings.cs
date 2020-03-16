@@ -11,7 +11,7 @@ namespace DahlexApp.Logic.Settings
             _canvasSize = canvasSize;
         }
      //   [DataMember]
-        public string PlayerName;
+     public string PlayerName { get; set; } = "Dr. Who";
 
      //   [DataMember]
         public bool LessSound;

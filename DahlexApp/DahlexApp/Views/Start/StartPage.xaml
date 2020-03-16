@@ -28,7 +28,7 @@
 
         <Button Text="HowTo"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
 
-        <Button Text="Scores" Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="Scores" Command="{Binding GotoScoresCommand}" Style="{StaticResource ButtonStyle}" />
 
         <Button Text="Settings" Command="{Binding GotoSettingsCommand}" Style="{StaticResource ButtonStyle}" />
       </StackLayout>
