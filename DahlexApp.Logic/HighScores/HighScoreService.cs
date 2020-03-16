@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 using DahlexApp.Logic.Interfaces;
+using Newtonsoft.Json;
 
 namespace DahlexApp.Logic.HighScores
 {
@@ -28,8 +26,10 @@ namespace DahlexApp.Logic.HighScores
             _scores = LoadLocalHighScores();
         }
 
+        private string key = "HighScores";
+
         private readonly IPreferencesService _preferences;
-        private List<HighScore> _scores ;//= new List<HighScore>();
+        private List<HighScore> _scores;//= new List<HighScore>();
 
         public async Task AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize)
         {
@@ -59,10 +59,15 @@ namespace DahlexApp.Logic.HighScores
         {
             try
             {
-
-                // var settings = ApplicationData.Current.LocalSettings;
+                var hsList = _preferences.LoadPreference(key);
+                //var settings = ApplicationData.Current.LocalSettings;
                 // string highScores = settings.Values["HighScores"].ToString();
-                // byte[] bytes = new byte[0];// = Encoding.Unicode.GetBytes(highScores.ToCharArray());
+                //  byte[] bytes = new byte[0];// = Encoding.Unicode.GetBytes(highScores.ToCharArray());
+
+                if (!string.IsNullOrEmpty(hsList))
+                {
+                    _scores = JsonConvert.DeserializeObject<List<HighScore>>(hsList);
+                }
 
                 // var serializer = new DataContractSerializer(typeof(List<HighScore>));
 
@@ -86,19 +91,21 @@ namespace DahlexApp.Logic.HighScores
 
         public void SaveLocalHighScores()
         {
-            var serializer = new DataContractSerializer(typeof(List<HighScore>));
-            var sb = new StringBuilder();
-            using (var writer = XmlWriter.Create(sb))
-            {
-                serializer.WriteObject(writer, _scores);
-                writer.Flush();
+            string output = JsonConvert.SerializeObject(_scores);
+            _preferences.SavePreference(key, output);
+            // var serializer = new DataContractSerializer(typeof(List<HighScore>));
+            //var sb = new StringBuilder();
+            //using (var writer = XmlWriter.Create(sb))
+            //{
+            //   serializer.WriteObject(writer, _scores);
+            // writer.Flush();
 
-               // var settings = ApplicationData.Current.LocalSettings;
-                //  settings.Values["HighScores"] = sb.ToString();
-            }
+            // var settings = ApplicationData.Current.LocalSettings;
+            //  settings.Values["HighScores"] = sb.ToString();
+            //}
         }
 
-        internal class HighScoreComparer : IComparer<HighScore>
+        private class HighScoreComparer : IComparer<HighScore>
         {
             public int Compare(HighScore x, HighScore y)
             {

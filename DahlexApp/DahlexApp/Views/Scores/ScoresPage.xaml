@@ -34,7 +34,7 @@
 
 
               <Label Text="{Binding Title}"
-                     
+                     HorizontalOptions="Start" HorizontalTextAlignment="Start"
                      VerticalOptions="Start"  Style="{StaticResource SubtitleStyle}" />
             </Grid>
 
