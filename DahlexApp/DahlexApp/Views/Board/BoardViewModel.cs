@@ -477,7 +477,7 @@ namespace DahlexApp.Views.Board
         {
             base.ViewDisappearing();
 
-            _gameTimer.Stop();
+            _gameTimer?.Stop();
         }
 
         private string _title;
