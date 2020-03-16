@@ -5,7 +5,6 @@ using DahlexApp.Logic.Settings;
 
 namespace DahlexApp.Logic.HighScores
 {
-    [DataContract]
     public class HighScore
     {
         public HighScore(string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize)
@@ -27,14 +26,12 @@ namespace DahlexApp.Logic.HighScores
         private TimeSpan _gameDuration;
         private Size _boardSize;
 
-        [DataMember]
         public string Name
         {
             get { return _name; }
             set { _name = value; }
         }
 
-        [DataMember]
         public int Score
         {
             get { return _level; }
@@ -61,7 +58,6 @@ namespace DahlexApp.Logic.HighScores
             get { return _moves; }
         }
 
-        [DataMember]
         public TimeSpan GameDuration
         {
             get { return _gameDuration; }
