@@ -124,7 +124,7 @@ namespace DahlexApp.Views.Board
             TeleCommand = new MvxCommand(() =>
             {
                 DoTeleport();
-     //           Application.Current.MainPage.DisplayAlert("Dahlex", "teleporting", "Ok");
+                //           Application.Current.MainPage.DisplayAlert("Dahlex", "teleporting", "Ok");
 
             });
 
@@ -443,6 +443,12 @@ namespace DahlexApp.Views.Board
                 }
             }
 
+            var pan = new PanGestureRecognizer();
+            pan.PanUpdated += Pan_PanUpdated;
+
+            TheAbsOverBoard.GestureRecognizers.Clear();
+            TheAbsOverBoard.GestureRecognizers.Add(pan);
+
             //TheProfImage.IsVisible = false;
             //TheHeapImage.IsVisible = false;
             //TheRobotImage.IsVisible = false;
@@ -463,6 +469,33 @@ namespace DahlexApp.Views.Board
             //AbsoluteLayout.SetLayoutFlags(TheXImage, AbsoluteLayoutFlags.All);
             //TheAbsBoard.Children.Add(TheXImage);
 
+        }
+
+        private int _tempX;
+        private int _tempY;
+
+        private void Pan_PanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            if (e.StatusType == GestureStatus.Started)
+            {
+                _tempX = 0;
+                _tempY = 0;
+            }
+            else if (e.StatusType == GestureStatus.Running)
+            {
+                _tempX = (int)e.TotalX;
+                _tempY = (int)e.TotalY;
+            }
+            else if (e.StatusType == GestureStatus.Canceled)
+            {
+                //_tempX = e.TotalX;
+                //_tempY = e.TotalY;
+            }
+            else if (e.StatusType == GestureStatus.Completed)
+            {
+
+                var p = new Point(_tempX, _tempY);
+            }
         }
 
 
