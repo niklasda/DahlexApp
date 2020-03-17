@@ -52,18 +52,18 @@ namespace DahlexApp.Views.Board
 
             ClickedTheProfCommand = new MvxCommand<Point>((p) =>
             {
-                bool moved = DeterminePerformRound(p);
+                PerformRound(MoveDirection.None);
             });
 
-            ClickedTheHeapCommand = new MvxCommand(() =>
-            {
+           // ClickedTheHeapCommand = new MvxCommand(() =>
+          //  {
                 //TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40);
-            });
+            //});
 
-            ClickedTheRobotCommand = new MvxCommand(() =>
-            {
+         //   ClickedTheRobotCommand = new MvxCommand(() =>
+           // {
                 //TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 37, TheRobotImage.TranslationY + 37);
-            });
+            //});
 
             StartGameCommand = new MvxCommand(() =>
             {
@@ -200,47 +200,47 @@ namespace DahlexApp.Views.Board
             Debug.WriteLine(pos.X);
         }
 
-        private bool DeterminePerformRound(Point p)
-        {
-            var pp = _ge.GetProfessorCoordinates();
+        //private bool DeterminePerformRound(Point p)
+        //{
+        //    var pp = _ge.GetProfessorCoordinates();
 
-            if (p.X > pp.X && p.Y > pp.Y)
-            {
-                return PerformRound(MoveDirection.SouthEast);
-            }
-            else if (p.X > pp.X && p.Y < pp.Y)
-            {
-                return PerformRound(MoveDirection.NorthEast);
-            }
-            else if (p.X < pp.X && p.Y > pp.Y)
-            {
-                return PerformRound(MoveDirection.SouthWest);
-            }
-            else if (p.X < pp.X && p.Y < pp.Y)
-            {
-                return PerformRound(MoveDirection.NorthWest);
-            }
+        //    if (p.X > pp.X && p.Y > pp.Y)
+        //    {
+        //        return PerformRound(MoveDirection.SouthEast);
+        //    }
+        //    else if (p.X > pp.X && p.Y < pp.Y)
+        //    {
+        //        return PerformRound(MoveDirection.NorthEast);
+        //    }
+        //    else if (p.X < pp.X && p.Y > pp.Y)
+        //    {
+        //        return PerformRound(MoveDirection.SouthWest);
+        //    }
+        //    else if (p.X < pp.X && p.Y < pp.Y)
+        //    {
+        //        return PerformRound(MoveDirection.NorthWest);
+        //    }
 
-            else if (p.X > pp.X && p.Y == pp.Y)
-            {
-                return PerformRound(MoveDirection.East);
-            }
-            else if (p.X < pp.X && p.Y == pp.Y)
-            {
-                return PerformRound(MoveDirection.West);
-            }
-            else if (p.X == pp.X && p.Y > pp.Y)
-            {
-                return PerformRound(MoveDirection.South);
-            }
-            else if (p.X == pp.X && p.Y < pp.Y)
-            {
-                return PerformRound(MoveDirection.North);
-            }
+        //    else if (p.X > pp.X && p.Y == pp.Y)
+        //    {
+        //        return PerformRound(MoveDirection.East);
+        //    }
+        //    else if (p.X < pp.X && p.Y == pp.Y)
+        //    {
+        //        return PerformRound(MoveDirection.West);
+        //    }
+        //    else if (p.X == pp.X && p.Y > pp.Y)
+        //    {
+        //        return PerformRound(MoveDirection.South);
+        //    }
+        //    else if (p.X == pp.X && p.Y < pp.Y)
+        //    {
+        //        return PerformRound(MoveDirection.North);
+        //    }
 
 
-            return PerformRound(MoveDirection.None);
-        }
+        //    return PerformRound(MoveDirection.None);
+        //}
 
         private bool PerformRound(MoveDirection dir)
         {
@@ -342,8 +342,8 @@ namespace DahlexApp.Views.Board
         }
 
         public IMvxCommand<Point> ClickedTheProfCommand { get; }
-        public IMvxCommand ClickedTheHeapCommand { get; }
-        public IMvxCommand ClickedTheRobotCommand { get; }
+     //   public IMvxCommand ClickedTheHeapCommand { get; }
+       // public IMvxCommand ClickedTheRobotCommand { get; }
 
         private TimeSpan _elapsed = TimeSpan.Zero;
 
@@ -436,7 +436,10 @@ namespace DahlexApp.Views.Board
                         bv.Color = Color.DarkOrange;
 
                     }
-                    bv.GestureRecognizers.Add(new TapGestureRecognizer() { Command = ClickedTheProfCommand, CommandParameter = new Point(x, y) });
+
+                 //   var tp = new TapGestureRecognizer(){Command = ClickedTheProfCommand, CommandParameter = new Point(x, y)};
+                   // bv.GestureRecognizers.Add(tp);
+
                     AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(37 * x, 37 * y, 37, 37));
                     AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
                     TheAbsBoard.Children.Add(bv);
@@ -446,8 +449,12 @@ namespace DahlexApp.Views.Board
             var pan = new PanGestureRecognizer();
             pan.PanUpdated += Pan_PanUpdated;
 
+            var tap = new TapGestureRecognizer();
+            tap.Command = ClickedTheProfCommand;
+
             TheAbsOverBoard.GestureRecognizers.Clear();
             TheAbsOverBoard.GestureRecognizers.Add(pan);
+            TheAbsOverBoard.GestureRecognizers.Add(tap);
 
             //TheProfImage.IsVisible = false;
             //TheHeapImage.IsVisible = false;
@@ -493,11 +500,78 @@ namespace DahlexApp.Views.Board
             }
             else if (e.StatusType == GestureStatus.Completed)
             {
-
+                bool moved;
                 var p = new Point(_tempX, _tempY);
+
+                if (_ge != null && _ge.Status == GameStatus.LevelOngoing)
+                {
+//                    Point p = new Point(e.TotalManipulation.Translation.X, e.TotalManipulation.Translation.Y);
+                    // very small swipe or tap is like clicking the professor in standard move mode
+                    if (IsTap(p) /*&& IsWithinBounds(e)*/)
+                    {
+                        moved = PerformRound(MoveDirection.None);
+                    }
+                    else //if (IsWithinBounds(e))
+                    {
+                        var direction = Trig.GetSwipeDirection(p);
+                        if (direction != MoveDirection.Ignore)
+                        {
+                            moved = PerformRound(direction);
+                        }
+                    }
+                }
+
+
+
             }
+
+
         }
 
+
+        private static bool IsTap(Point p)
+        {
+            return Trig.IsTooSmallSwipe(p);
+        }
+
+        /*
+        // ugly, just for now to make it work
+        private bool IsWithinBounds(ManipulationCompletedEventArgs e)
+        {
+            int height = (_settings.SquareSize.Height + _settings.LineWidth.X) * _settings.BoardSize.Height + 3;
+            int width = (_settings.SquareSize.Width + _settings.LineWidth.X) * _settings.BoardSize.Width + 3;
+
+            var fwe = e.ManipulationContainer as FrameworkElement;
+            if (fwe != null)
+            {
+                //string cName = e.ManipulationContainer.GetType().Name;
+                //bool validControl = cName.Equals("Grid");
+                //bool validControl = fwe.Name.Equals(DahlexContent.Name) || fwe.Name.Equals("imgProfessor");
+                Point p = new Point(e.ManipulationOrigin.X, e.ManipulationOrigin.Y);
+                //Debug.WriteLine(cName + " - " + fwe.Name + " " + p.ToString());
+
+                if (fwe.Name.Equals(DahlexContent.Name))
+                {
+                    return 0 < p.Y
+                           && p.Y <= height
+                           && 0 < p.X
+                           && p.X <= width;
+                }
+
+                if (fwe.Name.Equals("imgProfessor") || fwe.Name.StartsWith("imgHeap") || fwe.Name.StartsWith("imgRobot"))
+                {
+                    var trans = fwe.TransformToVisual(DahlexContent);
+                    Point p2 = trans.Transform(p);
+
+                    return 0 < p2.Y
+                           && p2.Y <= height
+                           && 0 < p2.X
+                           && p2.X <= width;
+                }
+            }
+            return false;
+        }
+        */
 
         public override void ViewDestroy(bool viewFinishing = true)
         {
@@ -612,7 +686,7 @@ namespace DahlexApp.Views.Board
                         string imgName;
                         if (cp.Type == PieceType.Heap)
                         {
-                            Image boardImage = new Image() { InputTransparent = true };
+                            Image boardImage = new Image { InputTransparent = true };
 
                             AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
                             AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
@@ -635,7 +709,7 @@ namespace DahlexApp.Views.Board
                         }
                         else if (cp.Type == PieceType.Professor)
                         {
-                            Image boardImage = new Image() { InputTransparent = true };
+                            Image boardImage = new Image { InputTransparent = true };
 
                             AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
                             AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
@@ -654,7 +728,7 @@ namespace DahlexApp.Views.Board
                         }
                         else if (cp.Type == PieceType.Robot)
                         {
-                            Image boardImage = new Image();
+                            Image boardImage = new Image { InputTransparent = true }; 
 
                             AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
                             AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);

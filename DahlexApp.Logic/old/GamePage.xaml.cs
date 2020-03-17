@@ -300,7 +300,7 @@ namespace Dahlex.Views
                 RemoveLines();
             }
         }
-
+         
         private static bool IsTap(Point p)
         {
             return Trig.IsTooSmallSwipe(p);
@@ -341,7 +341,7 @@ namespace Dahlex.Views
                 }
             }
             return false;
-        }
+        }'
 
         private TimeSpan _elapsed = TimeSpan.Zero;
 
