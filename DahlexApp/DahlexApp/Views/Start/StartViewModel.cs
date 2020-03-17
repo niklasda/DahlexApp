@@ -71,8 +71,8 @@ namespace DahlexApp.Views.Start
         private string _title = string.Empty;
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
     }
 }

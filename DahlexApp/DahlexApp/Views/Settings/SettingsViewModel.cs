@@ -1,18 +1,17 @@
 ﻿using System.Threading.Tasks;
-using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
 
 namespace DahlexApp.Views.Settings
 {
     public class SettingsViewModel : MvxViewModel
     {
-        private readonly IMvxWebBrowserTask _browser;
+        //private readonly IMvxWebBrowserTask _browser;
 
         // todo add base model with navigation etc
 
-        public SettingsViewModel(IMvxWebBrowserTask browser)
+        public SettingsViewModel()
         {
-            _browser = browser;
+          //  _browser = browser;
 
             Title = "Dahlex";
 
@@ -37,8 +36,8 @@ namespace DahlexApp.Views.Settings
         private string _title = string.Empty;
         public string Title
         {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
+            get => _title;
+            set => SetProperty(ref _title, value);
         }
     }
 }

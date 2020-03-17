@@ -1,27 +1,27 @@
-﻿using DahlexApp.Logic.Settings;
+﻿//using DahlexApp.Logic.Settings;
 
-namespace DahlexApp.Logic.Game
-{
-    public class BoardDrawing
-    {
+//namespace DahlexApp.Logic.Game
+//{
+ //   public class BoardDrawing
+   // {
     //    private readonly Canvas _cnvMovement;
       //  private readonly Storyboard _story;
-        private readonly GameSettings _settings;
+   //     private readonly GameSettings _settings;
 
-        public BoardDrawing(GameSettings settings)
-        {
+   //     public BoardDrawing(GameSettings settings)
+ //       {
         //    _cnvMovement = canvasMovement;
           //  _story = storyBoard;
-            _settings = settings;
-        }
+    //        _settings = settings;
+  //      }
 
-        public void Clear(bool all)
-        {
-            if (all)
-            {
+       // public void Clear(bool all)
+     //   {
+   //         if (all)
+ //           {
 //                _cnvMovement.Children.Clear();
-            }
-        }
+      //      }
+    //    }
 
    /*    private Image FindImageInCanvas(Canvas cnv, string name)
         {
@@ -262,5 +262,5 @@ namespace DahlexApp.Logic.Game
                 image.Visibility = Visibility.Collapsed;
             }
         }*/
-    }
-}
+  //  }
+//}

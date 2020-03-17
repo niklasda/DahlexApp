@@ -285,7 +285,7 @@ namespace DahlexApp.Views.Board
             if (_ge.Status == GameStatus.LevelOngoing)
             {
                 _elapsed = _elapsed.Add(new TimeSpan(0, 0, 1));
-                TimerText = $"{_elapsed.ToString()}";
+                TimerText = $"{_elapsed.TotalSeconds}s";
             }
             else
             {
@@ -729,8 +729,8 @@ namespace DahlexApp.Views.Board
             //  int yOffset = _settings.ImageOffset.Y;
             //  int gridPenWidth = _settings.LineWidth.X;
 
-            int oLeft = oldPos.X * (_settings.SquareSize.Width);
-            int oTop = oldPos.Y * (_settings.SquareSize.Height);
+            //int oLeft = oldPos.X * (_settings.SquareSize.Width);
+            //int oTop = oldPos.Y * (_settings.SquareSize.Height);
 
             int nLeft = newPos.X * (_settings.SquareSize.Width);
             int nTop = newPos.Y * (_settings.SquareSize.Height);
