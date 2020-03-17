@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-using DahlexApp.Logic.Interfaces;
+﻿using DahlexApp.Logic.Interfaces;
 
 namespace DahlexApp.Logic.Game
 {

@@ -1,7 +1,4 @@
 ﻿using System.Threading.Tasks;
-using DahlexApp.Logic.Interfaces;
-using MvvmCross.Commands;
-using MvvmCross.Navigation;
 using MvvmCross.Plugin.WebBrowser;
 using MvvmCross.ViewModels;
 
@@ -9,14 +6,12 @@ namespace DahlexApp.Views.Settings
 {
     public class SettingsViewModel : MvxViewModel
     {
-        private readonly IGameService _gs;
         private readonly IMvxWebBrowserTask _browser;
 
         // todo add base model with navigation etc
 
-        public SettingsViewModel(IGameService gs, IMvxWebBrowserTask browser)
+        public SettingsViewModel(IMvxWebBrowserTask browser)
         {
-            _gs = gs;
             _browser = browser;
 
             Title = "Dahlex";

@@ -1,22 +1,18 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using DahlexApp.Logic.HighScores;
-using DahlexApp.Logic.Interfaces;
-using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 
 namespace DahlexApp.Views.Scores
 {
     public class ScoresViewModel : MvxViewModel
     {
-        private readonly IGameService _gs;
         private readonly IHighScoreService _scores;
 
         // todo add base model with navigation etc
 
-        public ScoresViewModel(IGameService gs, IHighScoreService scores)
+        public ScoresViewModel(IHighScoreService scores)
         {
-            _gs = gs;
             _scores = scores;
 
             Title = "Dahlex";

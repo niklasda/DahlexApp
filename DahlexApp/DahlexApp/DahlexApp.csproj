@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Common\Services\**" />
+    <EmbeddedResource Remove="Common\Services\**" />
+    <None Remove="Common\Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="AppShell.xaml.cs" />
   </ItemGroup>
 
@@ -76,9 +82,5 @@
     <EmbeddedResource Update="Styles\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\Services\" />
   </ItemGroup>
 </Project>

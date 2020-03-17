@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using DahlexApp.Logic.Interfaces;
 using DahlexApp.Views.Board;
 using DahlexApp.Views.Scores;
 using DahlexApp.Views.Settings;
@@ -12,9 +11,8 @@ namespace DahlexApp.Views.Start
 {
     public class StartViewModel : MvxViewModel
     {
-        public StartViewModel(IGameService gs, IMvxNavigationService navigationService)
+        public StartViewModel(IMvxNavigationService navigationService)
         {
-            _gs = gs;
             _navigationService = navigationService;
 
             Title = "Dahlex";
@@ -42,7 +40,6 @@ namespace DahlexApp.Views.Start
             });
         }
 
-        private readonly IGameService _gs;
         private readonly IMvxNavigationService _navigationService;
 
         public ImageSource LogoImageSource { get; set; }

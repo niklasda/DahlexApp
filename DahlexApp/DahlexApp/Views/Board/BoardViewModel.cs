@@ -672,12 +672,12 @@ namespace DahlexApp.Views.Board
 
         }
 
-        public void PlaySound(Sound effect)
+        public void PlaySound(Sound sound)
         {
             if (!_settings.LessSound)
             {
 
-                switch (effect)
+                switch (sound)
                 {
                     case Sound.Bomb:
                         PlayBomb();
@@ -768,8 +768,8 @@ namespace DahlexApp.Views.Board
         {
         }
 
-        public void DrawLines()
-        {
-        }
+        //public void DrawLines()
+        //{
+        //}
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using MvvmCross.Forms.Views;
+﻿using MvvmCross.Forms.Views;
 using Xamarin.Forms;
 
 

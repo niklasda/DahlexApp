@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Runtime.Serialization;
 using DahlexApp.Logic.Settings;
 
 namespace DahlexApp.Logic.HighScores

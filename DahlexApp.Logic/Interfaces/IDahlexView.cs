@@ -26,6 +26,6 @@ namespace DahlexApp.Logic.Interfaces
 
         void StartTheRobots(Guid roundId);
 
-        void DrawLines();
+        //void DrawLines();
     }
 }
