@@ -64,6 +64,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\How\HowPage.xaml.cs">
+      <DependentUpon>HowPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Scores\ScoresPage.xaml.cs">
       <DependentUpon>ScoresPage.xaml</DependentUpon>
     </Compile>

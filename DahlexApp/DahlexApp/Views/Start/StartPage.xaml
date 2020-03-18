@@ -26,13 +26,13 @@
       <StackLayout Orientation="Horizontal" Padding="0,10,0,5" Spacing="5">
         <Button Text="Play" Command="{Binding GotoBoardCommand}" Style="{StaticResource ButtonStyle}" Margin="19,0,9,0" />
 
-        <Button Text="Tutorial" Command="{Binding GotoTutorialCommand}" Style="{StaticResource ButtonStyle}" m="9,0,19,0"  />
+        <Button Text="Tutorial" Command="{Binding GotoTutorialCommand}" Style="{StaticResource ButtonStyle}" Margin="9,0,19,0"  />
 
       </StackLayout>
 
       <StackLayout Orientation="Horizontal" Padding="0,5,0,10" Spacing="5">
 
-        <Button Text="HowTo"  Command="{Binding ComingSoonCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="HowTo"  Command="{Binding HowCommand}" Style="{StaticResource ButtonStyle}" />
 
         <Button Text="Scores" Command="{Binding GotoScoresCommand}" Style="{StaticResource ButtonStyle}" />
 

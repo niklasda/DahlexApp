@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using DahlexApp.Views.Board;
+using DahlexApp.Views.How;
 using DahlexApp.Views.Scores;
 using DahlexApp.Views.Settings;
 using MvvmCross.Commands;
@@ -20,9 +21,10 @@ namespace DahlexApp.Views.Start
 
             LogoImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.Tile300.png"); // 42x42
 
-            ComingSoonCommand = new MvxCommand(() =>
+            HowCommand = new MvxCommand(async () =>
             {
-                Application.Current.MainPage.DisplayAlert("Dahlex","Coming SoOon","Ok");
+                await _navigationService.Navigate<HowViewModel>();
+                //Application.Current.MainPage.DisplayAlert("Dahlex","Coming SoOon","Ok");
             });
 
             GotoBoardCommand = new MvxCommand(async () =>
@@ -67,7 +69,7 @@ namespace DahlexApp.Views.Start
             // do the heavy work here
         }
 
-        public IMvxCommand ComingSoonCommand { get; }
+        public IMvxCommand HowCommand { get; }
         public IMvxCommand GotoBoardCommand { get; }
         public IMvxCommand GotoTutorialCommand { get; }
         public IMvxCommand GotoSettingsCommand { get; }
