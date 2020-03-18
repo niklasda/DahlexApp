@@ -16,16 +16,32 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
 
-    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
+    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="15,10,5,10" Spacing="10">
 
       <Label Margin="0" Text="Settings" Style="{StaticResource SubtitleStyle}"/>
 
-      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+      <StackLayout Orientation="Vertical" Padding="0,10,0,10" Spacing="10">
+        <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+          <Label Text="Name" Style="{StaticResource LabelStyle}"></Label>
+          <Entry Placeholder="Name" Text="{Binding PlayerName}"></Entry>
+
+        </StackLayout>
+        <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+          <Label Text="Mute" Style="{StaticResource LabelStyle}"></Label>
+          <CheckBox IsChecked="{Binding IsMuted}" ></CheckBox>
+
+        </StackLayout>
+
+       
       </StackLayout>
     </StackLayout>
+
+    <Label  Grid.Row="2" Margin="10" Text="Dahlex v1 (c) 2020 nida" Style="{StaticResource SubtitleStyle}"/>
+
   </Grid>
 
 </views:MvxContentPage>

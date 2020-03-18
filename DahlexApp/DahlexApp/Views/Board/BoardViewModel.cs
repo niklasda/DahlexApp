@@ -23,7 +23,7 @@ using Size = System.Drawing.Size;
 
 namespace DahlexApp.Views.Board
 {
-    public class BoardViewModel : MvxViewModel<string>, IDahlexView
+    public class BoardViewModel : MvxViewModel<GameMode>, IDahlexView
     {
 
         public BoardViewModel(IHighScoreService hsm)
@@ -313,6 +313,7 @@ namespace DahlexApp.Views.Board
         private readonly GameSettings _settings;
         // private readonly IGameService _gs;
         private readonly IGameEngine _ge;
+        private GameMode _startMode;
 
         //public ImageSource PlanetImageSource { get; set; }
         // public ImageSource HeapImageSource { get; set; }
@@ -327,10 +328,11 @@ namespace DahlexApp.Views.Board
         public IMvxCommand StartGameCommand { get; }
         // public IMvxCommand<string> GoDirCommand { get; }
 
-        public override void Prepare(string what)
+        public override void Prepare(GameMode startMode)
         {
             // first callback. Initialize parameter-agnostic stuff here
 
+            _startMode = startMode;
         }
 
         public override async Task Initialize()
@@ -418,7 +420,8 @@ namespace DahlexApp.Views.Board
         public override void ViewAppeared()
         {
             base.ViewAppeared();
-            _ge.StartGame(GameMode.Campaign);
+            _ge.StartGame(_startMode);
+
             UpdateUI(_ge.Status, _ge.GetState(_elapsed));
 
             for (int x = 0; x < 11; x++)

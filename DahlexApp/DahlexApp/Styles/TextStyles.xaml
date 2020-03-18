@@ -26,5 +26,13 @@
     <Setter Property="FontAttributes" Value="None" />
   </Style>
 
+  <Style x:Key="LabelStyle" TargetType="Label">
+    <Setter Property="HorizontalOptions" Value="Start" />
+    <Setter Property="VerticalOptions" Value="Center" />
+    <Setter Property="FontSize" Value="Medium" />
+    <Setter Property="TextColor" Value="{StaticResource SecondaryForegroundColor}" />
+    <Setter Property="FontAttributes" Value="None" />
+  </Style>
+
 
 </ResourceDictionary>

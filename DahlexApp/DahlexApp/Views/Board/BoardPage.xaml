@@ -59,14 +59,14 @@
         <Label Text="{Binding InfoText}" Style="{StaticResource SubtitleStyle}" LineBreakMode="TailTruncation" ></Label>
       </StackLayout>
 
-      <StackLayout Orientation="Horizontal" Padding="0" Spacing="5">
-        <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource ButtonStyle}" />
+      <StackLayout Orientation="Horizontal" Padding="0" Spacing="7" HorizontalOptions="CenterAndExpand">
+        <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource SmallButtonStyle}" />
 
-        <Button Text="Next"  Command="{Binding NextLevelCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="Next"  Command="{Binding NextLevelCommand}" Style="{StaticResource SmallButtonStyle}" />
 
-        <Button Text="{Binding BombText}" Command="{Binding BombCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="{Binding BombText}" Command="{Binding BombCommand}" Style="{StaticResource SmallButtonStyle}" />
 
-        <Button Text="{Binding TeleText}" Command="{Binding TeleCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="{Binding TeleText}" Command="{Binding TeleCommand}" Style="{StaticResource SmallButtonStyle}" />
       </StackLayout>
 
       <StackLayout Orientation="Horizontal" Padding="0,5,0,5" Spacing="8">

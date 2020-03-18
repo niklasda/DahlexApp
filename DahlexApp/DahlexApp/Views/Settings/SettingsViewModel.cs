@@ -39,5 +39,19 @@ namespace DahlexApp.Views.Settings
             get => _title;
             set => SetProperty(ref _title, value);
         }
+
+        private string _playerName;
+        public string PlayerName
+        {
+            get => _playerName;
+            set => SetProperty(ref _playerName, value);
+        }
+
+        private bool _isMuted;
+        public bool IsMuted
+        {
+            get => _isMuted;
+            set => SetProperty(ref _isMuted, value);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DahlexApp.Logic.Interfaces;
 using DahlexApp.Views.Board;
 using DahlexApp.Views.Scores;
 using DahlexApp.Views.Settings;
@@ -26,7 +27,12 @@ namespace DahlexApp.Views.Start
 
             GotoBoardCommand = new MvxCommand(async () =>
             {
-                await _navigationService.Navigate<BoardViewModel, string>("hello");
+                await _navigationService.Navigate<BoardViewModel, GameMode>(GameMode.Random);
+            });
+
+            GotoTutorialCommand = new MvxCommand(async () =>
+            {
+                await _navigationService.Navigate<BoardViewModel, GameMode>(GameMode.Campaign);
             });
 
             GotoSettingsCommand = new MvxCommand(async () =>
@@ -63,6 +69,7 @@ namespace DahlexApp.Views.Start
 
         public IMvxCommand ComingSoonCommand { get; }
         public IMvxCommand GotoBoardCommand { get; }
+        public IMvxCommand GotoTutorialCommand { get; }
         public IMvxCommand GotoSettingsCommand { get; }
         public IMvxCommand GotoScoresCommand { get; }
 

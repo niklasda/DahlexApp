@@ -14,6 +14,19 @@
   <Style x:Key="ButtonStyle" TargetType="Button">
     <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
     <Setter Property="VerticalOptions" Value="Center" />
+    <Setter Property="WidthRequest" Value="100" />
+    <Setter Property="BorderWidth" Value="1" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Margin" Value="0" />
+    <Setter Property="TextColor" Value="{StaticResource PrimaryForegroundColor}" />
+    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackgroundColor}" />
+    <Setter Property="BorderColor" Value="{StaticResource SecondaryForegroundColor}" />
+  </Style>
+
+  <Style x:Key="SmallButtonStyle" TargetType="Button">
+    <Setter Property="HorizontalOptions" Value="Center" />
+    <Setter Property="VerticalOptions" Value="Center" />
+    <Setter Property="WidthRequest" Value="85" />
     <Setter Property="BorderWidth" Value="1" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="Margin" Value="0" />
