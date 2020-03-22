@@ -74,15 +74,15 @@ namespace DahlexApp.Logic.HighScores
             {
                 if (Score == SettingsManager.MaxLevelIndicator)
                 {
-                    return string.Format("{0} completed the game in {1}s", Name, Math.Floor(GameDuration.TotalSeconds));
+                    return $"{Name} completed the game in {Math.Floor(GameDuration.TotalSeconds)}s";
                 }
                 else if (Score == SettingsManager.MinLevelIndicator)
                 {
-                    return string.Format("{0}", Name);
+                    return $"{Name}";
                 }
                 else
                 {
-                    return string.Format("{0} reached level {1} in {2}s", Name, Score, Math.Floor(GameDuration.TotalSeconds));
+                    return $"{Name} reached level {Score} in {Math.Floor(GameDuration.TotalSeconds)}s";
                 }
             }
         }

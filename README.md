@@ -1,2 +1,2 @@
 # DahlexApp
-Xamarin game
+Xamarin.Forms game

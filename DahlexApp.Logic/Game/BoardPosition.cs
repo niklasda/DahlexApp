@@ -10,19 +10,16 @@ namespace DahlexApp.Logic.Game
 
         public bool IsNew
         {
-            get { return _isNew; }
-            set { _isNew = value; }
+            get => _isNew;
+            set => _isNew = value;
         }
 
-        public PieceType Type
-        {
-            get { return _type; }
-        }
+        public PieceType Type => _type;
 
         public string ImageName
         {
-            get { return _imageName; }
-            set { _imageName = value; }
+            get => _imageName;
+            set => _imageName = value;
         }
 
         public BoardPosition(PieceType pType, string imgName)
@@ -38,12 +35,12 @@ namespace DahlexApp.Logic.Game
 
         public static BoardPosition CreateHeapBoardPosition(int index)
         {
-            return new BoardPosition(PieceType.Heap, "imgHeap" + index);
+            return new BoardPosition(PieceType.Heap, $"imgHeap{index}");
         }
 
         public static BoardPosition CreateRobotBoardPosition(int index)
         {   
-            return new BoardPosition(PieceType.Robot, "imgRobot" + index);
+            return new BoardPosition(PieceType.Robot, $"imgRobot{index}");
         }
         
         public void ConvertToNone()
@@ -54,7 +51,7 @@ namespace DahlexApp.Logic.Game
         public void ConvertToHeap()
         {
             _type = PieceType.Heap;
-            _imageName = "imgHeap" + _imageName;
+            _imageName = $"imgHeap{_imageName}";
             _isNew = true;
             //TODO re-imp
         }

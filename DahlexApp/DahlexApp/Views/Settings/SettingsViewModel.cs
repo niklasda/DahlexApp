@@ -1,17 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿using System.Drawing;
+using System.Threading.Tasks;
+using DahlexApp.Logic.Settings;
 using MvvmCross.ViewModels;
 
 namespace DahlexApp.Views.Settings
 {
     public class SettingsViewModel : MvxViewModel
     {
-        //private readonly IMvxWebBrowserTask _browser;
 
         // todo add base model with navigation etc
 
         public SettingsViewModel()
         {
-          //  _browser = browser;
 
             Title = "Dahlex";
 
@@ -29,9 +29,21 @@ namespace DahlexApp.Views.Settings
             await base.Initialize();
 
             // do the heavy work here
+
+            SettingsManager sm = new SettingsManager(new Size(0,0));
+            var gs = sm.LoadLocalSettings();
+            ProfName = gs.PlayerName;
+            IsMuted = gs.LessSound;
         }
 
+        public override void ViewDisappeared()
+        {
+            base.ViewDisappeared();
 
+            SettingsManager sm = new SettingsManager(new Size(0, 0));
+            sm.SaveLocalSettings(new GameSettings(new Size(0,0) ){PlayerName = ProfName, LessSound = IsMuted});
+
+        }
 
         private string _title = string.Empty;
         public string Title
@@ -40,11 +52,11 @@ namespace DahlexApp.Views.Settings
             set => SetProperty(ref _title, value);
         }
 
-        private string _playerName;
-        public string PlayerName
+        private string _profName;
+        public string ProfName
         {
-            get => _playerName;
-            set => SetProperty(ref _playerName, value);
+            get => _profName;
+            set => SetProperty(ref _profName, value);
         }
 
         private bool _isMuted;

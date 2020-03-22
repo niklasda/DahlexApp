@@ -35,7 +35,7 @@ namespace DahlexApp.Views.Board
 
             Title = "Play";
             // w411 h660
-            ShortestDimension = Math.Min((int)Application.Current.MainPage.Width, (int)Application.Current.MainPage.Height);
+            //ShortestDimension = Math.Min((int)Application.Current.MainPage.Width, (int)Application.Current.MainPage.Height);
 
             // 42x42
             // PlanetImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
@@ -273,7 +273,7 @@ namespace DahlexApp.Views.Board
         {
             //w411 h660    iw37 37*11=407   37*13=481
             ShortestDimension = Math.Min((int)Application.Current.MainPage.Width, (int)Application.Current.MainPage.Height);
-
+            HeightDimension = ShortestDimension + 37 * 2;
 
             ISettingsManager sm = new SettingsManager(new Size(37 * 11, 37 * 13)); // w11 h13
             var s = sm.LoadLocalSettings();
@@ -301,13 +301,18 @@ namespace DahlexApp.Views.Board
         }
 
         private bool _canTele;
-
         public bool CanTele
         {
             get => _canTele;
             set => SetProperty(ref _canTele, value);
         }
 
+        private bool _canNext;
+        public bool CanNext
+        {
+            get => _canNext;
+            set => SetProperty(ref _canNext, value);
+        }
 
 
         private readonly GameSettings _settings;
@@ -355,22 +360,32 @@ namespace DahlexApp.Views.Board
             {
                 CanBomb = false;
                 CanTele = false;
+                CanNext = false;
             }
             else if (gameStatus == GameStatus.GameStarted)
             {
                 //AddLineToLog("Game started");
                 CanBomb = true;
                 CanTele = true;
+                CanNext = false;
 
-                InfoText = state.Message;
+                if (string.IsNullOrWhiteSpace(state.Message))
+                {
+                    AddLineToLog("Game started")  ;
+                }
+                else
+                {
+                    InfoText = state.Message;
+                }
             }
             else if (gameStatus == GameStatus.LevelComplete)
             {
                 AddLineToLog("Level won");
                 CanBomb = false;
                 CanTele = false;
+                CanNext = true;
 
-                InfoText = state.Message;
+                //InfoText = state.Message;
             }
             else if (gameStatus == GameStatus.LevelOngoing)
             {
@@ -382,14 +397,16 @@ namespace DahlexApp.Views.Board
                 {
                     CanTele = true;
                 }
+                CanNext = false;
 
-                InfoText = state.Message;
+                //InfoText = state.Message;
             }
             else if (gameStatus == GameStatus.GameLost)
             {
                 AddLineToLog("You lost");
                 CanBomb = false;
                 CanTele = false;
+                CanNext = false;
             }
             else if (gameStatus == GameStatus.GameWon)
             {
@@ -440,8 +457,8 @@ namespace DahlexApp.Views.Board
 
                     }
 
-                 //   var tp = new TapGestureRecognizer(){Command = ClickedTheProfCommand, CommandParameter = new Point(x, y)};
-                   // bv.GestureRecognizers.Add(tp);
+                    //   var tp = new TapGestureRecognizer(){Command = ClickedTheProfCommand, CommandParameter = new Point(x, y)};
+                    // bv.GestureRecognizers.Add(tp);
 
                     AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(37 * x, 37 * y, 37, 37));
                     AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
@@ -644,6 +661,13 @@ namespace DahlexApp.Views.Board
         {
             get => _shortestDimension;
             set => SetProperty(ref _shortestDimension, value);
+        }
+
+        private int _heightDimension;
+        public int HeightDimension
+        {
+            get => _heightDimension;
+            set => SetProperty(ref _heightDimension, value);
         }
 
 

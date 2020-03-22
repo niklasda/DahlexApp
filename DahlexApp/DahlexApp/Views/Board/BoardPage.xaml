@@ -25,7 +25,7 @@
         </AbsoluteLayout.GestureRecognizers>-->
       </AbsoluteLayout>
 
-      <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" HeightRequest="{Binding ShortestDimension}" BackgroundColor="Transparent" x:Name="TheOverBoard">
+      <AbsoluteLayout WidthRequest="{Binding ShortestDimension}" HeightRequest="{Binding HeightDimension}" BackgroundColor="Transparent" x:Name="TheOverBoard">
 
         <!--<Image Source="{Binding PlanetImageSource}" x:Name="TheProfx" Aspect="AspectFit" AbsoluteLayout.LayoutBounds="0.2,0.1,0.1,0.1" IsVisible="False" >
           <Image.GestureRecognizers>
@@ -62,11 +62,11 @@
       <StackLayout Orientation="Horizontal" Padding="0" Spacing="7" HorizontalOptions="CenterAndExpand">
         <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource SmallButtonStyle}" />
 
-        <Button Text="Next"  Command="{Binding NextLevelCommand}" Style="{StaticResource SmallButtonStyle}" />
+        <Button Text="Next"  Command="{Binding NextLevelCommand}" Style="{StaticResource SmallButtonStyle}" IsEnabled="{Binding CanNext}" />
 
-        <Button Text="{Binding BombText}" Command="{Binding BombCommand}" Style="{StaticResource SmallButtonStyle}" />
+        <Button Text="{Binding BombText}" Command="{Binding BombCommand}" Style="{StaticResource SmallButtonStyle}" IsEnabled="{Binding CanBomb}" />
 
-        <Button Text="{Binding TeleText}" Command="{Binding TeleCommand}" Style="{StaticResource SmallButtonStyle}" />
+        <Button Text="{Binding TeleText}" Command="{Binding TeleCommand}" Style="{StaticResource SmallButtonStyle}" IsEnabled="{Binding CanTele}" />
       </StackLayout>
 
       <StackLayout Orientation="Horizontal" Padding="0,5,0,5" Spacing="8">

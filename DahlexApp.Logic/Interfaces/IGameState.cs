@@ -20,7 +20,7 @@ namespace DahlexApp.Logic.Interfaces
 
         int Mode { get; set; }
 
-        [IgnoreDataMember]
+        //[IgnoreDataMember]
         string Message { get; set; }
     }
 }

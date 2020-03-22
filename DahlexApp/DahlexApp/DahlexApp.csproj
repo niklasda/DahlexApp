@@ -32,6 +32,9 @@
     <None Remove="Assets\Audio\bomb.wav" />
     <None Remove="Assets\Audio\heap.wav" />
     <None Remove="Assets\Audio\tele.wav" />
+    <None Remove="Assets\Screens\Screen1_1280.png" />
+    <None Remove="Assets\Screens\Screen2_1280.png" />
+    <None Remove="Assets\Screens\Screen4_1280.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +47,9 @@
     <EmbeddedResource Include="Assets\Audio\bomb.wav" />
     <EmbeddedResource Include="Assets\Audio\heap.wav" />
     <EmbeddedResource Include="Assets\Audio\tele.wav" />
+    <EmbeddedResource Include="Assets\Screens\Screen1_1280.png" />
+    <EmbeddedResource Include="Assets\Screens\Screen2_1280.png" />
+    <EmbeddedResource Include="Assets\Screens\Screen4_1280.png" />
   </ItemGroup>
 
   <ItemGroup>

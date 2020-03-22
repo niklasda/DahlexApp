@@ -10,10 +10,10 @@ namespace DahlexApp.Logic.Settings
         {
             _canvasSize = canvasSize;
         }
-     //   [DataMember]
-     public string PlayerName { get; set; } = "Dr. Who";
+        //   [DataMember]
+        public string PlayerName { get; set; } = "Dr. Who";
 
-     //   [DataMember]
+        //   [DataMember]
         public bool LessSound;
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace DahlexApp.Logic.Settings
             get
             {
                 int h = (_canvasSize.Height / SquareSize.Height);
-                int w = (_canvasSize.Width / SquareSize.Width); 
+                int w = (_canvasSize.Width / SquareSize.Width);
                 return new Size(w, h);
             }
         }
@@ -52,7 +52,7 @@ namespace DahlexApp.Logic.Settings
 
         //[IgnoreDataMember]
         //public bool IsFirstRun;
-    //    [IgnoreDataMember]
+        //    [IgnoreDataMember]
         public int MaxNumberOfLevel
         {
             get { return (BoardSize.Width * BoardSize.Height) / 4 + 10; }
