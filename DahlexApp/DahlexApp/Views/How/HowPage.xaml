@@ -24,7 +24,7 @@
 
       <Label Margin="0" Text="How" Style="{StaticResource SubtitleStyle}"/>
 
-      <CarouselView ItemsSource="{Binding HowToPages}">
+      <CarouselView ItemsSource="{Binding HowToPages}"  IndicatorView="indicatorView">
         <CarouselView.ItemTemplate  >
           <DataTemplate x:DataType="viewModels:HowItemViewModel">
             <StackLayout>
@@ -34,6 +34,11 @@
         </DataTemplate>
       </CarouselView.ItemTemplate>
       </CarouselView>
+      <IndicatorView x:Name="indicatorView"
+                     IndicatorColor="{StaticResource SecondaryForegroundColor}"
+                     SelectedIndicatorColor="{StaticResource PrimaryForegroundColor}"
+                     IndicatorSize="10"
+                     HorizontalOptions="Center" />
     </StackLayout>
 
 

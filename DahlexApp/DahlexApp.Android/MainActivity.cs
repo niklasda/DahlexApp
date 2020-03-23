@@ -20,9 +20,10 @@ namespace DahlexApp.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
+            Xamarin.Forms.Forms.SetFlags("IndicatorView_Experimental");
+
             base.OnCreate(savedInstanceState);
 
-           // Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
          //   Xamarin.Forms.Forms.Init(this, savedInstanceState);
        //     LoadApplication(new App());
