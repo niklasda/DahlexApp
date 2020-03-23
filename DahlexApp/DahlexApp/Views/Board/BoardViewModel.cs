@@ -55,14 +55,14 @@ namespace DahlexApp.Views.Board
                 PerformRound(MoveDirection.None);
             });
 
-           // ClickedTheHeapCommand = new MvxCommand(() =>
-          //  {
-                //TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40);
+            // ClickedTheHeapCommand = new MvxCommand(() =>
+            //  {
+            //TheHeapImage.TranslateTo(TheHeapImage.TranslationX + 40, TheHeapImage.TranslationY + 40);
             //});
 
-         //   ClickedTheRobotCommand = new MvxCommand(() =>
-           // {
-                //TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 37, TheRobotImage.TranslationY + 37);
+            //   ClickedTheRobotCommand = new MvxCommand(() =>
+            // {
+            //TheRobotImage.TranslateTo(TheRobotImage.TranslationX + 37, TheRobotImage.TranslationY + 37);
             //});
 
             StartGameCommand = new MvxCommand(() =>
@@ -109,11 +109,11 @@ namespace DahlexApp.Views.Board
                 }
             });
 
-            BombCommand = new MvxCommand(() =>
+            BombCommand = new MvxCommand(async () =>
             {
                 try
                 {
-                    BlowBomb();
+                    await BlowBomb();
 
                 }
                 catch (Exception)
@@ -157,7 +157,7 @@ namespace DahlexApp.Views.Board
             }
         }
 
-        private void BlowBomb()
+        private async Task BlowBomb()
         {
             if (_ge != null)
             {
@@ -168,9 +168,9 @@ namespace DahlexApp.Views.Board
                     {
                         try
                         {
-                            DrawExplosionRadius(_ge.GetProfessorCoordinates());
+                            await DrawExplosionRadius(_ge.GetProfessorCoordinates());
                         }
-                        catch// (Exception ex)
+                        catch (Exception ex)
                         {
                             // safety try, marketplace version crashes on samsung 
                             //MessageBox.Show(ex.Message);
@@ -195,9 +195,27 @@ namespace DahlexApp.Views.Board
             }
         }
 
-        private void DrawExplosionRadius(Point pos)
+        private async Task DrawExplosionRadius(Point pos)
         {
             Debug.WriteLine(pos.X);
+
+
+            var bv = new Frame()
+            {
+                BorderColor = new Color(0x17, 0x1B, 0x26),
+                CornerRadius = 0,
+                BackgroundColor = Color.Transparent,
+                Margin = new Thickness(0)
+            };
+
+            AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(37 * pos.X + 16, 37 * pos.Y + 16, 5, 5));
+            AbsoluteLayout.SetLayoutFlags(bv, AbsoluteLayoutFlags.None);
+
+            TheAbsBoard.Children.Add(bv);
+
+            await bv.ScaleTo(15, 1000);
+            await bv.ScaleTo(0.1, 1000);
+            TheAbsBoard.Children.Remove(bv);
         }
 
         //private bool DeterminePerformRound(Point p)
@@ -349,8 +367,8 @@ namespace DahlexApp.Views.Board
         }
 
         public IMvxCommand<Point> ClickedTheProfCommand { get; }
-     //   public IMvxCommand ClickedTheHeapCommand { get; }
-       // public IMvxCommand ClickedTheRobotCommand { get; }
+        //   public IMvxCommand ClickedTheHeapCommand { get; }
+        // public IMvxCommand ClickedTheRobotCommand { get; }
 
         private TimeSpan _elapsed = TimeSpan.Zero;
 
@@ -369,14 +387,7 @@ namespace DahlexApp.Views.Board
                 CanTele = true;
                 CanNext = false;
 
-                if (string.IsNullOrWhiteSpace(state.Message))
-                {
-                    AddLineToLog("Game started")  ;
-                }
-                else
-                {
-                    InfoText = state.Message;
-                }
+                AddLineToLog("Game started");
             }
             else if (gameStatus == GameStatus.LevelComplete)
             {
@@ -398,6 +409,15 @@ namespace DahlexApp.Views.Board
                     CanTele = true;
                 }
                 CanNext = false;
+
+                if (string.IsNullOrWhiteSpace(state.Message))
+                {
+                    AddLineToLog("Game started");
+                }
+                else
+                {
+                    InfoText = state.Message;
+                }
 
                 //InfoText = state.Message;
             }
@@ -525,7 +545,7 @@ namespace DahlexApp.Views.Board
 
                 if (_ge != null && _ge.Status == GameStatus.LevelOngoing)
                 {
-//                    Point p = new Point(e.TotalManipulation.Translation.X, e.TotalManipulation.Translation.Y);
+                    //                    Point p = new Point(e.TotalManipulation.Translation.X, e.TotalManipulation.Translation.Y);
                     // very small swipe or tap is like clicking the professor in standard move mode
                     if (IsTap(p) /*&& IsWithinBounds(e)*/)
                     {
@@ -724,7 +744,7 @@ namespace DahlexApp.Views.Board
                             boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
                             TheAbsOverBoard.Children.Add(boardImage);
 
-                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty);
+                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty, 250);
 
                             // boardImage = pic;
                             // Image img = AddImage(imgName, boardImage, pt, cp);
@@ -750,12 +770,12 @@ namespace DahlexApp.Views.Board
                             TheAbsOverBoard.Children.Add(boardImage);
                             //boardImage = pic;
                             //AddImage(imgName, boardImage, pt, cp);
-                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty);
+                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty, 250);
 
                         }
                         else if (cp.Type == PieceType.Robot)
                         {
-                            Image boardImage = new Image { InputTransparent = true }; 
+                            Image boardImage = new Image { InputTransparent = true };
 
                             AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
                             AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
@@ -767,7 +787,7 @@ namespace DahlexApp.Views.Board
                             //                         boardImage.Source = LoadImage(name);
                             TheAbsOverBoard.Children.Add(boardImage);
 
-                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty);
+                            Animate(cp, new Point(0, 0), new Point(x, y), Guid.Empty, 250);
 
                             //     pic.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                             //   boardImage = pic;
@@ -857,7 +877,7 @@ namespace DahlexApp.Views.Board
             return stream;
         }
 
-        public void Animate(BoardPosition bp, Point oldPos, Point newPos, Guid roundId)
+        public void Animate(BoardPosition bp, Point oldPos, Point newPos, Guid roundId, uint millis)
         {
             //  int xOffset = _settings.ImageOffset.X;
             //  int yOffset = _settings.ImageOffset.Y;
@@ -874,21 +894,21 @@ namespace DahlexApp.Views.Board
 
                 var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
                 //               img.TranslateTo(nLeft, nTop);
-                img.TranslateTo(nLeft, nTop);
+                img.TranslateTo(nLeft, nTop, millis);
 
             }
             else if (bp.Type == PieceType.Robot)
             {
                 //TheRobotImage.TranslateTo(nLeft, nTop);
                 var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img.TranslateTo(nLeft, nTop);
+                img.TranslateTo(nLeft, nTop, millis);
 
             }
             else if (bp.Type == PieceType.Heap)
             {
                 //TheRobotImage.TranslateTo(nLeft, nTop);
                 var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img?.TranslateTo(nLeft, nTop);
+                img?.TranslateTo(nLeft, nTop, millis);
 
             }
 
@@ -896,6 +916,8 @@ namespace DahlexApp.Views.Board
 
         public void RemoveImage(string imageName)
         {
+            var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == imageName);
+            TheAbsOverBoard.Children.Remove(img);
         }
 
         public void StartTheRobots(Guid roundId)

@@ -40,7 +40,7 @@
       </StackLayout>
     </StackLayout>
 
-    <Label  Grid.Row="2" Margin="10" Text="Dahlex v1 (c) 2020 nida" Style="{StaticResource SubtitleStyle}"/>
+    <Label  Grid.Row="2" Margin="10" Text="Dahlex v0.9 (c) 2020 nida" Style="{StaticResource SubtitleStyle}"/>
 
   </Grid>
 

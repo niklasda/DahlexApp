@@ -22,13 +22,14 @@
 
     <StackLayout Grid.Row="1" Orientation="Vertical" Padding="15,10,5,10" Spacing="10">
 
-      <Label Margin="0" Text="How" Style="{StaticResource SubtitleStyle}"/>
+      <Label Margin="0" Text="How" Style="{StaticResource SubtitleStyle}" />
 
       <CarouselView ItemsSource="{Binding HowToPages}"  IndicatorView="indicatorView">
         <CarouselView.ItemTemplate  >
           <DataTemplate x:DataType="viewModels:HowItemViewModel">
             <StackLayout>
               <Image Source="{Binding ImageSource}"  ></Image>
+              <Label Text="{Binding ImageText}" Style="{StaticResource SubtitleStyle}" ></Label>
             </StackLayout>
            
         </DataTemplate>

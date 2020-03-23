@@ -1,20 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using MvvmCross.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace DahlexApp.Views.How
 {
     public class HowItemViewModel 
     {
-
-
-        private string _imageName;
-        public string ImageName
+        private string _imageText;
+        public string ImageText
         {
-            get => _imageName;
-            set => _imageName = value;
+            get => _imageText;
+            set => _imageText = value;
         }
 
         private ImageSource _imageSource;
@@ -23,6 +17,5 @@ namespace DahlexApp.Views.How
             get => _imageSource;
             set => _imageSource = value;
         }
-
     }
 }

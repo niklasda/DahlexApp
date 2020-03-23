@@ -19,7 +19,7 @@ namespace DahlexApp.Logic.Interfaces
         // void SetBoardSizeControls();
         void PlaySound(Sound effect);
 
-        void Animate(BoardPosition bp, Point oldPosition, Point newPosition, Guid roundId);
+        void Animate(BoardPosition bp, Point oldPosition, Point newPosition, Guid roundId, uint millis);
 
         // void RemoveAnimate(BoardPosition position);
         void RemoveImage(string imageName);

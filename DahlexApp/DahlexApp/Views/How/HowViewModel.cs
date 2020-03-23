@@ -7,11 +7,9 @@ namespace DahlexApp.Views.How
 {
     public class HowViewModel : MvxViewModel
     {
-
         public HowViewModel()
         {
             Title = "How";
-
         }
 
         public override void Prepare()
@@ -25,11 +23,8 @@ namespace DahlexApp.Views.How
 
             await base.Initialize();
 
-
             // do the heavy work here
         }
-
-
 
         public ObservableCollection<HowItemViewModel> HowToPages { get; } = new ObservableCollection<HowItemViewModel>();
 
@@ -37,10 +32,10 @@ namespace DahlexApp.Views.How
         {
             base.ViewAppeared();
 
-            HowToPages.Add(new HowItemViewModel { ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
+            HowToPages.Add(new HowItemViewModel { ImageText = "Pic 1", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
 
-            HowToPages.Add(new HowItemViewModel { ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
-            HowToPages.Add(new HowItemViewModel { ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
+            HowToPages.Add(new HowItemViewModel { ImageText = "Pic 2", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
+            HowToPages.Add(new HowItemViewModel { ImageText = "Pic 3", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
         }
 
         private string _title = string.Empty;
