@@ -134,6 +134,7 @@ namespace DahlexApp.Views.Board
                         }
                         catch (Exception ex)
                         {
+                            Debug.WriteLine(ex.Message);
                             // safety try, marketplace version crashes on samsung 
                             //MessageBox.Show(ex.Message);
                         }
@@ -343,10 +344,10 @@ namespace DahlexApp.Views.Board
             else if (gameStatus == GameStatus.GameWon)
             {
                 // never happens
-                //               AddLineToLog("You won");
-                //             btnBomb.IsEnabled = false;
-                //           btnTeleport.IsEnabled = false;
-                //         _dg.AddHighScore();
+                //       AddLineToLog("You won");
+                //       btnBomb.IsEnabled = false;
+                //       btnTeleport.IsEnabled = false;
+                //       _dg.AddHighScore();
             }
 
             if (state.BombCount < 1)
@@ -647,13 +648,6 @@ namespace DahlexApp.Views.Board
                         // RemoveImage(imgName);
                         //}
 
-                        //if (boardImage != null)
-                        //{
-                        //}
-                        //else if (cp.Type != PieceType.None)
-                        //{
-                        //    throw new Exception("Invalid Type of BoardPosition");
-                        //}
                     }
                 }
             }
@@ -757,6 +751,33 @@ namespace DahlexApp.Views.Board
             TheAbsOverBoard.Children.Remove(img);
         }
 
+        public void ChangeImage(BoardPosition bp)
+        {
+            var imgv = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
 
+            if (imgv is Image img )
+            {
+                TheAbsOverBoard.Children.Remove(imgv);
+                img.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+
+                // move to front
+                TheAbsOverBoard.Children.Add(imgv);
+
+            }
+
+            //            Image boardImage = new Image { InputTransparent = true };
+
+            //          AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
+            //        AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+
+            //      imgName = cp.ImageName;
+            // boardImage.Source = LoadImage("planet_01.png");
+
+            //boardImage.SetValue(BindablePropertyKey.FrameworkElement.NameProperty, imgName);
+            //    boardImage.AutomationId = imgName;
+            //  boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
+            //TheAbsOverBoard.Children.Add(boardImage);
+
+        }
     }
 }

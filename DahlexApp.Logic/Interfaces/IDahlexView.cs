@@ -24,5 +24,6 @@ namespace DahlexApp.Logic.Interfaces
         // void RemoveAnimate(BoardPosition position);
         void RemoveImage(string imageName);
 
+        void ChangeImage(BoardPosition bp);
     }
 }

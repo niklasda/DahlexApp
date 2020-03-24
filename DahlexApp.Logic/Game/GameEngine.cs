@@ -346,7 +346,7 @@ namespace DahlexApp.Logic.Game
                 _boardView.Animate(oldBp, oldPosition, newPosition, millis);
 
                 _boardView.PlaySound(Sound.Crash);
-
+                _boardView.ChangeImage(newBp);
                 newBp.ConvertToHeap();
                 _robotCount -= 2;
                 if (_robotCount == 0)
@@ -360,6 +360,7 @@ namespace DahlexApp.Logic.Game
                 _boardView.Animate(oldBp, oldPosition, newPosition, millis);
 
                 _boardView.PlaySound(Sound.Crash);
+                _boardView.ChangeImage(newBp);
 
                 newBp.ConvertToHeap();
                 _robotCount--;
@@ -590,7 +591,7 @@ namespace DahlexApp.Logic.Game
 
                             if (bp.Type == PieceType.Robot)
                             {
-                                _boardView.AddLineToLog(string.Format("Bombing robot {0}", (new Point(x, y)).ToString()));
+                                _boardView.AddLineToLog($"Bombing robot {x} {y}");
                                 _boardView.Animate(bp, new Point(x, y), new Point(x, y), 250);
 
                                 //_boardView.RemoveRobotAnimation(bp);
@@ -629,7 +630,7 @@ namespace DahlexApp.Logic.Game
 
                 _boardView.AddLineToLog(string.Format("T. from {0} to {1}", oldProfPos.ToString(), newProfPos.ToString()));
 
-                MoveCharacter(oldProfPos, newProfPos, 1500); // no guid for prof.
+                MoveCharacter(oldProfPos, newProfPos, 1500); 
                 _moveCount++;
                 _teleportCount--;
                 return true;
