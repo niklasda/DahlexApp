@@ -1,6 +1,9 @@
 ﻿using DahlexApp.Logic.Interfaces;
 using MvvmCross.IoC;
 using MvvmCross.ViewModels;
+using Xamarin.Forms.Xaml;
+
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
 namespace DahlexApp.Core
 {

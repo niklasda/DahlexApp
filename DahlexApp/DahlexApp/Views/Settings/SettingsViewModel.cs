@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Threading.Tasks;
+using DahlexApp.Logic.Models;
 using DahlexApp.Logic.Settings;
 using MvvmCross.ViewModels;
 

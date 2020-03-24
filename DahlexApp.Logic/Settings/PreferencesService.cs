@@ -1,4 +1,5 @@
-﻿using Xamarin.Essentials;
+﻿using DahlexApp.Logic.Interfaces;
+using Xamarin.Essentials;
 
 namespace DahlexApp.Logic.HighScores
 {

@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace DahlexApp.Logic.Settings
+namespace DahlexApp.Logic.Models
 {
     //[DataContract]
     public class GameSettings

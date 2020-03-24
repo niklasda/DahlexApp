@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Text;
 using DahlexApp.Logic.Interfaces;
-using DahlexApp.Logic.HighScores;
+using DahlexApp.Logic.Models;
 using DahlexApp.Logic.Settings;
 using DahlexApp.Logic.Utils;
 
@@ -322,14 +322,14 @@ namespace DahlexApp.Logic.Game
                         {
                             Point point = new Point(x, y);
 
-                            MoveCharacter(point, point, Guid.Empty, 10); // no guid needed, doesn't move
+                            MoveCharacter(point, point, 10); // todo  doesn't move
                         }
                     }
                 }
             }
         }
 
-        private void MoveCharacter(Point oldPosition, Point newPosition, Guid roundId, uint millis)
+        private void MoveCharacter(Point oldPosition, Point newPosition, uint millis)
         {
             BoardPosition oldBp = _board.GetPosition(oldPosition.X, oldPosition.Y);
             BoardPosition newBp = _board.GetTempPosition(newPosition.X, newPosition.Y);
@@ -337,13 +337,13 @@ namespace DahlexApp.Logic.Game
             if (newBp == null || newBp.Type == PieceType.None)
             {
                 _board.SetTempPosition(newPosition.X, newPosition.Y, oldBp);
-                _boardView.Animate(oldBp, oldPosition, newPosition, roundId, millis);
-                _boardView.AddLineToLog("M. " + oldBp.Type + " to " + newPosition.ToString());
+                _boardView.Animate(oldBp, oldPosition, newPosition, millis);
+                _boardView.AddLineToLog($"M. {oldBp.Type} to {newPosition}");
             }
             else if (oldBp.Type == PieceType.Robot && newBp.Type == PieceType.Robot)
             {
-                _boardView.AddLineToLog("Robot-robot collision on " + newPosition.ToString());
-                _boardView.Animate(oldBp, oldPosition, newPosition, roundId, millis);
+                _boardView.AddLineToLog($"Robot-robot collision on {newPosition}");
+                _boardView.Animate(oldBp, oldPosition, newPosition, millis);
 
                 _boardView.PlaySound(Sound.Crash);
 
@@ -356,8 +356,8 @@ namespace DahlexApp.Logic.Game
             }
             else if (oldBp.Type == PieceType.Robot && newBp.Type == PieceType.Heap)
             {
-                _boardView.AddLineToLog("Robot-heap collision on " + newPosition.ToString());
-                _boardView.Animate(oldBp, oldPosition, newPosition, roundId, millis);
+                _boardView.AddLineToLog($"Robot-heap collision on {newPosition}");
+                _boardView.Animate(oldBp, oldPosition, newPosition, millis);
 
                 _boardView.PlaySound(Sound.Crash);
 
@@ -370,8 +370,8 @@ namespace DahlexApp.Logic.Game
             }
             else if (oldBp.Type == PieceType.Robot && newBp.Type == PieceType.Professor)
             {
-                _boardView.AddLineToLog("Robot killed professor on " + newPosition.ToString());
-                _boardView.Animate(oldBp, oldPosition, newPosition, roundId, millis);
+                _boardView.AddLineToLog($"Robot killed professor on {newPosition}");
+                _boardView.Animate(oldBp, oldPosition, newPosition, millis);
 
                 _boardView.PlaySound(Sound.Crash);
 
@@ -381,8 +381,8 @@ namespace DahlexApp.Logic.Game
             }
             else if (oldBp.Type == PieceType.Professor && newBp.Type == PieceType.Robot)
             {
-                _boardView.AddLineToLog("Professor hit robot on " + newPosition.ToString());
-                _boardView.Animate(oldBp, oldPosition, newPosition, roundId, millis);
+                _boardView.AddLineToLog($"Professor hit robot on {newPosition}");
+                _boardView.Animate(oldBp, oldPosition, newPosition, millis);
 
                 _boardView.PlaySound(Sound.Crash);
 
@@ -392,7 +392,7 @@ namespace DahlexApp.Logic.Game
             }
             else if (oldBp.Type == PieceType.Professor && newBp.Type == PieceType.Heap)
             {
-                _boardView.AddLineToLog("Professor blocked by heap on " + newPosition.ToString());
+                _boardView.AddLineToLog($"Professor blocked by heap on {newPosition}");
 
                 _board.SetTempPosition(oldPosition.X, oldPosition.Y, _board.GetPosition(oldPosition.X, oldPosition.Y));
             }
@@ -491,7 +491,7 @@ namespace DahlexApp.Logic.Game
 
             if (!oldProfessorPosition.Equals(newProfessorPosition) || (dir == MoveDirection.None))
             {
-                MoveCharacter(oldProfessorPosition, newProfessorPosition, Guid.Empty, 250); // no guid needed, prof has own storyboard
+                MoveCharacter(oldProfessorPosition, newProfessorPosition, 250); // no guid needed, prof has own storyboard
                 _moveCount++;
                 return true;
             }
@@ -502,7 +502,7 @@ namespace DahlexApp.Logic.Game
         public void MoveRobotsToTemp()
         {
             Point prof = GetProfessor(true);
-            var guid = Guid.NewGuid();
+            //var guid = Guid.NewGuid();
 
             for (int x = 0; x < _board.GetPositionWidth(); x++)
             {
@@ -518,12 +518,12 @@ namespace DahlexApp.Logic.Game
                             var diff = new Point(Math.Sign(prof.X - current.X), Math.Sign(prof.Y - current.Y));
                             var newPoint = new Point(current.X + diff.X, current.Y + diff.Y);
 
-                            MoveCharacter(current, newPoint, guid, 250);
+                            MoveCharacter(current, newPoint, 250);
                         }
                     }
                 }
             }
-            _boardView.StartTheRobots(guid);
+            //_boardView.StartTheRobots(guid);
         }
 
         public void CommitTemp()
@@ -574,7 +574,7 @@ namespace DahlexApp.Logic.Game
         public bool BlowBomb()
         {
             int robotCountBefore = _robotCount;
-            Guid roundId = Guid.NewGuid();
+            //Guid roundId = Guid.NewGuid();
 
             if (_bombCount > 0)
             {
@@ -591,7 +591,7 @@ namespace DahlexApp.Logic.Game
                             if (bp.Type == PieceType.Robot)
                             {
                                 _boardView.AddLineToLog(string.Format("Bombing robot {0}", (new Point(x, y)).ToString()));
-                                _boardView.Animate(bp, new Point(x, y), new Point(x, y), roundId, 250);
+                                _boardView.Animate(bp, new Point(x, y), new Point(x, y), 250);
 
                                 //_boardView.RemoveRobotAnimation(bp);
 
@@ -629,7 +629,7 @@ namespace DahlexApp.Logic.Game
 
                 _boardView.AddLineToLog(string.Format("T. from {0} to {1}", oldProfPos.ToString(), newProfPos.ToString()));
 
-                MoveCharacter(oldProfPos, newProfPos, Guid.Empty, 1500); // no guid for prof.
+                MoveCharacter(oldProfPos, newProfPos, 1500); // no guid for prof.
                 _moveCount++;
                 _teleportCount--;
                 return true;

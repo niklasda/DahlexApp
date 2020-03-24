@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using DahlexApp.Logic.HighScores;
 using DahlexApp.Logic.Interfaces;
+using DahlexApp.Logic.Models;
 
 namespace DahlexApp.Logic.Settings
 {

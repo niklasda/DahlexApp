@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-
+﻿
 namespace DahlexApp.Logic.Interfaces
 {
     public interface IGameState

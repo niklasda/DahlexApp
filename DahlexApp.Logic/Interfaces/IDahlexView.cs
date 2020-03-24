@@ -1,6 +1,6 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using DahlexApp.Logic.Game;
+using DahlexApp.Logic.Models;
 
 namespace DahlexApp.Logic.Interfaces
 {
@@ -19,13 +19,10 @@ namespace DahlexApp.Logic.Interfaces
         // void SetBoardSizeControls();
         void PlaySound(Sound effect);
 
-        void Animate(BoardPosition bp, Point oldPosition, Point newPosition, Guid roundId, uint millis);
+        void Animate(BoardPosition bp, Point oldPosition, Point newPosition, uint millis);
 
         // void RemoveAnimate(BoardPosition position);
         void RemoveImage(string imageName);
 
-        void StartTheRobots(Guid roundId);
-
-        //void DrawLines();
     }
 }

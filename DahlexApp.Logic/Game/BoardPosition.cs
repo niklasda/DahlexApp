@@ -1,31 +1,19 @@
-﻿using DahlexApp.Logic.Interfaces;
+﻿using DahlexApp.Logic.Models;
 
 namespace DahlexApp.Logic.Game
 {
     public class BoardPosition
     {
-        private PieceType _type;
-        private string _imageName;
-        private bool _isNew;
+        public bool IsNew { get; set; }
 
-        public bool IsNew
-        {
-            get => _isNew;
-            set => _isNew = value;
-        }
+        public PieceType Type { get; private set; }
 
-        public PieceType Type => _type;
-
-        public string ImageName
-        {
-            get => _imageName;
-            set => _imageName = value;
-        }
+        public string ImageName { get; set; }
 
         public BoardPosition(PieceType pType, string imgName)
         {
-            _type = pType;
-            _imageName = imgName;
+            Type = pType;
+            ImageName = imgName;
         }
 
         public static BoardPosition CreateProfessorBoardPosition()
@@ -45,14 +33,14 @@ namespace DahlexApp.Logic.Game
         
         public void ConvertToNone()
         {
-            _type = PieceType.None;
+            Type = PieceType.None;
         }
 
         public void ConvertToHeap()
         {
-            _type = PieceType.Heap;
-            _imageName = $"imgHeap{_imageName}";
-            _isNew = true;
+            Type = PieceType.Heap;
+            ImageName = $"imgHeap{ImageName}";
+            IsNew = true;
             //TODO re-imp
         }
     }

@@ -1,4 +1,4 @@
-﻿using DahlexApp.Logic.Settings;
+﻿using DahlexApp.Logic.Models;
 
 namespace DahlexApp.Logic.Interfaces
 {

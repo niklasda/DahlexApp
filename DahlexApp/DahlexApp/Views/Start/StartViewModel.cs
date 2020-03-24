@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DahlexApp.Logic.Interfaces;
+using DahlexApp.Logic.Models;
 using DahlexApp.Views.Board;
 using DahlexApp.Views.How;
 using DahlexApp.Views.Scores;

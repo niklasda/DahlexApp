@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using DahlexApp.Logic.HighScores;
+using DahlexApp.Logic.Settings;
 using MvvmCross.ViewModels;
 
 namespace DahlexApp.Views.Scores

@@ -5,9 +5,10 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
+using DahlexApp.Logic.Models;
 using Newtonsoft.Json;
 
-namespace DahlexApp.Logic.HighScores
+namespace DahlexApp.Logic.Settings
 {
     public interface IHighScoreService
     {

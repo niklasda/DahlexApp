@@ -1,5 +1,4 @@
-﻿
-using Foundation;
+﻿using Foundation;
 using MvvmCross.Forms.Platforms.Ios.Core;
 using UIKit;
 
@@ -21,7 +20,7 @@ namespace DahlexApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 
-            //Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
+            Xamarin.Forms.Forms.SetFlags("IndicatorView_Experimental");
             Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

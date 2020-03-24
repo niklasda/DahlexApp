@@ -1,6 +1,6 @@
-﻿
-using System.Drawing;
+﻿using System.Drawing;
 using DahlexApp.Logic.Interfaces;
+using DahlexApp.Logic.Models;
 
 namespace DahlexApp.Logic.Game
 {
@@ -18,6 +18,7 @@ namespace DahlexApp.Logic.Game
             _positions = new BoardPosition[_boardSize.Width, _boardSize.Height];
             _tempPositions = new BoardPosition[_boardSize.Width, _boardSize.Height];
         }
+
         public BoardPosition[,] TheBoard
         {
             get { return _positions; }

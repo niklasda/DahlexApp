@@ -1,4 +1,4 @@
-﻿namespace DahlexApp.Logic.HighScores
+﻿namespace DahlexApp.Logic.Interfaces
 {
     public interface IPreferencesService
     {

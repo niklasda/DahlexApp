@@ -33,7 +33,6 @@ namespace DahlexApp.Views.How
             base.ViewAppeared();
 
             HowToPages.Add(new HowItemViewModel { ImageText = "Pic 1", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
-
             HowToPages.Add(new HowItemViewModel { ImageText = "Pic 2", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
             HowToPages.Add(new HowItemViewModel { ImageText = "Pic 3", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
         }
