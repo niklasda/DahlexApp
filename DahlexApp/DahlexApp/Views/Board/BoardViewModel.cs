@@ -129,7 +129,8 @@ namespace DahlexApp.Views.Board
                     {
                         try
                         {
-                            await DrawExplosionRadius(_ge.GetProfessorCoordinates());
+                            // do not await
+                            DrawExplosionRadius(_ge.GetProfessorCoordinates());
                         }
                         catch (Exception ex)
                         {
@@ -158,7 +159,7 @@ namespace DahlexApp.Views.Board
 
         private async Task DrawExplosionRadius(Point pos)
         {
-            Debug.WriteLine(pos.X);
+            // Debug.WriteLine(pos.X);
 
 
             var bv = new Frame()
