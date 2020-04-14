@@ -9,20 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Common\Services\**" />
-    <EmbeddedResource Remove="Common\Services\**" />
-    <None Remove="Common\Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="AppShell.xaml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="AppShell.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Assets\Images\heap_02.png" />
     <None Remove="Assets\Images\planet_01.png" />
     <None Remove="Assets\Images\robot_04.png" />
@@ -91,9 +77,5 @@
     <EmbeddedResource Update="Styles\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\Recognizers\" />
   </ItemGroup>
 </Project>

@@ -18,25 +18,25 @@
       <RowDefinition Height="150" />
     </Grid.RowDefinitions>
 
-    <Image Source="{Binding LogoImageSource}" Aspect="AspectFill" ></Image>
+    <Image Grid.Row="0" Grid.RowSpan="2" Source="{Binding LogoImageSource}" Aspect="AspectFill" ></Image>
 
-    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="8" BackgroundColor="DimGray">
+    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="8">
 
 
       <StackLayout Orientation="Horizontal" Padding="0,10,0,5" Spacing="5">
-        <Button Text="Play" Command="{Binding GotoBoardCommand}" Style="{StaticResource ButtonStyle}" Margin="19,0,9,0" />
+        <Button Text="Play" Command="{Binding GotoBoardCommand}" Style="{StaticResource ButtonStyle}" Opacity="0.8" Margin="19,0,9,0" />
 
-        <Button Text="Tutorial" Command="{Binding GotoTutorialCommand}" Style="{StaticResource ButtonStyle}" Margin="9,0,19,0"  />
+        <Button Text="Tutorial" Command="{Binding GotoTutorialCommand}" Style="{StaticResource ButtonStyle}" Opacity="0.8" Margin="9,0,19,0"  />
 
       </StackLayout>
 
       <StackLayout Orientation="Horizontal" Padding="0,5,0,10" Spacing="5">
 
-        <Button Text="HowTo"  Command="{Binding HowCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="HowTo"  Command="{Binding HowCommand}" Style="{StaticResource ButtonStyle}" Opacity="0.8" />
 
-        <Button Text="Scores" Command="{Binding GotoScoresCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="Scores" Command="{Binding GotoScoresCommand}" Style="{StaticResource ButtonStyle}" Opacity="0.8" />
 
-        <Button Text="Settings" Command="{Binding GotoSettingsCommand}" Style="{StaticResource ButtonStyle}" />
+        <Button Text="Settings" Command="{Binding GotoSettingsCommand}" Style="{StaticResource ButtonStyle}" Opacity="0.8" />
       </StackLayout>
     </StackLayout>
   </Grid>

@@ -9,13 +9,7 @@
     <WarningsAsErrors />
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="HighScores\**" />
-    <EmbeddedResource Remove="HighScores\**" />
-    <None Remove="HighScores\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Reactive" Version="4.4.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />

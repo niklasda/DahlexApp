@@ -20,7 +20,7 @@
 
     <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
 
-      <Label Margin="0" Text="Scores" Style="{StaticResource SubtitleStyle}" />
+      <Label Margin="0" Text="Scores" Style="{StaticResource TitleStyle}" />
 
       <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
       </StackLayout>
