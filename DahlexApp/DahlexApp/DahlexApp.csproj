@@ -43,12 +43,9 @@
     <PackageReference Include="MvvmCross.Plugin.Json" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Plugin.Network" Version="6.4.2" />
-    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="6.4.2" />
-    <PackageReference Include="System.Reactive" Version="4.4.1" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.4.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
