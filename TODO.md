@@ -1,9 +1,29 @@
 
 
-Convert to heap
-heap on collide
-bomb to none
-remove bombed robot after circle anim
-button states
+fix the square circle...
 
-settingssManager sould not require a canvas
+x disable start while playing (or change to restart/stop)
+x also in tutorial, do something with start button
+
+  toast "nothing to bomb"
+  teleport more than 1 square
+x you lost collide sound? there was, turn up volume
+
+x next level text says game started
+
+x change pic1 pic2 pic3 texts
+
+  show directional indicators
+
+x howto, scores, settings should have a close/back button
+
+  Convert to heap
+  heap on collide
+  bomb to none
+  remove bombed robot after circle anim
+  button states
+
+  settingssManager sould not require a canvas
+
+
+x  MaxLevelIndicator är altid 100 så va e d som visas?

@@ -43,10 +43,10 @@
           </Image.GestureRecognizers>
         </Image>-->
 
-        <AbsoluteLayout.GestureRecognizers>
-          <!--<SwipeGestureRecognizer Direction="Left,Up,Right,Down" Swiped="SwipeGestureRecognizer_OnSwiped"></SwipeGestureRecognizer>
-          <PanGestureRecognizer PanUpdated="PanGestureRecognizer_OnPanUpdated" ></PanGestureRecognizer>-->
-        </AbsoluteLayout.GestureRecognizers>
+          <!--<AbsoluteLayout.GestureRecognizers>
+        <SwipeGestureRecognizer Direction="Left,Up,Right,Down" Swiped="SwipeGestureRecognizer_OnSwiped"></SwipeGestureRecognizer>
+          <PanGestureRecognizer PanUpdated="PanGestureRecognizer_OnPanUpdated" ></PanGestureRecognizer>
+        </AbsoluteLayout.GestureRecognizers>-->
 
       </AbsoluteLayout>
     </AbsoluteLayout>
@@ -60,7 +60,7 @@
       </StackLayout>
 
       <StackLayout Orientation="Horizontal" Padding="0" Spacing="7" HorizontalOptions="CenterAndExpand">
-        <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource SmallButtonStyle}" />
+        <Button Text="Start" Command="{Binding StartGameCommand}" Style="{StaticResource SmallButtonStyle}" IsEnabled="{Binding CanStart}" />
 
         <Button Text="Next"  Command="{Binding NextLevelCommand}" Style="{StaticResource SmallButtonStyle}" IsEnabled="{Binding CanNext}" />
 

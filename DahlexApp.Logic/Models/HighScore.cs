@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using DahlexApp.Logic.Settings;
 
 namespace DahlexApp.Logic.Models
 {
@@ -40,11 +39,7 @@ namespace DahlexApp.Logic.Models
         {
             get
             {
-                if (Score == SettingsManager.MaxLevelIndicator)
-                {
-                    return $"{Name} completed the game in {Math.Floor(GameDuration.TotalSeconds)}s";
-                }
-                else if (Score == SettingsManager.MinLevelIndicator)
+                if (Score <= 1)
                 {
                     return $"{Name}";
                 }

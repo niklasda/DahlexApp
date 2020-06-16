@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using DahlexApp.Logic.HighScores;
 using DahlexApp.Logic.Interfaces;
 using DahlexApp.Logic.Models;
 
@@ -8,7 +7,7 @@ namespace DahlexApp.Logic.Settings
     public class SettingsManager : ISettingsManager
     {
         //private static bool _hasAlreadyRun;
-        private Size _canvasSize;
+        private readonly Size _canvasSize;
 
         public SettingsManager(Size canvasSize)
         {
@@ -26,11 +25,11 @@ namespace DahlexApp.Logic.Settings
         }
 
 
-        public static int MaxLevelIndicator
-        { get { return 100; } }
+        //public static int MaxLevelIndicator
+        //{ get { return 100; } }
 
-        public static int MinLevelIndicator
-        { get { return 0; } }
+        //public static int MinLevelIndicator
+        //{ get { return 0; } }
 
         public GameSettings LoadLocalSettings()
         {

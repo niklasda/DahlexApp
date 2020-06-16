@@ -247,6 +247,13 @@ namespace DahlexApp.Views.Board
             set => SetProperty(ref _canTele, value);
         }
 
+        private bool _canStart;
+        public bool CanStart
+        {
+            get => _canStart;
+            set => SetProperty(ref _canStart, value);
+        }
+
         private bool _canNext;
         public bool CanNext
         {
@@ -292,6 +299,7 @@ namespace DahlexApp.Views.Board
                 CanBomb = false;
                 CanTele = false;
                 CanNext = false;
+                CanStart = true;
             }
             else if (gameStatus == GameStatus.GameStarted)
             {
@@ -299,15 +307,26 @@ namespace DahlexApp.Views.Board
                 CanBomb = true;
                 CanTele = true;
                 CanNext = false;
+                CanStart = false;
 
-                AddLineToLog("Game started");
+                if (state.Level == 1)
+                {
+                    AddLineToLog("Game started");
+                }
+                else
+                {
+                    AddLineToLog("Level started");
+                }
             }
             else if (gameStatus == GameStatus.LevelComplete)
             {
+
                 AddLineToLog("Level won");
+                
                 CanBomb = false;
                 CanTele = false;
                 CanNext = true;
+                CanStart = false;
 
                 //InfoText = state.Message;
             }
@@ -322,6 +341,7 @@ namespace DahlexApp.Views.Board
                     CanTele = true;
                 }
                 CanNext = false;
+                CanStart = false;
 
                 if (string.IsNullOrWhiteSpace(state.Message))
                 {
@@ -340,6 +360,7 @@ namespace DahlexApp.Views.Board
                 CanBomb = false;
                 CanTele = false;
                 CanNext = false;
+                CanStart = true;
             }
             else if (gameStatus == GameStatus.GameWon)
             {
@@ -465,12 +486,12 @@ namespace DahlexApp.Views.Board
             return Trig.IsTooSmallSwipe(p);
         }
 
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            base.ViewDestroy(viewFinishing);
+        //public override void ViewDestroy(bool viewFinishing = true)
+        //{
+        //    base.ViewDestroy(viewFinishing);
 
-            // _gameTimer.Stop();
-        }
+        //    // _gameTimer.Stop();
+        //}
 
         public override void ViewDisappearing()
         {
@@ -755,7 +776,7 @@ namespace DahlexApp.Views.Board
         {
             var imgv = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
 
-            if (imgv is Image img )
+            if (imgv is Image img)
             {
                 TheAbsOverBoard.Children.Remove(imgv);
                 img.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");

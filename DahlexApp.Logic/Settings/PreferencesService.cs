@@ -1,7 +1,7 @@
 ﻿using DahlexApp.Logic.Interfaces;
 using Xamarin.Essentials;
 
-namespace DahlexApp.Logic.HighScores
+namespace DahlexApp.Logic.Settings
 {
     public class PreferencesService : IPreferencesService
     {

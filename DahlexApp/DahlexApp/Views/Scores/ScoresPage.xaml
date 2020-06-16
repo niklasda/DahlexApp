@@ -9,23 +9,29 @@
              x:Class="DahlexApp.Views.Scores.ScoresPage"
              x:TypeArguments="viewModels:ScoresViewModel"
              x:DataType="viewModels:ScoresViewModel"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource PrimaryBackgroundColor}">
 
-  <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
+  <Grid>
 
 
-    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="5,10,5,10" Spacing="10">
+    <StackLayout Orientation="Vertical" >
 
-      <Label Margin="0" Text="Scores" Style="{StaticResource TitleStyle}" />
+      <Frame HeightRequest="80" BackgroundColor="{StaticResource ListItemBackgroundColor}" Padding="0" Margin="-1,-2,-1,0" BorderColor="Black" HasShadow="True">
+        <Grid>
+          <Frame Padding="10" Margin="0,0,10,0" BackgroundColor="Transparent" HorizontalOptions="End" VerticalOptions="Center"  >
+            <Image HeightRequest="20" WidthRequest="20" Aspect="AspectFit" Source="{Binding CloseImage}" />
+            <Frame.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding BackCommand}"></TapGestureRecognizer>
+            </Frame.GestureRecognizers>
+          </Frame>
 
-      <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
-      </StackLayout>
+          <Label Text="{Binding Title}" Style="{StaticResource TitleStyle}" />
+        </Grid>
+      </Frame>
 
-      <CollectionView ItemsSource="{Binding HighScoreList}" ItemsLayout="VerticalList">
+
+      <CollectionView ItemsSource="{Binding HighScoreList}" ItemsLayout="VerticalList" >
         <CollectionView.ItemTemplate >
           <DataTemplate x:DataType="viewModels:ScoreItemViewModel">
 

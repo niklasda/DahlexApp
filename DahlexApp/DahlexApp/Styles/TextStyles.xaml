@@ -12,7 +12,7 @@
 
   <Style x:Key="TitleStyle" TargetType="Label">
     <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-    <Setter Property="VerticalOptions" Value="Start" />
+    <Setter Property="VerticalOptions" Value="Center" />
     <Setter Property="FontSize" Value="Large" />
     <Setter Property="TextColor" Value="{StaticResource PrimaryForegroundColor}" />
     <Setter Property="FontAttributes" Value="Bold" />

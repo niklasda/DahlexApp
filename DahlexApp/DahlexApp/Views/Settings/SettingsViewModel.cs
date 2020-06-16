@@ -1,8 +1,11 @@
-﻿using System.Drawing;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DahlexApp.Logic.Models;
 using DahlexApp.Logic.Settings;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Xamarin.Forms;
+using Size = System.Drawing.Size;
 
 namespace DahlexApp.Views.Settings
 {
@@ -11,12 +14,18 @@ namespace DahlexApp.Views.Settings
 
         // todo add base model with navigation etc
 
-        public SettingsViewModel()
+        public SettingsViewModel(IMvxNavigationService navigationService)
         {
+            _navigationService = navigationService;
 
-            Title = "Dahlex";
+            BackCommand = new MvxCommand(async () => { await _navigationService.Close(this); });
+            CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
+
+
+            Title = "Settings";
 
         }
+        private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {
@@ -45,6 +54,10 @@ namespace DahlexApp.Views.Settings
             sm.SaveLocalSettings(new GameSettings(new Size(0,0) ){PlayerName = ProfName, LessSound = IsMuted});
 
         }
+
+        public IMvxCommand BackCommand { get; set; }
+
+        public ImageSource CloseImage { get; set; }
 
         private string _title = string.Empty;
         public string Title

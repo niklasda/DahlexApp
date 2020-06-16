@@ -552,7 +552,7 @@ namespace DahlexApp.Logic.Game
 
             if (maxLevel)
             {
-                CurrentLevel = SettingsManager.MaxLevelIndicator;
+                CurrentLevel = _settings.MaxNumberOfLevel;
             }
 
             _highScoreManager.AddHighScore(_gameMode, name, CurrentLevel, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize).Wait();

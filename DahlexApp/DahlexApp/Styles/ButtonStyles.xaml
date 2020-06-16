@@ -19,8 +19,8 @@
     <Setter Property="Padding" Value="0" />
     <Setter Property="Margin" Value="0" />
     <Setter Property="TextColor" Value="{StaticResource PrimaryForegroundColor}" />
-    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackgroundColor}" />
-    <Setter Property="BorderColor" Value="{StaticResource SecondaryForegroundColor}" />
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="BorderColor" Value="{StaticResource SuccessAccentColor}" />
   </Style>
 
   <Style x:Key="SmallButtonStyle" TargetType="Button">
@@ -31,7 +31,7 @@
     <Setter Property="Padding" Value="0" />
     <Setter Property="Margin" Value="0" />
     <Setter Property="TextColor" Value="{StaticResource PrimaryForegroundColor}" />
-    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackgroundColor}" />
+    <Setter Property="BackgroundColor" Value="{StaticResource HalfwaySeeThrough}" />
     <Setter Property="BorderColor" Value="{StaticResource SecondaryForegroundColor}" />
   </Style>
 

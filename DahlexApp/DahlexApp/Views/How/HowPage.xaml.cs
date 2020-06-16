@@ -1,9 +1,8 @@
-﻿using MvvmCross.Forms.Views;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace DahlexApp.Views.How
 {
-    public partial class HowPage : MvxContentPage<HowViewModel>
+    public partial class HowPage //: MvxContentPage<HowViewModel>
     {
         public HowPage()
         {

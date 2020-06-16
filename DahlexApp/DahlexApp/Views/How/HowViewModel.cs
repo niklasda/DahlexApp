@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using Xamarin.Forms;
 
@@ -7,10 +9,17 @@ namespace DahlexApp.Views.How
 {
     public class HowViewModel : MvxViewModel
     {
-        public HowViewModel()
+        public HowViewModel(IMvxNavigationService navigationService)
         {
+            _navigationService = navigationService;
+
+            BackCommand = new MvxCommand(async () =>  {  await _navigationService.Close(this);  });
+            CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
+
             Title = "How";
         }
+
+        private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {
@@ -32,10 +41,16 @@ namespace DahlexApp.Views.How
         {
             base.ViewAppeared();
 
-            HowToPages.Add(new HowItemViewModel { ImageText = "Pic 1", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
-            HowToPages.Add(new HowItemViewModel { ImageText = "Pic 2", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
-            HowToPages.Add(new HowItemViewModel { ImageText = "Pic 3", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
+            HowToPages.Clear();
+
+            HowToPages.Add(new HowItemViewModel { ImageText = "Simple", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
+            HowToPages.Add(new HowItemViewModel { ImageText = "Who is who", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
+            HowToPages.Add(new HowItemViewModel { ImageText = "Busy", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
         }
+
+        public IMvxCommand BackCommand { get; set; }
+
+        public ImageSource CloseImage { get; set; }
 
         private string _title = string.Empty;
         public string Title

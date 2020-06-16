@@ -68,11 +68,11 @@ x 2 robots colliding results in 1 animation surviving if quick, the first robot 
 - Obscuring
 x Tombstoning
 x Disabla Bomb och Tele knapparna vid behov
-x Loggen innehåller för mycket –newlines
-x Prevent landscape eftersom det inte är relevand förrutom förstasidan
+x Loggen innehï¿½ller fï¿½r mycket ï¿½newlines
+x Prevent landscape eftersom det inte ï¿½r relevand fï¿½rrutom fï¿½rstasidan
 x HowTo can be mended
 - Restore from tomb resets timer
-- Det blir en heap när 2 botar kolliderar
+- Det blir en heap nï¿½r 2 botar kolliderar
 - Highscore service online
 x local highscore in isolated storag
 x make page resizable so it can run on a phone
@@ -83,7 +83,7 @@ x serialization av spelplan
 - save professor location and heaps (not generating new ones) to next level
 x Crash when restoring lost game
 x move counter not reset between games
-x ruträkning vid klick
+x rutrï¿½kning vid klick
 x initial and first moved position is not same
 x microsoft.phone.shell.systemtray.isvisible = false;
 v support landscape
@@ -98,10 +98,10 @@ x Trial API
 x Klockan stannar
 x Kollisionsljud
 - level won ljud
-- Gå-mot-fingret-mode
+- Gï¿½-mot-fingret-mode
 x mute alla ljud
-x kolla vibrato funktionen och längden
-  kolla swipeområdeskoordinaterna som är hårdkodade, skulle kanske kunna vara bg-bildens område.
+x kolla vibrato funktionen och lï¿½ngden
+  kolla swipeomrï¿½deskoordinaterna som ï¿½r hï¿½rdkodade, skulle kanske kunna vara bg-bildens omrï¿½de.
 - Random + Campaign mode
 
 

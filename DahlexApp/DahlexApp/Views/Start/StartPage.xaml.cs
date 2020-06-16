@@ -1,9 +1,8 @@
-﻿using MvvmCross.Forms.Views;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace DahlexApp.Views.Start
 {
-    public partial class StartPage : MvxContentPage<StartViewModel>
+    public partial class StartPage //: MvxContentPage<StartViewModel>
     {
         public StartPage()
         {

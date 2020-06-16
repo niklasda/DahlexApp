@@ -1,23 +1,32 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using DahlexApp.Logic.Settings;
+using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using Xamarin.Forms;
 
 namespace DahlexApp.Views.Scores
 {
     public class ScoresViewModel : MvxViewModel
     {
-        private readonly IHighScoreService _scores;
-
+       
         // todo add base model with navigation etc
 
-        public ScoresViewModel(IHighScoreService scores)
+        public ScoresViewModel(IHighScoreService scores, IMvxNavigationService navigationService)
         {
             _scores = scores;
+            _navigationService = navigationService;
 
-            Title = "Dahlex";
+            BackCommand = new MvxCommand(async () => { await _navigationService.Close(this); });
+            CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
+
+            Title = "Scores";
 
         }
+
+        private readonly IHighScoreService _scores;
+        private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {
@@ -33,6 +42,9 @@ namespace DahlexApp.Views.Scores
             // do the heavy work here
         }
 
+        public IMvxCommand BackCommand { get; set; }
+
+        public ImageSource CloseImage { get; set; }
 
 
         private string _title = string.Empty;

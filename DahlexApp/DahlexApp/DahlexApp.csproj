@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Close.png" />
     <None Remove="Assets\Images\heap_02.png" />
     <None Remove="Assets\Images\planet_01.png" />
     <None Remove="Assets\Images\robot_04.png" />
@@ -24,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\Close.png" />
     <EmbeddedResource Include="Assets\Images\heap_02.png" />
     <EmbeddedResource Include="Assets\Images\planet_01.png" />
     <EmbeddedResource Include="Assets\Images\robot_04.png" />

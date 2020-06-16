@@ -9,25 +9,34 @@
              x:Class="DahlexApp.Views.How.HowPage"
              x:TypeArguments="viewModels:HowViewModel"
              x:DataType="viewModels:HowViewModel"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{StaticResource PrimaryBackgroundColor}">
 
 
-  <Grid BackgroundColor="{StaticResource PrimaryBackgroundColor}" >
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-      <RowDefinition Height="Auto" />
-    </Grid.RowDefinitions>
+  <Grid >
+    
+    <StackLayout  Orientation="Vertical" >
+
+      <Frame HeightRequest="80" BackgroundColor="{StaticResource ListItemBackgroundColor}" Padding="0" Margin="-1,-2,-1,0" BorderColor="Black" HasShadow="True">
+        <Grid>
+          <Frame Padding="10" Margin="0,0,10,0" BackgroundColor="Transparent" HorizontalOptions="End" VerticalOptions="Center"  >
+            <Image HeightRequest="20" WidthRequest="20" Aspect="AspectFit" Source="{Binding CloseImage}" />
+            <Frame.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding BackCommand}"></TapGestureRecognizer>
+            </Frame.GestureRecognizers>
+          </Frame>
+
+          <Label Text="{Binding Title}" Style="{StaticResource TitleStyle}" />
+        </Grid>
+      </Frame>
 
 
-    <StackLayout Grid.Row="1" Orientation="Vertical" Padding="15,10,5,10" Spacing="10">
+      <StackLayout  Orientation="Vertical" Padding="15">
 
-      <Label Margin="0" Text="How" Style="{StaticResource TitleStyle}" />
-
-      <CarouselView ItemsSource="{Binding HowToPages}"  IndicatorView="indicatorView">
+        <CarouselView ItemsSource="{Binding HowToPages}"  IndicatorView="indicatorView" >
         <CarouselView.ItemTemplate  >
           <DataTemplate x:DataType="viewModels:HowItemViewModel">
-            <StackLayout>
+            <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="15">
               <Image Source="{Binding ImageSource}"  ></Image>
               <Label Text="{Binding ImageText}" Style="{StaticResource SubtitleStyle}" ></Label>
             </StackLayout>
@@ -35,11 +44,12 @@
         </DataTemplate>
       </CarouselView.ItemTemplate>
       </CarouselView>
-      <IndicatorView x:Name="indicatorView"
+      <IndicatorView x:Name="indicatorView" 
                      IndicatorColor="{StaticResource SecondaryForegroundColor}"
                      SelectedIndicatorColor="{StaticResource PrimaryForegroundColor}"
                      IndicatorSize="10"
                      HorizontalOptions="Center" />
+      </StackLayout>
     </StackLayout>
 
 
