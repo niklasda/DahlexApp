@@ -393,6 +393,8 @@ namespace DahlexApp.Views.Board
             base.ViewAppeared();
             _ge.StartGame(_startMode);
 
+            // todo save and load state
+
             UpdateUI(_ge.Status, _ge.GetState(_elapsed));
 
             for (int x = 0; x < 11; x++)

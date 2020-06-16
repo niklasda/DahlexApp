@@ -1,5 +1,8 @@
 
 
+game restarts after screen lock
+save state (and prevent lock when game stared)
+
 fix the square circle...
 
 x disable start while playing (or change to restart/stop)
