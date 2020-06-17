@@ -60,6 +60,8 @@ namespace DahlexApp.Views.Scores
         {
             base.ViewAppeared();
 
+            HighScoreList.Clear();
+
             var scores = _scores.LoadLocalHighScores();
             HighScoreList.AddRange(scores.Select(_=>new ScoreItemViewModel{Title = _.Content}));
 
