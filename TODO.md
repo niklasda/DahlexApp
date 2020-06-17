@@ -1,15 +1,20 @@
 
+  shadow på score. tec. header
 
-game restarts after screen lock
-save state (and prevent lock when game stared)
+x icon in DeX
 
-fix the square circle...
+y tutorial does not end properly
+
+  game restarts after screen lock
+  save state (and prevent lock when game stared)
+
+y fix the square circle...
 
 x disable start while playing (or change to restart/stop)
 x also in tutorial, do something with start button
 
-  toast "nothing to bomb"
-  teleport more than 1 square
+x toast "nothing to bomb"
+- teleport more than 1 square
 x you lost collide sound? there was, turn up volume
 
 x next level text says game started

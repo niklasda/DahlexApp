@@ -1,6 +1,10 @@
-﻿using Foundation;
+﻿using DahlexApp.Common;
+using DahlexApp.iOS.Controls;
+using Foundation;
+using MvvmCross;
 using MvvmCross.Forms.Platforms.Ios.Core;
 using UIKit;
+using Xamarin.Forms;
 
 namespace DahlexApp.iOS
 {
@@ -20,8 +24,11 @@ namespace DahlexApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 
-            Xamarin.Forms.Forms.SetFlags("IndicatorView_Experimental");
-            Xamarin.Forms.Forms.Init();
+            Forms.SetFlags("IndicatorView_Experimental");
+            Forms.Init();
+
+            Mvx.IoCProvider.RegisterType<IToastPopUp, ShowToastPopUp>();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -2,8 +2,12 @@
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using DahlexApp.Common;
+using DahlexApp.Droid.Controls;
+using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.Forms.Platforms.Android.Views;
+using Xamarin.Forms;
 
 namespace DahlexApp.Droid
 {
@@ -20,11 +24,13 @@ namespace DahlexApp.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            Xamarin.Forms.Forms.SetFlags("IndicatorView_Experimental");
+            Forms.SetFlags("IndicatorView_Experimental");
 
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
+            Mvx.IoCProvider.RegisterType<IToastPopUp, ShowToastPopUp>();
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
