@@ -1,5 +1,9 @@
 
-  shadow på score. tec. header
+
+ios icons
+ios mvvX di toast
+
+x shadow på score. tec. header
 
 x icon in DeX
 

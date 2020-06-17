@@ -27,11 +27,16 @@ namespace DahlexApp.iOS
             Forms.SetFlags("IndicatorView_Experimental");
             Forms.Init();
 
-            Mvx.IoCProvider.RegisterType<IToastPopUp, ShowToastPopUp>();
 
             LoadApplication(new App());
 
-            return base.FinishedLaunching(app, options);
+           // 
+
+             bool ok = base.FinishedLaunching(app, options);
+
+             Mvx.IoCProvider.RegisterType<IToastPopUp, ShowToastPopUp>();
+
+             return ok;
         }
     }
 }
