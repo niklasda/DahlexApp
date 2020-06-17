@@ -34,12 +34,12 @@
 
 
       <StackLayout Orientation="Vertical" Padding="16,10,0,10" Spacing="10">
-        <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+        <StackLayout Orientation="Horizontal" Padding="16,10,0,10" Spacing="10">
           <Label Text="Name:" Style="{StaticResource LabelStyle}" WidthRequest="80"></Label>
           <Entry Text="{Binding ProfName}" BackgroundColor="{StaticResource AlmostBlackColor}" TextColor="{StaticResource PrimaryForegroundColor}" WidthRequest="180"></Entry>
 
         </StackLayout>
-        <StackLayout Orientation="Horizontal" Padding="0,10,0,10" Spacing="10">
+        <StackLayout Orientation="Horizontal" Padding="16,10,0,10" Spacing="10">
           <Label Text="Mute" Style="{StaticResource LabelStyle}" WidthRequest="80"></Label>
           <CheckBox IsChecked="{Binding IsMuted}" Color="{StaticResource PrimaryForegroundColor}" ></CheckBox>
 

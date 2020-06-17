@@ -35,7 +35,7 @@
         <CollectionView.ItemTemplate >
           <DataTemplate x:DataType="viewModels:ScoreItemViewModel">
 
-            <Grid Padding="10" Margin="12">
+            <Grid Padding="16" Margin="16">
 
 
 
