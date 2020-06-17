@@ -185,8 +185,11 @@ namespace DahlexApp.Logic.Game
         {
             if (CurrentLevel == _maxLevel)
             {
-                // never happens
-                //                _gameStatus = GameStatus.GameWon;
+                // tutorial end
+                //
+                Status = GameStatus.GameWon;
+                
+                //_boardView.AddLineToLog("asd");
             }
             else
             {

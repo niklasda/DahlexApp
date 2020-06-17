@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Timers;
+using DahlexApp.Common;
 using DahlexApp.Logic.Interfaces;
 using DahlexApp.Logic.Game;
 using DahlexApp.Logic.Logger;
@@ -24,10 +25,12 @@ namespace DahlexApp.Views.Board
     public class BoardViewModel : MvxViewModel<GameMode>, IDahlexView
     {
 
-        public BoardViewModel(IHighScoreService hsm)
+        public BoardViewModel(IHighScoreService hsm, IToastPopUp toast)
         {
             _settings = GetSettings();
             _ge = new GameEngine(_settings, this, hsm);
+
+            _toast = toast;
 
             Title = "Play";
             // w411 h660
@@ -150,6 +153,7 @@ namespace DahlexApp.Views.Board
                     }
                     else
                     {
+                        _toast.ShowToastMessage("Nothing to bomb");
                         AddLineToLog("Cannot bomb");
                     }
                 }
@@ -160,13 +164,18 @@ namespace DahlexApp.Views.Board
 
         private async Task DrawExplosionRadius(Point pos)
         {
-            // Debug.WriteLine(pos.X);
 
+            Color borderColor = System.Drawing.Color.FromArgb(0x53, 0xc0, 0x90);
+            if (Application.Current.Resources.TryGetValue("SuccessAccentColor", out var bgc))
+            {
+                borderColor = (Color) bgc ;
+            }
 
             var bv = new Frame()
             {
-                BorderColor = new Color(0x17, 0x1B, 0x26),
-                CornerRadius = 0,
+
+                BorderColor = borderColor,
+                CornerRadius = 30,
                 BackgroundColor = Color.Transparent,
                 Margin = new Thickness(0)
             };
@@ -176,7 +185,7 @@ namespace DahlexApp.Views.Board
 
             TheAbsBoard.Children.Add(bv);
 
-            await bv.ScaleTo(15, 1000);
+            await bv.ScaleTo(15, 500);
             await bv.ScaleTo(0.1, 1000);
             TheAbsBoard.Children.Remove(bv);
         }
@@ -266,6 +275,7 @@ namespace DahlexApp.Views.Board
         // private readonly IGameService _gs;
         private readonly IGameEngine _ge;
         private GameMode _startMode;
+        private readonly IToastPopUp _toast;
 
         public IMvxCommand BombCommand { get; }
         public IMvxCommand TeleCommand { get; }
@@ -364,11 +374,14 @@ namespace DahlexApp.Views.Board
             }
             else if (gameStatus == GameStatus.GameWon)
             {
-                // never happens
-                //       AddLineToLog("You won");
-                //       btnBomb.IsEnabled = false;
-                //       btnTeleport.IsEnabled = false;
-                //       _dg.AddHighScore();
+                // tutorial won
+                // 
+                AddLineToLog("Tutorial won");
+                CanBomb = false;
+                CanTele = false;
+                CanNext = false;
+                CanStart = true;
+
             }
 
             if (state.BombCount < 1)
