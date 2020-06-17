@@ -404,7 +404,12 @@ namespace DahlexApp.Views.Board
         public override void ViewAppeared()
         {
             base.ViewAppeared();
-            _ge.StartGame(_startMode);
+
+            if (_ge.Status == GameStatus.BeforeStart)
+            {
+                _ge.StartGame(_startMode);
+
+            }
 
             // todo save and load state
 
