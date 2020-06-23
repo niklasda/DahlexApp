@@ -24,7 +24,7 @@ namespace DahlexApp.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            Forms.SetFlags("IndicatorView_Experimental");
+            //Forms.SetFlags("IndicatorView_Experimental");
 
             base.OnCreate(savedInstanceState);
 
