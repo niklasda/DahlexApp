@@ -1,9 +1,8 @@
-﻿using MvvmCross.Forms.Views;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace DahlexApp.Views.Board
 {
-    public partial class BoardPage : MvxContentPage<BoardViewModel>
+    public partial class BoardPage //: MvxContentPage<BoardViewModel>
     {
         public BoardPage()
         {

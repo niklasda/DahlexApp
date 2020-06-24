@@ -11,15 +11,15 @@ namespace DahlexApp.Views.How
     {
         public HowViewModel(IMvxNavigationService navigationService)
         {
-            _navigationService = navigationService;
+            //_navigationService = navigationService;
 
-            BackCommand = new MvxCommand(async () =>  {  await _navigationService.Close(this);  });
+            BackCommand = new MvxCommand(async () =>  {  await navigationService.Close(this);  });
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
             Title = "How";
         }
 
-        private readonly IMvxNavigationService _navigationService;
+        //private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {

@@ -7,7 +7,6 @@ using DahlexApp.Droid.Controls;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.Forms.Platforms.Android.Views;
-using Xamarin.Forms;
 
 namespace DahlexApp.Droid
 {

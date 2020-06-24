@@ -1,8 +1,7 @@
-﻿using Xamarin.Forms;
-
+﻿
 namespace DahlexApp
 {
-    public partial class App : Application
+    public partial class App //: Application
     {
         public App()
         {

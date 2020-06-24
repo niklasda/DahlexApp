@@ -615,10 +615,10 @@ namespace DahlexApp.Views.Board
                     BoardPosition cp = board.GetPosition(x, y);
                     if (cp != null)
                     {
-                        int oLeft = x * (xSize + gridPenWidth) + xOffset;
-                        int oTop = y * (ySize + gridPenWidth) + yOffset;
+                        //int oLeft = x * (xSize + gridPenWidth) + xOffset;
+                        //int oTop = y * (ySize + gridPenWidth) + yOffset;
 
-                        var pt = new Point(oLeft, oTop);
+                        //var pt = new Point(oLeft, oTop);
 
                         string imgName;
                         if (cp.Type == PieceType.Heap)
@@ -768,19 +768,19 @@ namespace DahlexApp.Views.Board
             {
 
                 var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img.TranslateTo(nLeft, nTop, millis);
+                img?.TranslateTo(nLeft, nTop, millis);
 
             }
             else if (bp.Type == PieceType.Robot)
             {
                 var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img.TranslateTo(nLeft, nTop, millis);
+                img?.TranslateTo(nLeft, nTop, millis);
 
             }
             else if (bp.Type == PieceType.Heap)
             {
                 var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img?.TranslateTo(nLeft, nTop, millis);
+                img?.TranslateTo(nLeft, nTop, 0);
 
             }
 

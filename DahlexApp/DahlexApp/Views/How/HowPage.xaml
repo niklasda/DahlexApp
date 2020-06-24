@@ -33,7 +33,7 @@
 
       <StackLayout  Orientation="Vertical" Padding="15">
 
-        <CarouselView ItemsSource="{Binding HowToPages}"  IndicatorView="indicatorView" >
+        <CarouselView ItemsSource="{Binding HowToPages}"  IndicatorView="IndicatorView" >
         <CarouselView.ItemTemplate  >
           <DataTemplate x:DataType="viewModels:HowItemViewModel">
             <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="15">
@@ -44,7 +44,7 @@
         </DataTemplate>
       </CarouselView.ItemTemplate>
       </CarouselView>
-      <IndicatorView x:Name="indicatorView" 
+      <IndicatorView x:Name="IndicatorView" 
                      IndicatorColor="{StaticResource SecondaryForegroundColor}"
                      SelectedIndicatorColor="{StaticResource PrimaryForegroundColor}"
                      IndicatorSize="10"

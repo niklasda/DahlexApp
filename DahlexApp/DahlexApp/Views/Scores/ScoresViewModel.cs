@@ -16,9 +16,9 @@ namespace DahlexApp.Views.Scores
         public ScoresViewModel(IHighScoreService scores, IMvxNavigationService navigationService)
         {
             _scores = scores;
-            _navigationService = navigationService;
+            //_navigationService = navigationService;
 
-            BackCommand = new MvxCommand(async () => { await _navigationService.Close(this); });
+            BackCommand = new MvxCommand(async () => { await navigationService.Close(this); });
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
             Title = "Scores";
@@ -26,7 +26,7 @@ namespace DahlexApp.Views.Scores
         }
 
         private readonly IHighScoreService _scores;
-        private readonly IMvxNavigationService _navigationService;
+       // private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {

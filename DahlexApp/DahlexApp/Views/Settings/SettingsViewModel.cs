@@ -16,16 +16,16 @@ namespace DahlexApp.Views.Settings
 
         public SettingsViewModel(IMvxNavigationService navigationService)
         {
-            _navigationService = navigationService;
+            //_navigationService = navigationService;
 
-            BackCommand = new MvxCommand(async () => { await _navigationService.Close(this); });
+            BackCommand = new MvxCommand(async () => { await navigationService.Close(this); });
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
 
             Title = "Settings";
 
         }
-        private readonly IMvxNavigationService _navigationService;
+        //private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {

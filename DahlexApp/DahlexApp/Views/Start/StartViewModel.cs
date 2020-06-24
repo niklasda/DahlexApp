@@ -15,7 +15,7 @@ namespace DahlexApp.Views.Start
     {
         public StartViewModel(IMvxNavigationService navigationService)
         {
-            _navigationService = navigationService;
+            //_navigationService = navigationService;
 
             Title = "Dahlex";
 
@@ -23,32 +23,32 @@ namespace DahlexApp.Views.Start
 
             HowCommand = new MvxCommand(async () =>
             {
-                await _navigationService.Navigate<HowViewModel>();
+                await navigationService.Navigate<HowViewModel>();
                 //Application.Current.MainPage.DisplayAlert("Dahlex","Coming SoOon","Ok");
             });
 
             GotoBoardCommand = new MvxCommand(async () =>
             {
-                await _navigationService.Navigate<BoardViewModel, GameMode>(GameMode.Random);
+                await navigationService.Navigate<BoardViewModel, GameMode>(GameMode.Random);
             });
 
             GotoTutorialCommand = new MvxCommand(async () =>
             {
-                await _navigationService.Navigate<BoardViewModel, GameMode>(GameMode.Campaign);
+                await navigationService.Navigate<BoardViewModel, GameMode>(GameMode.Campaign);
             });
 
             GotoSettingsCommand = new MvxCommand(async () =>
             {
-                await _navigationService.Navigate<SettingsViewModel>();
+                await navigationService.Navigate<SettingsViewModel>();
             });
 
             GotoScoresCommand = new MvxCommand(async () =>
             {
-                await _navigationService.Navigate<ScoresViewModel>();
+                await navigationService.Navigate<ScoresViewModel>();
             });
         }
 
-        private readonly IMvxNavigationService _navigationService;
+        //private readonly IMvxNavigationService _navigationService;
 
         public ImageSource LogoImageSource { get; set; }
 
