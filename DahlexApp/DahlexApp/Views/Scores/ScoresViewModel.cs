@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using DahlexApp.Logic.Settings;
+using MvvmCross.Base;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -13,9 +14,10 @@ namespace DahlexApp.Views.Scores
        
         // todo add base model with navigation etc
 
-        public ScoresViewModel(IHighScoreService scores, IMvxNavigationService navigationService)
+        public ScoresViewModel(IHighScoreService scores, IMvxNavigationService navigationService, IMvxMainThreadAsyncDispatcher dispatcher)
         {
             _scores = scores;
+            _dispatcher = dispatcher;
             //_navigationService = navigationService;
 
             BackCommand = new MvxCommand(async () => { await navigationService.Close(this); });
@@ -26,7 +28,9 @@ namespace DahlexApp.Views.Scores
         }
 
         private readonly IHighScoreService _scores;
-       // private readonly IMvxNavigationService _navigationService;
+
+        private readonly IMvxMainThreadAsyncDispatcher _dispatcher;
+        // private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {
@@ -60,11 +64,13 @@ namespace DahlexApp.Views.Scores
         {
             base.ViewAppeared();
 
-            HighScoreList.Clear();
+            _dispatcher.ExecuteOnMainThreadAsync(() =>
+            {
+                HighScoreList.Clear();
 
-            var scores = _scores.LoadLocalHighScores();
-            HighScoreList.AddRange(scores.Select(_=>new ScoreItemViewModel{Title = _.Content}));
-
+                var scores = _scores.LoadLocalHighScores();
+                HighScoreList.AddRange(scores.Select(_ => new ScoreItemViewModel {Title = _.Content}));
+            });
         }
     }
 }

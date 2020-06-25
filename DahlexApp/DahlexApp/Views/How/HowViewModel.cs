@@ -11,8 +11,6 @@ namespace DahlexApp.Views.How
     {
         public HowViewModel(IMvxNavigationService navigationService)
         {
-            //_navigationService = navigationService;
-
             BackCommand = new MvxCommand(async () =>  {  await navigationService.Close(this);  });
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
@@ -22,8 +20,6 @@ namespace DahlexApp.Views.How
             HowToPages.Add(new HowItemViewModel { ImageText = "Who is who", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
             HowToPages.Add(new HowItemViewModel { ImageText = "Busy", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
         }
-
-        //private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {
@@ -45,9 +41,7 @@ namespace DahlexApp.Views.How
         {
             base.ViewAppeared();
 
-          //  HowToPages.Clear();
-
-           
+            //  HowToPages.Clear();
         }
 
         public IMvxCommand BackCommand { get; set; }

@@ -12,6 +12,7 @@ using DahlexApp.Logic.Logger;
 using DahlexApp.Logic.Models;
 using DahlexApp.Logic.Settings;
 using DahlexApp.Logic.Utils;
+using MvvmCross.Base;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using Plugin.SimpleAudioPlayer;
@@ -25,12 +26,13 @@ namespace DahlexApp.Views.Board
     public class BoardViewModel : MvxViewModel<GameMode>, IDahlexView
     {
 
-        public BoardViewModel(IHighScoreService hsm, IToastPopUp toast)
+        public BoardViewModel(IHighScoreService hsm, IToastPopUp toast, IMvxMainThreadAsyncDispatcher dispatcher)
         {
             _settings = GetSettings();
             _ge = new GameEngine(_settings, this, hsm);
 
             _toast = toast;
+            _dispatcher = dispatcher;
 
             Title = "Play";
             // w411 h660
@@ -101,6 +103,7 @@ namespace DahlexApp.Views.Board
         {
             if (_ge != null)
             {
+
                 if (_ge.Status == GameStatus.LevelOngoing)
                 {
                     _ge.MoveHeapsToTemp();
@@ -164,11 +167,10 @@ namespace DahlexApp.Views.Board
 
         private async Task DrawExplosionRadius(Point pos)
         {
-
             Color borderColor = System.Drawing.Color.FromArgb(0x53, 0xc0, 0x90);
             if (Application.Current.Resources.TryGetValue("SuccessAccentColor", out var bgc))
             {
-                borderColor = (Color) bgc ;
+                borderColor = (Color)bgc;
             }
 
             var bv = new Frame()
@@ -276,6 +278,7 @@ namespace DahlexApp.Views.Board
         private readonly IGameEngine _ge;
         private GameMode _startMode;
         private readonly IToastPopUp _toast;
+        private readonly IMvxMainThreadAsyncDispatcher _dispatcher;
 
         public IMvxCommand BombCommand { get; }
         public IMvxCommand TeleCommand { get; }
@@ -304,96 +307,101 @@ namespace DahlexApp.Views.Board
 
         private void UpdateUI(GameStatus gameStatus, IGameState state)
         {
-            if (gameStatus == GameStatus.BeforeStart)
+            _dispatcher.ExecuteOnMainThreadAsync(() =>
             {
-                CanBomb = false;
-                CanTele = false;
-                CanNext = false;
-                CanStart = true;
-            }
-            else if (gameStatus == GameStatus.GameStarted)
-            {
-                //AddLineToLog("Game started");
-                CanBomb = true;
-                CanTele = true;
-                CanNext = false;
-                CanStart = false;
 
-                if (state.Level == 1)
+                if (gameStatus == GameStatus.BeforeStart)
                 {
-                    AddLineToLog("Game started");
+                    CanBomb = false;
+                    CanTele = false;
+                    CanNext = false;
+                    CanStart = true;
                 }
-                else
+                else if (gameStatus == GameStatus.GameStarted)
                 {
-                    AddLineToLog("Level started");
-                }
-            }
-            else if (gameStatus == GameStatus.LevelComplete)
-            {
-
-                AddLineToLog("Level won");
-                
-                CanBomb = false;
-                CanTele = false;
-                CanNext = true;
-                CanStart = false;
-
-                //InfoText = state.Message;
-            }
-            else if (gameStatus == GameStatus.LevelOngoing)
-            {
-                if (state.BombCount > 0)
-                {
+                    //AddLineToLog("Game started");
                     CanBomb = true;
-                }
-                if (state.TeleportCount > 0)
-                {
                     CanTele = true;
-                }
-                CanNext = false;
-                CanStart = false;
+                    CanNext = false;
+                    CanStart = false;
 
-                if (string.IsNullOrWhiteSpace(state.Message))
+                    if (state.Level == 1)
+                    {
+                        AddLineToLog("Game started");
+                    }
+                    else
+                    {
+                        AddLineToLog("Level started");
+                    }
+                }
+                else if (gameStatus == GameStatus.LevelComplete)
                 {
-                    AddLineToLog("Game started");
+
+                    AddLineToLog("Level won");
+
+                    CanBomb = false;
+                    CanTele = false;
+                    CanNext = true;
+                    CanStart = false;
+
+                    //InfoText = state.Message;
                 }
-                else
+                else if (gameStatus == GameStatus.LevelOngoing)
                 {
-                    InfoText = state.Message;
+                    if (state.BombCount > 0)
+                    {
+                        CanBomb = true;
+                    }
+
+                    if (state.TeleportCount > 0)
+                    {
+                        CanTele = true;
+                    }
+
+                    CanNext = false;
+                    CanStart = false;
+
+                    if (string.IsNullOrWhiteSpace(state.Message))
+                    {
+                        AddLineToLog("Game started");
+                    }
+                    else
+                    {
+                        InfoText = state.Message;
+                    }
+
+                    //InfoText = state.Message;
+                }
+                else if (gameStatus == GameStatus.GameLost)
+                {
+                    AddLineToLog("You lost");
+                    CanBomb = false;
+                    CanTele = false;
+                    CanNext = false;
+                    CanStart = true;
+                }
+                else if (gameStatus == GameStatus.GameWon)
+                {
+                    // tutorial won
+                    // 
+                    AddLineToLog("Tutorial won");
+                    CanBomb = false;
+                    CanTele = false;
+                    CanNext = false;
+                    CanStart = true;
+
                 }
 
-                //InfoText = state.Message;
-            }
-            else if (gameStatus == GameStatus.GameLost)
-            {
-                AddLineToLog("You lost");
-                CanBomb = false;
-                CanTele = false;
-                CanNext = false;
-                CanStart = true;
-            }
-            else if (gameStatus == GameStatus.GameWon)
-            {
-                // tutorial won
-                // 
-                AddLineToLog("Tutorial won");
-                CanBomb = false;
-                CanTele = false;
-                CanNext = false;
-                CanStart = true;
+                if (state.BombCount < 1)
+                {
+                    CanBomb = false;
+                }
 
-            }
-
-            if (state.BombCount < 1)
-            {
-                CanBomb = false;
-            }
-
-            if (state.TeleportCount < 1)
-            {
-                CanTele = false;
-            }
-
+                if (state.TeleportCount < 1)
+                {
+                    CanTele = false;
+                }
+            });
             //     BoardMessage(gameStatus);
         }
 
@@ -603,96 +611,98 @@ namespace DahlexApp.Views.Board
 
         public void DrawBoard(IBoard board, int xSize, int ySize)
         {
-
-            int xOffset = _settings.ImageOffset.X;
-            int yOffset = _settings.ImageOffset.Y;
-            int gridPenWidth = _settings.LineWidth.X;
-
-            for (int x = 0; x < board.GetPositionWidth(); x++)
+            _dispatcher.ExecuteOnMainThreadAsync(() =>
             {
-                for (int y = 0; y < board.GetPositionHeight(); y++)
+
+                int xOffset = _settings.ImageOffset.X;
+                int yOffset = _settings.ImageOffset.Y;
+                int gridPenWidth = _settings.LineWidth.X;
+
+                for (int x = 0; x < board.GetPositionWidth(); x++)
                 {
-                    BoardPosition cp = board.GetPosition(x, y);
-                    if (cp != null)
+                    for (int y = 0; y < board.GetPositionHeight(); y++)
                     {
-                        //int oLeft = x * (xSize + gridPenWidth) + xOffset;
-                        //int oTop = y * (ySize + gridPenWidth) + yOffset;
-
-                        //var pt = new Point(oLeft, oTop);
-
-                        string imgName;
-                        if (cp.Type == PieceType.Heap)
+                        BoardPosition cp = board.GetPosition(x, y);
+                        if (cp != null)
                         {
-                            Image boardImage = new Image { InputTransparent = true };
+                            //int oLeft = x * (xSize + gridPenWidth) + xOffset;
+                            //int oTop = y * (ySize + gridPenWidth) + yOffset;
 
-                            AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
-                            AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+                            //var pt = new Point(oLeft, oTop);
 
-                            imgName = cp.ImageName;
-                            // Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
-                            boardImage.AutomationId = imgName;
-                            boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
-                            TheAbsOverBoard.Children.Add(boardImage);
-
-                            Animate(cp, new Point(0, 0), new Point(x, y), 250);
-
-                            // boardImage = pic;
-                            // Image img = AddImage(imgName, boardImage, pt, cp);
-                            if (cp.IsNew)
+                            string imgName;
+                            if (cp.Type == PieceType.Heap)
                             {
-                                //   AddToFade(img, 0, 1);
-                                cp.IsNew = false;
+                                Image boardImage = new Image { InputTransparent = true };
+
+                                AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
+                                AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+
+                                imgName = cp.ImageName;
+                                // Robot2ImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+                                boardImage.AutomationId = imgName;
+                                boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
+                                TheAbsOverBoard.Children.Add(boardImage);
+
+                                Animate(cp, new Point(0, 0), new Point(x, y), 250);
+
+                                // boardImage = pic;
+                                // Image img = AddImage(imgName, boardImage, pt, cp);
+                                if (cp.IsNew)
+                                {
+                                    //   AddToFade(img, 0, 1);
+                                    cp.IsNew = false;
+                                }
                             }
+                            else if (cp.Type == PieceType.Professor)
+                            {
+                                Image boardImage = new Image { InputTransparent = true };
+
+                                AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
+                                AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+
+                                imgName = cp.ImageName;
+                                // boardImage.Source = LoadImage("planet_01.png");
+
+                                //boardImage.SetValue(BindablePropertyKey.FrameworkElement.NameProperty, imgName);
+                                boardImage.AutomationId = imgName;
+                                boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
+                                TheAbsOverBoard.Children.Add(boardImage);
+                                //boardImage = pic;
+                                //AddImage(imgName, boardImage, pt, cp);
+                                Animate(cp, new Point(0, 0), new Point(x, y), 250);
+
+                            }
+                            else if (cp.Type == PieceType.Robot)
+                            {
+                                Image boardImage = new Image { InputTransparent = true };
+
+                                AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
+                                AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+
+                                imgName = cp.ImageName;
+                                string name = Randomizer.GetRandomFromSet("DahlexApp.Assets.Images.robot_04.png", "DahlexApp.Assets.Images.robot_05.png", "DahlexApp.Assets.Images.robot_06.png");
+                                boardImage.Source = ImageSource.FromResource(name);
+                                boardImage.AutomationId = imgName;
+                                //                         boardImage.Source = LoadImage(name);
+                                TheAbsOverBoard.Children.Add(boardImage);
+
+                                Animate(cp, new Point(0, 0), new Point(x, y), 250);
+
+                                //     pic.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                                //   boardImage = pic;
+                                // AddImage(imgName, boardImage, pt, cp);
+                            }
+                            //else if (cp.Type == PieceType.None)
+                            //{
+                            // imgName = cp.ImageName;
+                            // RemoveImage(imgName);
+                            //}
+
                         }
-                        else if (cp.Type == PieceType.Professor)
-                        {
-                            Image boardImage = new Image { InputTransparent = true };
-
-                            AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
-                            AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
-
-                            imgName = cp.ImageName;
-                            // boardImage.Source = LoadImage("planet_01.png");
-
-                            //boardImage.SetValue(BindablePropertyKey.FrameworkElement.NameProperty, imgName);
-                            boardImage.AutomationId = imgName;
-                            boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
-                            TheAbsOverBoard.Children.Add(boardImage);
-                            //boardImage = pic;
-                            //AddImage(imgName, boardImage, pt, cp);
-                            Animate(cp, new Point(0, 0), new Point(x, y), 250);
-
-                        }
-                        else if (cp.Type == PieceType.Robot)
-                        {
-                            Image boardImage = new Image { InputTransparent = true };
-
-                            AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
-                            AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
-
-                            imgName = cp.ImageName;
-                            string name = Randomizer.GetRandomFromSet("DahlexApp.Assets.Images.robot_04.png", "DahlexApp.Assets.Images.robot_05.png", "DahlexApp.Assets.Images.robot_06.png");
-                            boardImage.Source = ImageSource.FromResource(name);
-                            boardImage.AutomationId = imgName;
-                            //                         boardImage.Source = LoadImage(name);
-                            TheAbsOverBoard.Children.Add(boardImage);
-
-                            Animate(cp, new Point(0, 0), new Point(x, y), 250);
-
-                            //     pic.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            //   boardImage = pic;
-                            // AddImage(imgName, boardImage, pt, cp);
-                        }
-                        //else if (cp.Type == PieceType.None)
-                        //{
-                        // imgName = cp.ImageName;
-                        // RemoveImage(imgName);
-                        //}
-
                     }
                 }
-            }
-
+            });
         }
 
         public void ShowStatus(int level, int bombCount, int teleportCount, int robotCount, int moveCount, int maxLevel)
@@ -760,65 +770,75 @@ namespace DahlexApp.Views.Board
 
         public void Animate(BoardPosition bp, Point oldPos, Point newPos, uint millis)
         {
-
-            int nLeft = newPos.X * (_settings.SquareSize.Width);
-            int nTop = newPos.Y * (_settings.SquareSize.Height);
-
-            if (bp.Type == PieceType.Professor)
+            _dispatcher.ExecuteOnMainThreadAsync(() =>
             {
 
-                var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img?.TranslateTo(nLeft, nTop, millis);
 
-            }
-            else if (bp.Type == PieceType.Robot)
-            {
-                var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img?.TranslateTo(nLeft, nTop, millis);
+                int nLeft = newPos.X * (_settings.SquareSize.Width);
+                int nTop = newPos.Y * (_settings.SquareSize.Height);
 
-            }
-            else if (bp.Type == PieceType.Heap)
-            {
-                var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-                img?.TranslateTo(nLeft, nTop, 0);
+                if (bp.Type == PieceType.Professor)
+                {
 
-            }
+                    var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
+                    img?.TranslateTo(nLeft, nTop, millis);
 
+                }
+                else if (bp.Type == PieceType.Robot)
+                {
+                    var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
+                    img?.TranslateTo(nLeft, nTop, millis);
+
+                }
+                else if (bp.Type == PieceType.Heap)
+                {
+                    var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
+                    img?.TranslateTo(nLeft, nTop, 0);
+
+                }
+            });
         }
 
         public void RemoveImage(string imageName)
         {
-            var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == imageName);
-            TheAbsOverBoard.Children.Remove(img);
+            _dispatcher.ExecuteOnMainThreadAsync(() =>
+            {
+
+                var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == imageName);
+                TheAbsOverBoard.Children.Remove(img);
+            });
         }
 
         public void ChangeImage(BoardPosition bp)
         {
-            var imgv = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
-
-            if (imgv is Image img)
+            _dispatcher.ExecuteOnMainThreadAsync(() =>
             {
-                TheAbsOverBoard.Children.Remove(imgv);
-                img.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
 
-                // move to front
-                TheAbsOverBoard.Children.Add(imgv);
+                var imgv = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
 
-            }
+                if (imgv is Image img)
+                {
+                    TheAbsOverBoard.Children.Remove(imgv);
+                    img.Source = ImageSource.FromResource("DahlexApp.Assets.Images.heap_02.png");
 
-            //            Image boardImage = new Image { InputTransparent = true };
+                    // move to front
+                    TheAbsOverBoard.Children.Add(imgv);
 
-            //          AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
-            //        AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
+                }
 
-            //      imgName = cp.ImageName;
-            // boardImage.Source = LoadImage("planet_01.png");
+                //            Image boardImage = new Image { InputTransparent = true };
 
-            //boardImage.SetValue(BindablePropertyKey.FrameworkElement.NameProperty, imgName);
-            //    boardImage.AutomationId = imgName;
-            //  boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
-            //TheAbsOverBoard.Children.Add(boardImage);
+                //          AbsoluteLayout.SetLayoutBounds(boardImage, new Rectangle(0 * x, 0 * y, 40, 40));
+                //        AbsoluteLayout.SetLayoutFlags(boardImage, AbsoluteLayoutFlags.None);
 
+                //      imgName = cp.ImageName;
+                // boardImage.Source = LoadImage("planet_01.png");
+
+                //boardImage.SetValue(BindablePropertyKey.FrameworkElement.NameProperty, imgName);
+                //    boardImage.AutomationId = imgName;
+                //  boardImage.Source = ImageSource.FromResource("DahlexApp.Assets.Images.planet_01.png");
+                //TheAbsOverBoard.Children.Add(boardImage);
+            });
         }
     }
 }

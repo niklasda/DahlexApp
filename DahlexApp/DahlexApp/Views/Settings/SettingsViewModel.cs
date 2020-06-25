@@ -16,16 +16,12 @@ namespace DahlexApp.Views.Settings
 
         public SettingsViewModel(IMvxNavigationService navigationService)
         {
-            //_navigationService = navigationService;
-
             BackCommand = new MvxCommand(async () => { await navigationService.Close(this); });
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
 
             Title = "Settings";
-
         }
-        //private readonly IMvxNavigationService _navigationService;
 
         public override void Prepare()
         {
@@ -52,7 +48,6 @@ namespace DahlexApp.Views.Settings
 
             SettingsManager sm = new SettingsManager(new Size(0, 0));
             sm.SaveLocalSettings(new GameSettings(new Size(0,0) ){PlayerName = ProfName, LessSound = IsMuted});
-
         }
 
         public IMvxCommand BackCommand { get; set; }
