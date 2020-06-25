@@ -46,7 +46,7 @@
       </CarouselView>
       <IndicatorView x:Name="IndicatorView" 
                      IndicatorColor="{StaticResource SecondaryForegroundColor}"
-                     SelectedIndicatorColor="{StaticResource PrimaryForegroundColor}"
+                     SelectedIndicatorColor="{StaticResource PrimaryForegroundColor}" 
                      IndicatorSize="10"
                      HorizontalOptions="Center" />
       </StackLayout>

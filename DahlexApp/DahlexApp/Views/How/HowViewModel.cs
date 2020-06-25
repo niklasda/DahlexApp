@@ -17,6 +17,10 @@ namespace DahlexApp.Views.How
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
             Title = "How";
+
+            HowToPages.Add(new HowItemViewModel { ImageText = "Simple", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
+            HowToPages.Add(new HowItemViewModel { ImageText = "Who is who", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
+            HowToPages.Add(new HowItemViewModel { ImageText = "Busy", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
         }
 
         //private readonly IMvxNavigationService _navigationService;
@@ -41,11 +45,9 @@ namespace DahlexApp.Views.How
         {
             base.ViewAppeared();
 
-            HowToPages.Clear();
+          //  HowToPages.Clear();
 
-            HowToPages.Add(new HowItemViewModel { ImageText = "Simple", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
-            HowToPages.Add(new HowItemViewModel { ImageText = "Who is who", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
-            HowToPages.Add(new HowItemViewModel { ImageText = "Busy", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
+           
         }
 
         public IMvxCommand BackCommand { get; set; }
