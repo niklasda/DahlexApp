@@ -5,16 +5,18 @@ namespace DahlexApp.Logic.Models
     //[DataContract]
     public class GameSettings
     {
-        private Size _canvasSize;
         public GameSettings(Size canvasSize)
         {
             _canvasSize = canvasSize;
         }
+
+        private readonly Size _canvasSize;
+
         //   [DataMember]
         public string PlayerName { get; set; } = "Dr. Who";
 
         //   [DataMember]
-        public bool LessSound;
+        public bool LessSound { get; set; }
 
         /// <summary>
         /// Number of squares on the board

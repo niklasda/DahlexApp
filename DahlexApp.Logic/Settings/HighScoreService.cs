@@ -10,13 +10,6 @@ using Newtonsoft.Json;
 
 namespace DahlexApp.Logic.Settings
 {
-    public interface IHighScoreService
-    {
-        Task AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize);
-        List<HighScore> LoadLocalHighScores();
-        void SaveLocalHighScores();
-    }
-
     public class HighScoreService : IHighScoreService
     {
 
@@ -27,7 +20,7 @@ namespace DahlexApp.Logic.Settings
             _scores = LoadLocalHighScores();
         }
 
-        private string key = "HighScores";
+        private readonly string key = "HighScores";
 
         private readonly IPreferencesService _preferences;
         private List<HighScore> _scores;//= new List<HighScore>();

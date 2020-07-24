@@ -168,7 +168,7 @@ namespace DahlexApp.Views.Board
         private async Task DrawExplosionRadius(Point pos)
         {
             Color borderColor = System.Drawing.Color.FromArgb(0x53, 0xc0, 0x90);
-            if (Application.Current.Resources.TryGetValue("SuccessAccentColor", out var bgc))
+            if (Application.Current.Resources.TryGetValue("GreenAccentColor", out var bgc))
             {
                 borderColor = (Color)bgc;
             }

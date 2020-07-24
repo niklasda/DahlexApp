@@ -16,7 +16,7 @@
   <Color x:Key="ListItemForegroundColor">#FFFFFFFF</Color>
 
 
-  <Color x:Key="SuccessAccentColor">#53C090</Color>
+  <Color x:Key="GreenAccentColor">#33D033</Color>
 
   <Color x:Key="HalfwaySeeThrough">#55000000</Color>
 

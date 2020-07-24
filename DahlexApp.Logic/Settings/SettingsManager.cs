@@ -47,13 +47,16 @@ namespace DahlexApp.Logic.Settings
             }
 
             string lessSound = prf.LoadPreference(key2);
-            bool.TryParse(lessSound, out settings.LessSound);
+            
+            bool.TryParse(lessSound, out bool less);
+
+            settings.LessSound = less;
 
             return settings;
         }
 
-        private string key1 = "SettingsName";
-        private string key2 = "SettingsMute";
+        private readonly string key1 = "SettingsName";
+        private readonly string key2 = "SettingsMute";
 
         public void SaveLocalSettings(GameSettings settings)
         {

@@ -18,9 +18,10 @@
     <Setter Property="BorderWidth" Value="1" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="Margin" Value="0" />
+    <Setter Property="CornerRadius" Value="5" />
     <Setter Property="TextColor" Value="{StaticResource PrimaryForegroundColor}" />
     <Setter Property="BackgroundColor" Value="Transparent" />
-    <Setter Property="BorderColor" Value="{StaticResource SuccessAccentColor}" />
+    <Setter Property="BorderColor" Value="{StaticResource GreenAccentColor}" />
   </Style>
 
   <Style x:Key="SmallButtonStyle" TargetType="Button">

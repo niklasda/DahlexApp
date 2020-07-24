@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<views:MvxContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
-             xmlns:viewModels="clr-namespace:DahlexApp.Views.Scores;assembly=DahlexApp"
-             mc:Ignorable="d"
-             x:Class="DahlexApp.Views.Scores.ScoresPage"
-             x:TypeArguments="viewModels:ScoresViewModel"
-             x:DataType="viewModels:ScoresViewModel"
-             Title="{Binding Title}"
-             BackgroundColor="{StaticResource PrimaryBackgroundColor}">
+<views1:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:views="clr-namespace:MvvmCross.Forms.Views;assembly=MvvmCross.Forms"
+                 xmlns:viewModels="clr-namespace:DahlexApp.Views.Scores;assembly=DahlexApp"
+                 xmlns:views1="clr-namespace:DahlexApp.Views;assembly=DahlexApp"
+                 mc:Ignorable="d"
+                 x:Class="DahlexApp.Views.Scores.ScoresPage"
+                 x:TypeArguments="viewModels:ScoresViewModel"
+                 x:DataType="viewModels:ScoresViewModel"
+                 Title="{Binding Title}"
+                 BackgroundColor="{StaticResource PrimaryBackgroundColor}">
 
   <Grid>
 
@@ -50,4 +51,4 @@
     </StackLayout>
   </Grid>
 
-</views:MvxContentPage>
+</views1:BaseContentPage>
