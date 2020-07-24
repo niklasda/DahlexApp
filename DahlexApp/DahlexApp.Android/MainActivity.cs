@@ -7,6 +7,7 @@ using DahlexApp.Droid.Controls;
 using MvvmCross;
 using MvvmCross.Forms.Platforms.Android.Core;
 using MvvmCross.Forms.Platforms.Android.Views;
+using Xamarin.Forms;
 
 namespace DahlexApp.Droid
 {
@@ -23,7 +24,7 @@ namespace DahlexApp.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            //Forms.SetFlags("IndicatorView_Experimental");
+            Forms.SetFlags("Shapes_Experimental");
 
             base.OnCreate(savedInstanceState);
 

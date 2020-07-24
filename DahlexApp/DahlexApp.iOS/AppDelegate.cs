@@ -24,7 +24,7 @@ namespace DahlexApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 
-            //Forms.SetFlags("IndicatorView_Experimental");
+            Forms.SetFlags("Shapes_Experimental");
             Forms.Init();
 
 

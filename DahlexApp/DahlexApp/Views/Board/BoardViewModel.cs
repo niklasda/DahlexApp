@@ -18,7 +18,9 @@ using MvvmCross.ViewModels;
 using Plugin.SimpleAudioPlayer;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Shapes;
 using Point = System.Drawing.Point;
+using Rectangle = Xamarin.Forms.Rectangle;
 using Size = System.Drawing.Size;
 
 namespace DahlexApp.Views.Board
@@ -173,13 +175,15 @@ namespace DahlexApp.Views.Board
                 borderColor = (Color)bgc;
             }
 
-            var bv = new Frame()
+            var bv = new Ellipse()
             {
-
-                BorderColor = borderColor,
-                CornerRadius = 30,
-                BackgroundColor = Color.Transparent,
-                Margin = new Thickness(0)
+                Fill = Color.Transparent,
+                Stroke = borderColor,
+                StrokeThickness = 1,
+                
+ //               WidthRequest = "150",
+   //             HeightRequest = "50",
+     //           HorizontalOptions = "Start",
             };
 
             AbsoluteLayout.SetLayoutBounds(bv, new Rectangle(37 * pos.X + 16, 37 * pos.Y + 16, 5, 5));
@@ -187,8 +191,10 @@ namespace DahlexApp.Views.Board
 
             TheAbsBoard.Children.Add(bv);
 
-            await bv.ScaleTo(15, 500);
-            await bv.ScaleTo(0.1, 1000);
+            await bv.ScaleXTo(15, 400);
+            await bv.ScaleYTo(15, 300);
+            await bv.ScaleXTo(0.1, 1000);
+            await bv.ScaleYTo(0.1, 7000);
             TheAbsBoard.Children.Remove(bv);
         }
 
@@ -500,26 +506,13 @@ namespace DahlexApp.Views.Board
                         }
                     }
                 }
-
-
-
             }
-
-
         }
-
 
         private static bool IsTap(Point p)
         {
             return Trig.IsTooSmallSwipe(p);
         }
-
-        //public override void ViewDestroy(bool viewFinishing = true)
-        //{
-        //    base.ViewDestroy(viewFinishing);
-
-        //    // _gameTimer.Stop();
-        //}
 
         public override void ViewDisappearing()
         {
@@ -625,10 +618,6 @@ namespace DahlexApp.Views.Board
                         BoardPosition cp = board.GetPosition(x, y);
                         if (cp != null)
                         {
-                            //int oLeft = x * (xSize + gridPenWidth) + xOffset;
-                            //int oTop = y * (ySize + gridPenWidth) + yOffset;
-
-                            //var pt = new Point(oLeft, oTop);
 
                             string imgName;
                             if (cp.Type == PieceType.Heap)
