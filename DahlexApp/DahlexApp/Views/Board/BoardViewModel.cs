@@ -177,8 +177,8 @@ namespace DahlexApp.Views.Board
 
             var bv = new Ellipse()
             {
-                Fill = Color.Transparent,
-                Stroke = borderColor,
+                Fill = new SolidColorBrush(Color.Transparent),
+                Stroke = new SolidColorBrush(borderColor),
                 StrokeThickness = 1,
                 
  //               WidthRequest = "150",
