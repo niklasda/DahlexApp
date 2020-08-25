@@ -15,11 +15,11 @@ namespace DahlexApp.Droid.Controls
 
             _toastInstance = Toast.MakeText(Android.App.Application.Context, message, duration);
 
-            View tView = _toastInstance.View;
-            tView.Background.SetColorFilter(bgColor, PorterDuff.Mode.SrcIn); // Gets the actual oval background of the Toast then sets the color filter
+            //View tView = _toastInstance.View;
+            //tView.Background.SetColorFilter(bgColor, PorterDuff.Mode.SrcIn); // Gets the actual oval background of the Toast then sets the color filter
 
-            TextView text = (TextView)tView.FindViewById(Android.Resource.Id.Message);
-            text.SetTextColor(txtColor);
+            //TextView text = (TextView)tView.FindViewById(Android.Resource.Id.Message);
+            //text.SetTextColor(txtColor);
 
             _toastInstance.Show();
         }
