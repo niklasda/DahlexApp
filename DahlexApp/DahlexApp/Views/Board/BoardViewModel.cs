@@ -56,7 +56,7 @@ namespace DahlexApp.Views.Board
                 _gameTimer.Start();
 
                 _ge.StartGame(GameMode.Random);
-                UpdateUI(GameStatus.GameStarted, _ge.GetState(_elapsed));
+                UpdateUi(GameStatus.GameStarted, _ge.GetState(_elapsed));
             });
 
             ComingSoonCommand = new MvxCommand(() =>
@@ -77,7 +77,7 @@ namespace DahlexApp.Views.Board
                         _gameTimer?.Start();
                     }
 
-                    UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+                    UpdateUi(_ge.Status, _ge.GetState(_elapsed));
                 }
             });
 
@@ -122,7 +122,7 @@ namespace DahlexApp.Views.Board
                     }
                 }
 
-                UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+                UpdateUi(_ge.Status, _ge.GetState(_elapsed));
             }
         }
 
@@ -163,7 +163,7 @@ namespace DahlexApp.Views.Board
                     }
                 }
 
-                UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+                UpdateUi(_ge.Status, _ge.GetState(_elapsed));
             }
         }
 
@@ -221,7 +221,7 @@ namespace DahlexApp.Views.Board
                     }
                 }
 
-                UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+                UpdateUi(_ge.Status, _ge.GetState(_elapsed));
             }
             return movedOk;
         }
@@ -311,7 +311,7 @@ namespace DahlexApp.Views.Board
 
         private TimeSpan _elapsed = TimeSpan.Zero;
 
-        private void UpdateUI(GameStatus gameStatus, IGameState state)
+        private void UpdateUi(GameStatus gameStatus, IGameState state)
         {
             _dispatcher.ExecuteOnMainThreadAsync(() =>
             {
@@ -427,7 +427,7 @@ namespace DahlexApp.Views.Board
 
             // todo save and load state
 
-            UpdateUI(_ge.Status, _ge.GetState(_elapsed));
+            UpdateUi(_ge.Status, _ge.GetState(_elapsed));
 
             for (int x = 0; x < 11; x++)
             {
@@ -607,9 +607,9 @@ namespace DahlexApp.Views.Board
             _dispatcher.ExecuteOnMainThreadAsync(() =>
             {
 
-                int xOffset = _settings.ImageOffset.X;
-                int yOffset = _settings.ImageOffset.Y;
-                int gridPenWidth = _settings.LineWidth.X;
+                //int xOffset = _settings.ImageOffset.X;
+                //int yOffset = _settings.ImageOffset.Y;
+                //int gridPenWidth = _settings.LineWidth.X;
 
                 for (int x = 0; x < board.GetPositionWidth(); x++)
                 {

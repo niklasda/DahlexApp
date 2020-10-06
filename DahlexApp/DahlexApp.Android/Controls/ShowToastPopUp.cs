@@ -1,5 +1,4 @@
 ﻿using Android.Graphics;
-using Android.Views;
 using Android.Widget;
 using DahlexApp.Common;
 
