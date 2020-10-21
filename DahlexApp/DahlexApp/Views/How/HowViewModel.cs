@@ -11,7 +11,7 @@ namespace DahlexApp.Views.How
     {
         public HowViewModel(IMvxNavigationService navigationService)
         {
-            BackCommand = new MvxCommand(async () =>  {  await navigationService.Close(this);  });
+            BackCommand = new MvxCommand(() => { _ = Task.Run(async () => await navigationService.Close(this)); });
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
             Title = "How";

@@ -21,31 +21,29 @@ namespace DahlexApp.Views.Start
 
             LogoImageSource = ImageSource.FromResource("DahlexApp.Assets.Images.Tile300.png"); // 42x42
 
-            HowCommand = new MvxCommand(async () =>
-            {
-                await navigationService.Navigate<HowViewModel>();
-                //Application.Current.MainPage.DisplayAlert("Dahlex","Coming SoOon","Ok");
-            });
+            HowCommand = new MvxCommand(() => _ = Task.Run(async () => await navigationService.Navigate<HowViewModel>())
+            //Application.Current.MainPage.DisplayAlert("Dahlex","Coming SoOon","Ok");
+            );
 
-            GotoBoardCommand = new MvxCommand(async () =>
-            {
-                await navigationService.Navigate<BoardViewModel, GameMode>(GameMode.Random);
-            });
+            GotoBoardCommand = new MvxCommand(() =>
 
-            GotoTutorialCommand = new MvxCommand(async () =>
-            {
-                await navigationService.Navigate<BoardViewModel, GameMode>(GameMode.Campaign);
-            });
+                _ = Task.Run(async () => await navigationService.Navigate<BoardViewModel, GameModeModel>(new GameModeModel { SelectedGameMode = GameMode.Random }))
+            );
 
-            GotoSettingsCommand = new MvxCommand(async () =>
-            {
-                await navigationService.Navigate<SettingsViewModel>();
-            });
+            GotoTutorialCommand = new MvxCommand(() =>
 
-            GotoScoresCommand = new MvxCommand(async () =>
-            {
-                await navigationService.Navigate<ScoresViewModel>();
-            });
+                _ = Task.Run(async () => await navigationService.Navigate<BoardViewModel, GameModeModel>(new GameModeModel { SelectedGameMode = GameMode.Campaign }))
+            );
+
+            GotoSettingsCommand = new MvxCommand(() =>
+
+                _ = Task.Run(async () => await navigationService.Navigate<SettingsViewModel>())
+            );
+
+            GotoScoresCommand = new MvxCommand(() =>
+
+                _ = Task.Run(async () => await navigationService.Navigate<ScoresViewModel>())
+            );
         }
 
         //private readonly IMvxNavigationService _navigationService;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Text;
+using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using DahlexApp.Logic.Models;
 using DahlexApp.Logic.Settings;
@@ -558,8 +559,11 @@ namespace DahlexApp.Logic.Game
                 CurrentLevel = _settings.MaxNumberOfLevel;
             }
 
-            _highScoreManager.AddHighScore(_gameMode, name, CurrentLevel, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize).Wait();
-            _highScoreManager.SaveLocalHighScores();
+            _ = Task.Run(async () =>
+            {
+                await _highScoreManager.AddHighScore(_gameMode, name, CurrentLevel, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize);
+                _highScoreManager.SaveLocalHighScores();
+            });
         }
 
         private void Redraw(bool clear)

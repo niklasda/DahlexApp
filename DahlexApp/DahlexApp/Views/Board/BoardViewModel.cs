@@ -25,7 +25,7 @@ using Size = System.Drawing.Size;
 
 namespace DahlexApp.Views.Board
 {
-    public class BoardViewModel : MvxViewModel<GameMode>, IDahlexView
+    public class BoardViewModel : MvxViewModel<GameModeModel>, IDahlexView
     {
 
         public BoardViewModel(IHighScoreService hsm, IToastPopUp toast, IMvxMainThreadAsyncDispatcher dispatcher)
@@ -61,7 +61,7 @@ namespace DahlexApp.Views.Board
 
             ComingSoonCommand = new MvxCommand(() =>
             {
-                Application.Current.MainPage.DisplayAlert("Dahlex", "Coming SoOon", "Ok");
+                _ = Task.Run(async () => await Application.Current.MainPage.DisplayAlert("Dahlex", "Coming SoOon", "Ok"));
             });
 
             NextLevelCommand = new MvxCommand(() =>
@@ -81,11 +81,11 @@ namespace DahlexApp.Views.Board
                 }
             });
 
-            BombCommand = new MvxCommand(async () =>
+            BombCommand = new MvxCommand(() =>
             {
                 try
                 {
-                    await BlowBomb();
+                    _ = Task.Run(async () => await BlowBomb());
 
                 }
                 catch (Exception)
@@ -93,10 +93,7 @@ namespace DahlexApp.Views.Board
                 }
             });
 
-            TeleCommand = new MvxCommand(() =>
-            {
-                DoTeleport();
-            });
+            TeleCommand = new MvxCommand(() => DoTeleport());
 
         }
 
@@ -292,11 +289,11 @@ namespace DahlexApp.Views.Board
         public IMvxCommand NextLevelCommand { get; }
         public IMvxCommand StartGameCommand { get; }
 
-        public override void Prepare(GameMode startMode)
+        public override void Prepare(GameModeModel startMode)
         {
             // first callback. Initialize parameter-agnostic stuff here
 
-            _startMode = startMode;
+            _startMode = startMode.SelectedGameMode;
         }
 
         public override async Task Initialize()
@@ -313,7 +310,7 @@ namespace DahlexApp.Views.Board
 
         private void UpdateUi(GameStatus gameStatus, IGameState state)
         {
-            _dispatcher.ExecuteOnMainThreadAsync(() =>
+            _=_dispatcher.ExecuteOnMainThreadAsync(() =>
             {
 
                 if (gameStatus == GameStatus.BeforeStart)
@@ -604,7 +601,7 @@ namespace DahlexApp.Views.Board
 
         public void DrawBoard(IBoard board, int xSize, int ySize)
         {
-            _dispatcher.ExecuteOnMainThreadAsync(() =>
+            _=_dispatcher.ExecuteOnMainThreadAsync(() =>
             {
 
                 //int xOffset = _settings.ImageOffset.X;
@@ -759,7 +756,7 @@ namespace DahlexApp.Views.Board
 
         public void Animate(BoardPosition bp, Point oldPos, Point newPos, uint millis)
         {
-            _dispatcher.ExecuteOnMainThreadAsync(() =>
+            _=_dispatcher.ExecuteOnMainThreadAsync(() =>
             {
 
 
@@ -790,7 +787,7 @@ namespace DahlexApp.Views.Board
 
         public void RemoveImage(string imageName)
         {
-            _dispatcher.ExecuteOnMainThreadAsync(() =>
+            _=_dispatcher.ExecuteOnMainThreadAsync(() =>
             {
 
                 var img = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == imageName);
@@ -800,7 +797,7 @@ namespace DahlexApp.Views.Board
 
         public void ChangeImage(BoardPosition bp)
         {
-            _dispatcher.ExecuteOnMainThreadAsync(() =>
+            _=_dispatcher.ExecuteOnMainThreadAsync(() =>
             {
 
                 var imgv = TheAbsOverBoard.Children.FirstOrDefault(z => z.AutomationId == bp.ImageName);
