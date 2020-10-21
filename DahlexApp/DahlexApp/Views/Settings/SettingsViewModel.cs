@@ -12,11 +12,9 @@ namespace DahlexApp.Views.Settings
     public class SettingsViewModel : MvxViewModel
     {
 
-        // todo add base model with navigation etc
-
         public SettingsViewModel(IMvxNavigationService navigationService)
         {
-            BackCommand = new MvxCommand(async () => { await navigationService.Close(this); });
+            BackCommand = new MvxCommand(() => _ = Task.Run(async () => await navigationService.Close(this)));
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
 
@@ -30,8 +28,6 @@ namespace DahlexApp.Views.Settings
 
         public override async Task Initialize()
         {
-            //TODO: Add starting logic here
-
             await base.Initialize();
 
             // do the heavy work here

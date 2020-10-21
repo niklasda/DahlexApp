@@ -28,8 +28,6 @@ namespace DahlexApp.Views.How
 
         public override async Task Initialize()
         {
-            //TODO: Add starting logic here
-
             await base.Initialize();
 
             // do the heavy work here

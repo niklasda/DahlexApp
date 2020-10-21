@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using DahlexApp.Logic.Models;
 using Newtonsoft.Json;
@@ -25,7 +22,7 @@ namespace DahlexApp.Logic.Settings
         private readonly IPreferencesService _preferences;
         private List<HighScore> _scores;//= new List<HighScore>();
 
-        public async Task AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize)
+        public void AddHighScore(GameMode mode, string name, int level, int bombsLeft, int teleportsLeft, int moves, DateTime startTime, Size boardSize)
         {
             if (mode == GameMode.Random)
             {
@@ -33,12 +30,13 @@ namespace DahlexApp.Logic.Settings
                 _scores.Add(hs);
             }
 
-            await foreach (HighScore hs in GetHighScoreAsync())
-            {
+            //   await foreach (HighScore hs in GetHighScoreAsync())
+            //   {
 
-            }
+            //          }
         }
 
+        /*
         private async IAsyncEnumerable<HighScore> GetHighScoreAsync([EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             for (var i = 0; i < 20; i++)
@@ -47,7 +45,7 @@ namespace DahlexApp.Logic.Settings
 
                 yield return item;
             }
-        }
+        }*/
 
         public List<HighScore> LoadLocalHighScores()
         {

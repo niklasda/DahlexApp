@@ -52,7 +52,7 @@ namespace DahlexApp.Views.Board
                 _elapsed = TimeSpan.Zero;
 
                 _gameTimer = new Timer(1000);
-                _gameTimer.Elapsed += gameTimer_Elapsed;
+                _gameTimer.Elapsed += GameTimerElapsed;
                 _gameTimer.Start();
 
                 _ge.StartGame(GameMode.Random);
@@ -234,7 +234,7 @@ namespace DahlexApp.Views.Board
             return s;
         }
 
-        private void gameTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void GameTimerElapsed(object sender, ElapsedEventArgs e)
         {
             if (_ge.Status == GameStatus.LevelOngoing)
             {
@@ -299,8 +299,6 @@ namespace DahlexApp.Views.Board
         public override async Task Initialize()
         {
             await base.Initialize();
-
-            //TODO: Add starting logic here
 
         }
 

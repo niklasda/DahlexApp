@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Text;
-using System.Threading.Tasks;
 using DahlexApp.Logic.Interfaces;
 using DahlexApp.Logic.Models;
 using DahlexApp.Logic.Settings;
@@ -189,7 +188,7 @@ namespace DahlexApp.Logic.Game
                 // tutorial end
                 //
                 Status = GameStatus.GameWon;
-                
+
                 //_boardView.AddLineToLog("asd");
             }
             else
@@ -559,11 +558,11 @@ namespace DahlexApp.Logic.Game
                 CurrentLevel = _settings.MaxNumberOfLevel;
             }
 
-            _ = Task.Run(async () =>
-            {
-                await _highScoreManager.AddHighScore(_gameMode, name, CurrentLevel, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize);
-                _highScoreManager.SaveLocalHighScores();
-            });
+            // _ = Task.Run(async () =>
+            // {
+            _highScoreManager.AddHighScore(_gameMode, name, CurrentLevel, _bombCount, _teleportCount, _moveCount, _startTime, _boardSize);
+            _highScoreManager.SaveLocalHighScores();
+            // });
         }
 
         private void Redraw(bool clear)
@@ -637,7 +636,7 @@ namespace DahlexApp.Logic.Game
 
                 _boardView.AddLineToLog(string.Format("T. from {0} to {1}", oldProfPos.ToString(), newProfPos.ToString()));
 
-                MoveCharacter(oldProfPos, newProfPos, 1500); 
+                MoveCharacter(oldProfPos, newProfPos, 1500);
                 _moveCount++;
                 _teleportCount--;
                 return true;

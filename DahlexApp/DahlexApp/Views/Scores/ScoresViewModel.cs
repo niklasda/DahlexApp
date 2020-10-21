@@ -11,8 +11,6 @@ namespace DahlexApp.Views.Scores
 {
     public class ScoresViewModel : MvxViewModel
     {
-       
-        // todo add base model with navigation etc
 
         public ScoresViewModel(IHighScoreService scores, IMvxNavigationService navigationService, IMvxMainThreadAsyncDispatcher dispatcher)
         {
@@ -20,7 +18,7 @@ namespace DahlexApp.Views.Scores
             _dispatcher = dispatcher;
             //_navigationService = navigationService;
 
-            BackCommand = new MvxCommand(async () => { await navigationService.Close(this); });
+            BackCommand = new MvxCommand(() => _ = Task.Run(async () => await navigationService.Close(this)));
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
             Title = "Scores";
@@ -39,8 +37,6 @@ namespace DahlexApp.Views.Scores
 
         public override async Task Initialize()
         {
-            //TODO: Add starting logic here
-
             await base.Initialize();
 
             // do the heavy work here
@@ -64,13 +60,13 @@ namespace DahlexApp.Views.Scores
         {
             base.ViewAppeared();
 
-            _dispatcher.ExecuteOnMainThreadAsync(() =>
-            {
-                HighScoreList.Clear();
+            _ = _dispatcher.ExecuteOnMainThreadAsync(() =>
+              {
+                  HighScoreList.Clear();
 
-                var scores = _scores.LoadLocalHighScores();
-                HighScoreList.AddRange(scores.Select(_ => new ScoreItemViewModel {Title = _.Content}));
-            });
+                  var scores = _scores.LoadLocalHighScores();
+                  HighScoreList.AddRange(scores.Select(_ => new ScoreItemViewModel { Title = _.Content }));
+              });
         }
     }
 }
