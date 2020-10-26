@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using MvvmCross.Base;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -9,17 +10,19 @@ namespace DahlexApp.Views.How
 {
     public class HowViewModel : MvxViewModel
     {
-        public HowViewModel(IMvxNavigationService navigationService)
+        public HowViewModel(IMvxNavigationService navigationService, IMvxMainThreadAsyncDispatcher dispatcher)
         {
+            _dispatcher = dispatcher;
+
             BackCommand = new MvxCommand(() => { _ = Task.Run(async () => await navigationService.Close(this)); });
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
-            Title = "How";
 
-            HowToPages.Add(new HowItemViewModel { ImageText = "Simple", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
-            HowToPages.Add(new HowItemViewModel { ImageText = "Who is who", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
-            HowToPages.Add(new HowItemViewModel { ImageText = "Busy", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
+
         }
+
+        private readonly IMvxMainThreadAsyncDispatcher _dispatcher;
+
 
         public override void Prepare()
         {
@@ -39,7 +42,18 @@ namespace DahlexApp.Views.How
         {
             base.ViewAppeared();
 
-            //  HowToPages.Clear();
+            _ = _dispatcher.ExecuteOnMainThreadAsync(() =>
+            {
+
+                Title = "How";
+
+                HowToPages.Clear();
+                HowToPages.Add(new HowItemViewModel { ImageText = "Simple", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen1_1280.png") });
+                HowToPages.Add(new HowItemViewModel { ImageText = "Who is who", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen2_1280.png") });
+                HowToPages.Add(new HowItemViewModel { ImageText = "Busy", ImageSource = ImageSource.FromResource("DahlexApp.Assets.Screens.Screen4_1280.png") });
+
+            });
+            // 
         }
 
         public IMvxCommand BackCommand { get; set; }

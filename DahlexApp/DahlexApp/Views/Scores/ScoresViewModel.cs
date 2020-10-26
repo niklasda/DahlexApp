@@ -21,7 +21,6 @@ namespace DahlexApp.Views.Scores
             BackCommand = new MvxCommand(() => _ = Task.Run(async () => await navigationService.Close(this)));
             CloseImage = ImageSource.FromResource("DahlexApp.Assets.Images.Close.png");
 
-            Title = "Scores";
 
         }
 
@@ -62,6 +61,8 @@ namespace DahlexApp.Views.Scores
 
             _ = _dispatcher.ExecuteOnMainThreadAsync(() =>
               {
+                  Title = "Scores";
+
                   HighScoreList.Clear();
 
                   var scores = _scores.LoadLocalHighScores();
