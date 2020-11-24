@@ -149,7 +149,7 @@ namespace DahlexApp.Logic.Game
         {
             var b = new BoardPosition[_boardSize.Width, _boardSize.Height];
             int i = 0;
-            int heaps = 0;
+            int heaps = 0;  
             int robots = 0;
             for (int x = 0; x < _boardSize.Width; x++)
             {
@@ -175,7 +175,7 @@ namespace DahlexApp.Logic.Game
                 }
             }
 
-            _tail = boardString.Substring(i);
+            _tail = boardString[i..];
 
             _board = new BoardMatrix(_boardSize);
             _board.TheBoard = b;
